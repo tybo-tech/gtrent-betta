@@ -1,0 +1,13 @@
+<div class="login bg-white box-shadow border-radius">
+    <img src="assets/images/logo.png" alt="">
+<div class="form-group">
+    <label for="">User name</label>
+    <input type="email" [(ngModel)]="email" class="form-control"  name="" id="">
+</div>
+
+<div class="form-group">
+    <label for="">Password</label>
+    <input type="password" [(ngModel)]="password" class="form-control" name="" id="">
+</div>
+<button class="btn btn-primary" (click)="login()" [disabled]="!email || !password">Login</button>
+</div>

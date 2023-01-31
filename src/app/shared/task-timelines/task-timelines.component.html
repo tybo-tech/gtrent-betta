@@ -1,0 +1,40 @@
+<ng-container *ngIf="task && task.TimeLines && task.TimeLines.length">
+  <ul class="list-group border-radius box-shadow p-3 bg-white">
+    <li class="list-group-item item" *ngFor="let comm of task.TimeLines">
+      <div class="d-flex justify-content-between align-items-center">
+        <p>
+          {{ comm.StarDateTime | date: "EEE" }}
+          {{ comm.StarDateTime | date: "shortTime" }}
+          <small>
+            {{ comm.StarDateTime | date: "mediumDate" }}
+          </small>
+          <small class="status" [ngClass]="comm.Classes">
+            {{ comm.StartStatus }}
+          </small>
+        </p>
+        <h3 *ngIf="comm.FinishStatus">
+          <i class="bi bi-arrow-right"></i>
+        </h3>
+        <p *ngIf="!comm.FinishStatus">
+           {{task.Status}}...
+        </p>
+        <p *ngIf="!comm.FinishStatus">
+        </p>
+        <p *ngIf="comm.FinishStatus">
+          {{ comm.FinishDateTime | date: "EEE" }}
+          {{ comm.FinishDateTime | date: "shortTime" }}
+          <small>
+            {{ comm.FinishDateTime | date: "mediumDate" }}
+          </small>
+          <small class="status" [ngClass]="comm.FinishClasses">
+            {{ comm.FinishStatus }}
+          </small>
+        </p>
+      </div>
+
+      <p class="p-1 alert alert-warning mt-2 mb-2 border-radius" *ngIf="comm.FinishReason">
+        <small>{{ comm.FinishReason }}</small>
+      </p>
+    </li>
+  </ul>
+</ng-container>

@@ -1,0 +1,35 @@
+<div class=" p-3 mt-5" *ngIf="tasks.length">
+  <!-- <h6><i class="bi bi-filter"></i> Days</h6> -->
+  <!-- <app-task-groups
+    [tasks]="tasks"
+    (taskGroupEvent)="dayChanged($event)"
+  ></app-task-groups> -->
+  <app-task-board></app-task-board>
+  <!-- <div class="row">
+    <div class="col-md-2">
+      <h6><i class="bi bi-filter"></i> Status</h6>
+      <select class="form-select form-select-sm mt-2"  [(ngModel)]="status" (change)="filter()">
+        <option value="" selected>All</option>
+        <option [value]="item" *ngFor="let item of TASK_STATUS_LIST">
+          {{ item }}
+        </option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <h6><i class="bi bi-filter"></i> User</h6>
+      <select type="text" [(ngModel)]="assignedTo" class="form-select form-select-sm mt-2"  (change)="filter()">
+        <option value="" selected>All</option>
+        <option [value]="item.UserId" *ngFor="let item of users">
+          {{ item.Name }}
+        </option>
+      </select>
+    </div>
+  </div> -->
+</div>
+<!-- <div class="p-3 mt-3" *ngIf="tasks.length">
+  <h6>Tasks</h6>
+  <br />
+  <ng-container *ngIf="currentTask">
+    <app-task-by-status [tasks]="currentTask.Tasks"></app-task-by-status>
+  </ng-container>
+</div> -->

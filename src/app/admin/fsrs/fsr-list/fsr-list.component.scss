@@ -1,0 +1,20 @@
+.d-flex,
+.items {
+  background: var(--white);
+}
+.d-flex {
+  padding: 0.5rem 1rem;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  // background: red;
+  justify-content: space-between;
+  input {
+    padding: 10px 18px;
+    min-width: 18rem;
+  }
+}
+// grid-template-columns: 4rem 30% auto;
+.task {
+  padding: 0.2rem 1rem;
+}

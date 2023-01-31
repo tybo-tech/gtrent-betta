@@ -1,0 +1,133 @@
+a {
+  text-decoration: none;
+  font-weight: 400;
+  color: #a9a9a9;
+}
+.btn {
+  text-transform: none;
+  border-radius: var(--border-radius);
+}
+.btn-primary {
+  background: var(--primary);
+}
+.text-primary {
+  color: var(--primary);
+}
+a.active-link {
+  color: #000;
+  font-weight: 500;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+  text-transform: none;
+  letter-spacing: 0;
+}
+p {
+  font-weight: 400;
+}
+.p-1 {
+  padding: 1rem;
+}
+
+img {
+  height: 3rem;
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.shadow-1 {
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+}
+
+.time,
+.status {
+  background: #000;
+  padding: 0.2rem 0.8rem;
+  width: fit-content;
+  border-radius: 0.5rem;
+  margin-top: 0.4rem;
+  font-weight: 400;
+  margin-right: 1rem;
+  font-size: 0.8rem;
+}
+
+.status-danger {
+  background: var(--danger-light) !important;
+}
+.status-succes {
+  background: var(--green-light) !important;
+}
+.status-progress {
+  background: var(--info-light) !important;
+}
+.status-warn {
+  background: var(--orange-light) !important;
+}
+.running {
+  background: #e9c9e4 !important;
+}
+.mr-2 {
+  margin-right: 1rem;
+
+  .task-menu {
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    z-index: 100;
+    background: rgba(57, 57, 57, 0.899);
+    max-width: 30rem;
+    margin: 0 auto;
+  }
+}
+
+.list-group-item-2 {
+  border: none;
+  margin: 0.3rem 0;
+  background: var(--cloud);
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+}
+
+.ovly {
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background: rgba(57, 57, 57, 0.899);
+  margin: 0 auto;
+}
+.block {
+  display: block;
+}
+
+.scroll {
+  overflow: auto !important;
+  max-height: 90vh;
+  padding-bottom: 15rem !important;
+}

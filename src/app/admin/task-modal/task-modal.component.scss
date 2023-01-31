@@ -1,0 +1,31 @@
+.__task{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(3px);
+    background: rgba(6, 6, 6, 0.242);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    overflow-y: hidden;
+    .__modal{
+        overflow-y: hidden;
+        width: 80%;
+        margin: 10% auto;
+        background: var(--white);
+        border-radius: .5rem;
+        .top{
+            border-bottom: 1px solid rgb(209, 209, 209);
+            margin-bottom: 1rem;
+        }
+        .__body{
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 80vh;
+            padding: 1rem;
+        }
+    }
+}

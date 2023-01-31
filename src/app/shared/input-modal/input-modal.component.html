@@ -1,0 +1,23 @@
+<div class="task-menu" *ngIf="inputType">
+  <div class="bg-white p-3 border-radius box-shadow task">
+    <label for="">{{ label }}</label>
+    <textarea
+      placeholder="Type here"
+      class="form-control"
+      [(ngModel)]="val"
+      *ngIf="inputType === 'textarea'"
+    ></textarea>
+    <input
+      placeholder="Type here"
+      class="form-control"
+      [(ngModel)]="val"
+      [type]="inputType"
+      *ngIf="inputType !== 'textarea'"
+    />
+    <button class="btn btn-primary" (click)="save()">Done</button>
+    <br />
+    <button class="btn btn-light" (click)="back()">Back</button>
+  </div>
+</div>
+
+

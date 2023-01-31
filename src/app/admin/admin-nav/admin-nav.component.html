@@ -1,0 +1,57 @@
+<div class="admin-nav">
+  <ul>
+    <li>
+      <a
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        routerLink="/admin"
+        >Dashboard</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        routerLink="/admin/tasks"
+        >Tasks</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        routerLink="/admin/fsrs"
+        >Field services</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        routerLink="/admin/customers"
+        >Customers</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        routerLink="/admin/parts"
+        >Parts</a
+      >
+    </li>
+    <li>
+      <a
+        [routerLinkActiveOptions]="{ exact: true }"
+        routerLinkActive="active-link"
+        routerLink="/admin/users"
+        >Users</a
+      >
+    </li>
+    <li>
+      <a class="link-danger pointer" (click)="logout()"
+        ><i class="bi bi-box-arrow-in-left"></i>Logout</a
+      >
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,32 @@
+.preview {
+  position: relative;
+  width: fit-content;
+  img {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+    border-radius: .5rem;
+    margin-top: 1rem;
+  }
+
+  a{
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: -1.5rem;
+    transform: translateY(-50%);
+    font-size: 1rem;
+  }
+}
+
+
+._upload{
+  font-size: 2rem;
+  background: var(--cloud);
+  border-radius: .4rem;
+  padding: .4rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  display: block;
+  width: fit-content;
+}

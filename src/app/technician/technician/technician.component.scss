@@ -1,0 +1,25 @@
+main {
+  background: var(--silver);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .tech {
+    padding: 1rem;
+    padding-bottom: 10rem;
+    height: 94vh;
+    overflow-y: auto;
+    width: 30rem;
+    margin: 0 auto;
+    border: 8px solid var(--black);
+    margin: 2rem auto;
+    border-radius: 1rem;
+    background: var(--white);
+    @media screen and (max-width: 600px) {
+      border: none;
+      height: 100vh;
+      border-radius: 0;
+      width: 100%;
+    }
+  }
+}

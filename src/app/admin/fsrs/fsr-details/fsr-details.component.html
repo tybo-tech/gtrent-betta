@@ -1,0 +1,34 @@
+<!-- <ng-container *ngIf="service">
+  <app-back
+    [heading]="service.OrderType + service.OrderNo"
+    [pageName]="'Fsr List'"
+    url="/admin/fsrs"
+  ></app-back>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="bg-white mb-3 p-2 border-radius box-shadow task">
+  
+        <app-fsr-card [task]="service" [totalPartsUsed]="totalPartsUsed"></app-fsr-card>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <app-time-tacker
+          *ngIf="service.Task"
+          [task]="service.Task"
+        ></app-time-tacker>
+        <br />
+        <app-task-timelines
+          *ngIf="service.Task"
+          [task]="service.Task"
+        ></app-task-timelines>
+
+      <br />
+      <app-task-details
+        *ngIf="service.Task"
+        [task]="service.Task"
+      ></app-task-details>
+    </div>
+  </div>
+</ng-container> -->

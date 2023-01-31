@@ -1,0 +1,59 @@
+<div class="__task" *ngIf="task">
+    <div class="__modal">
+        <div class="top d-flex justify-content-between align-items-center p-3">
+            <h6>
+                {{task.Name}}
+            </h6>
+
+            <i style="cursor: pointer;" (click)="close()" class="bi bi-x-lg"></i>
+        </div>
+
+        <div class="__body">
+           
+  <div class="row">
+    <div class="col-md-6">
+      <app-time-tacker *ngIf="task" [task]="task" (onDelete)="close()"></app-time-tacker>
+      <app-task-timelines *ngIf="task" [task]="task"></app-task-timelines>
+      <br />
+      <app-task-details *ngIf="task" [task]="task"></app-task-details>
+      <br />
+      <div
+        *ngIf="task.Fsr"
+        class="bg-white mb-3 p-2 border-radius box-shadow task"
+      >
+        <!-- <a (click)="goToOrder(task.Fsr)" class="link-success pointer"
+          >View FSR</a
+        > -->
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div
+        *ngIf="task.Status === TASK_STATUS.WaitingForQoute"
+        class="bg-white mb-3 p-3 border-radius box-shadow task"
+      >
+      <div class="alert alert-warning" role="alert">
+        <p class="pt-2 pb-2">
+          <b> {{ task.Assigned?.Name || "Technitain" }}</b> is waiting for you
+          to give a go ahead once you done with quote
+        </p>
+      </div>
+       
+        <a (click)="goAhead()" class="btn btn-warning d-flex align-items-center" style="gap: 1rem; width: fit-content;">
+          <img style="width: 1.5rem; height: 1.5rem;" src="assets/images/wait2.gif" alt="">
+          Give a got ahead</a>
+      </div>
+     
+      <app-comments
+        [user]="user"
+        [comments]="task.Comments"
+        *ngIf="user"
+        (onValueChanged)="task.Comments = $event; save()"
+      ></app-comments>
+    </div>
+  </div>
+
+        </div>
+
+    </div>
+</div>

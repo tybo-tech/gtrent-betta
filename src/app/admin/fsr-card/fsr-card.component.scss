@@ -1,0 +1,46 @@
+.compressor{
+    display: grid;
+    grid-template-columns: repeat(3,33%);
+    margin-top: 1rem;
+    p{
+        font-size: .8rem;
+        border: 1px solid var(--cloud);
+        padding: .3rem .5rem;
+        span{
+            display: block;
+        }
+        .value{
+            font-weight: 500;
+            color: var(--primary);
+        }
+        .label{
+            font-weight: 400;
+            text-transform: uppercase;
+            padding-right: .5rem;
+            font-size: .7rem;
+        }
+    }
+}
+h5{
+    margin-bottom: .2rem;
+}
+
+.top{
+    display: grid;
+   grid-template-columns: 90% auto;
+   align-items: center;
+
+}
+.text-warn{
+    color: rgb(235, 166, 39);
+    font-size: .75rem;
+}
+
+img{
+    width: 10rem;
+    height: auto;
+}
+.list-group, li{
+    background: var(--cloud) !important;
+    border-radius: 5px;
+}

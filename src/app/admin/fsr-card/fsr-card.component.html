@@ -1,0 +1,169 @@
+<ng-container *ngIf="task && task.Customer">
+    <div class="top">
+      <div>
+        <h5>Customer info</h5>
+        <p>
+          {{ task.Customer.Name }}
+        </p>
+      </div>
+    </div>
+    <div *ngIf="task.Machine" class="compressor">
+      <p>
+        <span class="label">Model:</span>
+        <span class="value"> {{ task.Machine.Name }} </span>
+      </p>
+      <p>
+        <span class="label">Serial:</span>
+        <span class="value"> {{  task.Machine.Serial || "---" }} </span>
+      </p>
+
+      <p>
+        <span class="label">Hours:</span>
+        <span class="value"> {{  task.Machine.Hours || "---" }} </span>
+      </p>
+    </div>
+  </ng-container>
+
+<ng-container *ngIf="task?.Fsr">
+    <div class="bg-white mb-3 p-2 border-radius box-shadow task">
+      <div class="top">
+        <div>
+          <h5>Parts used</h5>
+          <p *ngIf="totalPartsUsed">{{ totalPartsUsed }} Items</p>
+          <ul class="list-group" *ngIf="totalPartsUsed && task?.Fsr?.PartsUsed">
+            <li
+              class="list-group-item item d-flex justify-content-between align-items-center"
+              *ngFor="let part of task?.Fsr?.PartsUsed"
+            >
+              <p>
+                {{ part.Name }}
+              </p>
+              <p>x</p>
+              <p>
+                {{ part.Quantity }}
+              </p>
+            </li>
+          </ul>
+          <p class="text-warn" *ngIf="!totalPartsUsed">
+            No parts selected
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white mb-3 p-2 border-radius box-shadow task">
+      <div class="top">
+        <div>
+          <h5>Work done</h5>
+          <p *ngIf="task?.Fsr?.WorkDone" style="white-space: pre-wrap;">
+            {{ task?.Fsr?.WorkDone }}
+          </p>
+          <p *ngIf="!task?.Fsr?.WorkDone" class="text-warn">No work done</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white mb-3 p-2 border-radius box-shadow task">
+      <div class="top">
+        <div>
+          <h5>Labour</h5>
+          <p *ngIf="!task?.Fsr?.Labour?.length" class="text-warn">
+            Not captured
+          </p>
+          <ul class="list-group" *ngIf="task?.Fsr?.Labour?.length">
+            <li
+              class="list-group-item item d-flex justify-content-between align-items-center"
+              *ngFor="let part of task?.Fsr?.Labour"
+            >
+              <p>
+                {{ part.Name }}
+              </p>
+              <p>x</p>
+              <p>
+                {{ part.Hours }}
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white mb-3 p-2 border-radius box-shadow task">
+      <div class="top">
+        <div>
+          <h5>Consumables</h5>
+          <p class="text-warn" *ngIf="!task?.Fsr?.Consumables?.length">
+            Not captured
+          </p>
+          <ul class="list-group" *ngIf="task?.Fsr?.Consumables?.length">
+            <li
+              class="list-group-item item d-flex justify-content-between align-items-center"
+              *ngFor="let part of task?.Fsr?.Consumables"
+            >
+              <p>
+                {{ part.Name }}
+              </p>
+              <p>x</p>
+              <p>
+                {{ part.Price | currency : "R" }}
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white mb-3 p-2 border-radius box-shadow task">
+      <div class="top">
+        <div>
+          <h5>Distance travelled</h5>
+          <p *ngIf="task?.Fsr?.DistanceTravelled">
+            {{ task?.Fsr?.DistanceTravelled || 0 }} Km
+          </p>
+          <p class="text-warn" *ngIf="!task?.Fsr?.DistanceTravelled">
+            No distance captured
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white mb-3 p-2 border-radius box-shadow task">
+      <div class="top">
+        <div>
+          <h5>Reference</h5>
+          <p>{{ task?.Fsr?.Reference || "No reference" }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white mb-3 p-2 border-radius box-shadow task">
+      <div class="top">
+        <div>
+          <h5>Customer Signiture</h5>
+          <p *ngIf="!task?.Fsr?.CustomerSigniture" class="text-warn">
+            Not signed
+          </p>
+          <img
+            *ngIf="task?.Fsr?.CustomerSigniture"
+            [src]="task?.Fsr?.CustomerSigniture"
+            class="text-warn"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white mb-3 p-2 border-radius box-shadow task">
+      <div class="top">
+        <div>
+          <h5>Technicain Signiture</h5>
+          <p *ngIf="!task?.Fsr?.TechnicainSigniture" class="text-warn">
+            Not signed
+          </p>
+          <img
+            *ngIf="task?.Fsr?.TechnicainSigniture"
+            [src]="task?.Fsr?.TechnicainSigniture"
+            class="text-warn"
+          />
+        </div>
+      </div>
+    </div>
+  </ng-container>

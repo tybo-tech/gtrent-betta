@@ -1,0 +1,59 @@
+<div class="task-menu" *ngIf="inputType && fsr">
+    <div class="bg-white p-3 border-radius box-shadow task" *ngIf="!editMode">
+      <ul class="list-group">
+        <li
+          class="list-group-item item d-flex justify-content-between align-items-center"
+          *ngFor="let lb of fsr.Labour"
+        >
+          <p>
+            {{ lb.Name }}
+          </p>
+          <div class="d-flex align-items-center justify-content-end">
+            <input
+              class="form-control m-0 input--sm"
+              [(ngModel)]="lb.Hours"
+              (change)="updateHours(lb)"
+              type="time"
+            />
+  
+            <i class="bi bi-trash"></i>
+          </div>
+        </li>
+        <li class="list-group-item item">
+          <br />
+          <button class="btn btn-primary" (click)="editMode = true">
+            <i class="bi bi-plus"></i> Add more labour
+          </button>
+          <br />
+          <button class="btn btn-light" (click)="back()">Back</button>
+        </li>
+      </ul>
+    </div>
+    <div class="bg-white p-3 border-radius box-shadow task" *ngIf="editMode">
+      <label for="">{{ label }}</label>
+      <select
+        placeholder="Type here"
+        class="form-control"
+        [(ngModel)]="type"
+        (change)="inputChanged()"
+        *ngIf="inputType !== 'textarea'"
+      >
+        <option [value]="item.ItemId" *ngFor="let item of labourItems">
+          {{ item.Name }} - {{ item.Price | currency: "R" }}
+        </option>
+      </select>
+  
+      <label for="">{{ label2 }}</label>
+      <input
+        placeholder="Type here"
+        class="form-control"
+        [(ngModel)]="val"
+        [type]="inputType"
+        *ngIf="inputType !== 'textarea'"
+      />
+      <button class="btn btn-primary" (click)="save()">Done</button>
+      <br />
+      <button class="btn btn-light" (click)="back()">Back</button>
+    </div>
+  </div>
+  

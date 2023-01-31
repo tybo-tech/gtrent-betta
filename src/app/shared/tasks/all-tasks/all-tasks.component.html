@@ -1,0 +1,121 @@
+<div class="list-group">
+  <a class="list-group-item list-group-item-action active danger">
+    <b>Not started</b>
+  </a>
+  <a
+    *ngFor="let item of notStartedTasks"
+    class="list-group-item list-group-item-action"
+  >
+    <div>
+      <p>
+        {{ item.Name }}
+        <span *ngIf="item.Assigned">
+          <b> Assigned to :</b> {{ item.Assigned.Name }}
+        </span>
+        <span *ngIf="item.Customer">
+          <b> Customer:</b> {{ item.Customer.Name }}
+        </span>
+        <span *ngIf="item.Machine">
+          <b> Machine:</b> {{ item.Machine.Model }}
+        </span>
+        <span *ngIf="item.DueDate"> <b> Due Date:</b> {{ item.DueDate }} </span>
+      </p>
+
+      <button class="btn btn-success">Start task</button>
+    </div>
+  </a>
+</div>
+
+<br />
+
+<div class="list-group">
+  <a class="list-group-item list-group-item-action active warn">
+    <b>Paused </b>
+  </a>
+  <a
+    *ngFor="let item of pausedTasks"
+    class="list-group-item list-group-item-action"
+  >
+    <div>
+      <p>
+        {{ item.Name }}
+        <span *ngIf="item.Assigned">
+          <b> Assigned to :</b> {{ item.Assigned.Name }}
+        </span>
+        <span *ngIf="item.Customer">
+          <b> Customer:</b> {{ item.Customer.Name }}
+        </span>
+        <span *ngIf="item.Machine">
+          <b> Machine:</b> {{ item.Machine.Model }}
+        </span>
+        <span *ngIf="item.DueDate"> <b> Due Date:</b> {{ item.DueDate }} </span>
+      </p>
+
+      <button class="btn btn-success">Resume task</button>
+
+    </div>
+  </a>
+</div>
+
+<br />
+<div class="list-group">
+  <a
+    class="list-group-item list-group-item-action active"
+    style="background: #3498db"
+  >
+    <b>In progress</b>
+  </a>
+  <a
+    *ngFor="let item of inProgressTasks"
+    class="list-group-item list-group-item-action"
+  >
+    <div>
+      <p>
+        {{ item.Name }}
+        <span *ngIf="item.Assigned">
+          <b> Assigned to :</b> {{ item.Assigned.Name }}
+        </span>
+        <span *ngIf="item.Customer">
+          <b> Customer:</b> {{ item.Customer.Name }}
+        </span>
+        <span *ngIf="item.Machine">
+          <b> Machine:</b> {{ item.Machine.Model }}
+        </span>
+        <span *ngIf="item.DueDate"> <b> Due Date:</b> {{ item.DueDate }} </span>
+      </p>
+
+      <button class="btn btn-success">Pause task</button>
+      <button class="btn btn-success">Finish task</button>
+    </div>
+  </a>
+</div>
+
+<br />
+<div class="list-group">
+  <a
+    class="list-group-item list-group-item-action active"
+    style="background: #2ecc71"
+  >
+    <b>Done</b>
+  </a>
+  <a
+    *ngFor="let item of doneTasks"
+    class="list-group-item list-group-item-action"
+  >
+    <div>
+      <p>
+        {{ item.Name }}
+        <span *ngIf="item.Assigned">
+          <b> Assigned to :</b> {{ item.Assigned.Name }}
+        </span>
+        <span *ngIf="item.Customer">
+          <b> Customer:</b> {{ item.Customer.Name }}
+        </span>
+        <span *ngIf="item.Machine">
+          <b> Machine:</b> {{ item.Machine.Model }}
+        </span>
+        <span *ngIf="item.DueDate"> <b> Due Date:</b> {{ item.DueDate }} </span>
+      </p>
+    </div>
+  </a>
+</div>

@@ -1,0 +1,18 @@
+
+input, select, textarea {
+    background: var(--cloud) !important;
+    border-radius: .4rem !important;
+}
+
+.btn-warning{
+    background: var(--warn);
+}
+.btn-success{
+    background: var(--green);
+    color: var(--black) !important;
+}
+
+.input--sm{
+    padding: 0.5rem !important;
+    width: fit-content !important;
+}

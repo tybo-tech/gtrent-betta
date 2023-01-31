@@ -1,0 +1,16 @@
+.title {
+  font-weight: 600;
+}
+.customer {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+.task {
+  display: grid;
+  grid-template-columns: 80% auto;
+  align-items: center;
+}
+
+.btn {
+  padding: 5px !important;
+}

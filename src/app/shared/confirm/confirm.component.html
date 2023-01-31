@@ -1,0 +1,20 @@
+<div class="_overlay" *ngIf="heading">
+  <div class="_modal1 box-shadow">
+    <h1>{{ heading }}</h1>
+
+    <p>
+      {{ body }}
+    </p>
+
+    <i [ngClass]="theClass"></i>
+
+    <div class="column">
+      <button (click)="onEvent(true)" class="btn btn-primary">
+        {{ yesAction }}
+      </button>
+      <button (click)="onEvent(false)" class="btn btn-dark">
+        {{ noAction }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+._toast {
+  position: fixed;
+  z-index: 30000;
+  top: 1rem;
+  right: 1rem;
+  padding: 0;
+  background: #3498db;
+  width: fit-content;
+  height: fit-content;
+  min-width: 10rem;
+  min-height: 5rem;
+  color: #fff;
+
+}
+h6 {
+  text-transform: uppercase;
+  color: inherit;
+}
+._title {
+  padding: 8px;
+  border-bottom: 1px solid var(--cloud);
+}
+
+p {
+  color: inherit;
+  padding: 8px;
+  font-size: 0.75rem;
+  font-weight: 200;
+}
+._error {
+  background: #e74c3c;
+  color: #fff;
+}
+
+._success {
+  background: #2ecc71;
+  color: #fff;
+}
+._warn {
+  background:var(--warn);
+  color: #fff;
+}
+._light {
+  background: #ecf0f1;
+  color: #000;
+}
+
+._dark {
+  background: #2d3436;
+  color: #fff;
+}

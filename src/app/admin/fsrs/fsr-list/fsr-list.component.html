@@ -1,0 +1,21 @@
+<app-back [heading]="'FSR List'" [pageName]="'Dashboard'" url="/admin"></app-back>
+<div class="d-flex box-shadow border-radius">
+  <app-tabs [tabs]="tabs" (tabEvent)="tab= $event; changeTab();"></app-tabs>
+  <div>
+    <input
+      type="search"
+      placeholder="Filter by customer name"
+      class="form-control border-radius"
+      [(ngModel)]="search"
+    />
+  </div>
+
+</div>
+
+<div class="items box-shadow border-radius" *ngIf="items.length">
+  <app-headers [grid]="grid" [headers]="headers"></app-headers>
+  <div class="task" *ngFor="let item of items | searcbyname: search">
+    <app-list-item [item]="item" [grid]="grid" (rowEvent)="rowEvent($event)" ></app-list-item>
+  </div>
+</div>
+<!-- <app-all-tasks></app-all-tasks> -->

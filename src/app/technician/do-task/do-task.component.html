@@ -1,0 +1,6 @@
+<ng-container *ngIf="task">
+    <app-time-tacker *ngIf="task" [task]="task"></app-time-tacker>
+<br>
+<!-- <button class="btn btn-primary">Add notes/attachments</button> -->
+<app-comments [user]="user" [comments]="task.Comments" *ngIf="user" (onValueChanged)="task.Comments = $event; save()"></app-comments>
+</ng-container>

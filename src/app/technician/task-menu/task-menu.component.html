@@ -1,0 +1,69 @@
+<div class="task-menu" *ngIf="task">
+  <div class="bg-white p-3 border-radius box-shadow task">
+    <h4 class="mb-1">{{ task.Name }}</h4>
+    <h5 class="badge rounded-pill bg-info mb-2">{{ task.TaskType }} task</h5>
+    <br />
+    <br />
+    <table class="table">
+      <tr *ngIf="task.DueDate">
+        <td><i class="bi bi-calendar"></i> Due:</td>
+
+        <td>
+          <span class="text-primary">
+            {{ task.DueDate | date }} {{ task.DueTime }}</span
+          >
+        </td>
+      </tr>
+
+      <tr *ngIf="task.Customer">
+        <td>Customer:</td>
+        <td>
+          <span class="text-primary">{{ task.Customer.Name }}</span>
+        </td>
+      </tr>
+
+      <tr *ngIf="task.Machine">
+        <td>Compressor:</td>
+        <td>
+          <span class="text-primary">{{ task.Machine.Model }}</span>
+        </td>
+      </tr>
+    </table>
+
+    <div *ngIf="task.Description">
+      <p>
+        <small>Intructions</small> <br />
+        <small class="text-primary">{{ task.Description }}</small>
+      </p>
+      <br />
+    </div>
+    <button
+      class="btn btn-primary"
+      (click)="startTask()"
+      *ngIf="task.Status === TASK_STATUS.NotStarted"
+    >
+      {{ actionName }}
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="goToFsr()"
+      *ngIf="
+        task.Status !== TASK_STATUS.NotStarted &&
+        task.TaskType !== TASK_TYPES.General
+      "
+    >
+      Go to FSR
+    </button>
+    <button
+      class="btn btn-primary"
+      (click)="gotoTask()"
+      *ngIf="
+        task.Status !== TASK_STATUS.NotStarted &&
+        task.TaskType === TASK_TYPES.General
+      "
+    >
+      Go to Task
+    </button>
+    <button class="btn btn-light" (click)="closeMenu()">Back</button>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<ng-container *ngIf="user">
+
+
+  <div class="comments box-shadow bg-white border-radius ">
+    <ul class="list-group">
+ 
+      <li
+        class="list-group-item item"
+        *ngFor="let comm of comments"
+      >
+      
+        <div class="d-flex justify-content-between align-items-center">
+            <h5>
+                {{ comm.UserName }}
+              </h5>
+              <p>
+                <small>
+                    {{ comm.DateTime | date:'fullDate' }}
+                    {{ comm.DateTime | date:'shortTime' }}
+                </small>
+            </p>
+        </div>
+        <small style="color: rgb(82, 82, 82);" [innerHTML]="comm.Content"></small>
+        
+      </li>
+
+      <li class="list-group-item item" *ngIf="!showCommentTextBox">
+        <a class="btn btn-info" (click)="showCommentTextBox = true"> <i class="bi bi-chat-square-text"></i> Add Comment </a>
+      </li>
+      <li class="list-group-item item" *ngIf="showCommentTextBox">
+        <textarea class="form-control" [(ngModel)]="comment"></textarea>
+        <button  class="btn btn-info mt-2" (click)="add()">Post</button>
+      </li>
+    </ul>
+  </div>
+  <!-- <app-input-modal
+    label="Add comment"
+    *ngIf="showCommentTextBox && comments"
+    (onBack)="showCommentTextBox = false"
+    [val]="comment"
+    (onValueChanged)="comment = $event; showCommentTextBox = false; add()"
+    inputType="textarea"
+  ></app-input-modal> -->
+</ng-container>

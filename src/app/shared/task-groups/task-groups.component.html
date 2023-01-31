@@ -1,0 +1,47 @@
+<!-- <div class="d-flex count-card-wrapper" *ngIf="taskGroups">
+    <div
+      *ngFor="let date of taskGroups" [id]="date.Id"
+      class="count-card bg-white p-2 border-radius box-shadow text-center"
+      [ngClass]="date.Classes"
+      (click)="selectTask(date)"
+    >
+      <small> {{ date.Date | date: "mediumDate" }}</small>
+      <h6>
+        {{ date.Name }}
+      </h6>
+      <h5>{{ date.Count }} Tasks</h5>
+    </div>
+  </div> -->
+
+<div class="groups __flex">
+  <div class="group __flex" *ngFor="let group of taskGroups">
+    <h4
+      (click)="toggleGroup(group)"
+      class="d-flex header-top d-flex justify-content-between align-items-center"
+    >
+      <span> {{ group.Date | date : "mediumDate" }} Tasks</span>
+      <i class="bi bi-chevron-down" *ngIf="!group.Active"></i>
+      <i class="bi bi-chevron-up" *ngIf="group.Active"></i>
+    </h4>
+    <div class="tasks" *ngIf="group.Active">
+      <div
+        class="task __flex"
+        *ngFor="let task of group.Tasks"
+        (click)="openMenu(task)"
+      >
+        <h5 *ngIf="task.Customer">
+          <i class="bi bi-building-fill"></i> {{ task.Customer.Name }}
+        </h5>
+        <h6>
+          {{ task.TaskType }}
+        </h6>
+        <div class="d-flex p-2">
+          <p class="time status-progress" *ngIf="task.DueTime">
+            <i class="bt=i bi-clock"></i> {{ task.DueTime }}
+          </p>
+          <p class="status" [ngClass]="task.StatusClass">{{ task.Status }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

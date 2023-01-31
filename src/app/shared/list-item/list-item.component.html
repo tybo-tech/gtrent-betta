@@ -1,0 +1,64 @@
+<ng-container *ngIf="item">
+  <div class="line-item grid-4" [ngStyle]="grid">
+    <p *ngIf="item.Id && item.ShowId">
+      <b>{{ item.Id }}</b>
+    </p>
+    <p
+      *ngIf="item.Col1"
+      (click)="rowClick(item.Col1)"
+      (mouseleave)="doneEditing(item.Col1)"
+    >
+      <app-col-item (colEvent)="colEvent($event)" [col]="item.Col1"></app-col-item>
+    </p>
+    <p
+      *ngIf="item.Col2"
+      (click)="rowClick(item.Col2)"
+      (mouseleave)="doneEditing(item.Col2)"
+    >
+      <app-col-item (colEvent)="colEvent($event)" [col]="item.Col2"></app-col-item>
+    </p>
+    <p
+      *ngIf="item.Col3"
+      (click)="rowClick(item.Col3)"
+      
+      (mouseleave)="doneEditing(item.Col3)"
+    >
+      <app-col-item (colEvent)="colEvent($event)"  [col]="item.Col3"></app-col-item>
+    </p>
+    <p
+      *ngIf="item.Col4"
+      (click)="rowClick(item.Col4)"
+      (mouseleave)="doneEditing(item.Col4)"
+    >
+      <app-col-item (colEvent)="colEvent($event)" [col]="item.Col4"></app-col-item>
+    </p>
+    <p
+      *ngIf="item.Col5"
+      (click)="rowClick(item.Col5)"
+      (mouseleave)="doneEditing(item.Col5)"
+    >
+      <app-col-item (colEvent)="colEvent($event)" [col]="item.Col5"></app-col-item>
+    </p>
+    <p
+      *ngIf="item.Col6"
+      (click)="rowClick(item.Col6)"
+      (mouseleave)="doneEditing(item.Col6)"
+    >
+      <app-col-item (colEvent)="colEvent($event)" [col]="item.Col6"></app-col-item>
+    </p>
+    <p
+      *ngIf="item.Col7"
+      (click)="rowClick(item.Col7)"
+      (mouseleave)="doneEditing(item.Col7)"
+    >
+      <app-col-item (colEvent)="colEvent($event)" [col]="item.Col7"></app-col-item>
+    </p>
+    <p
+      *ngIf="item.Col8"
+      (click)="rowClick(item.Col8)"
+      (mouseleave)="doneEditing(item.Col8)"
+    >
+      <app-col-item (colEvent)="colEvent($event)" [col]="item.Col8"></app-col-item>
+    </p>
+  </div>
+</ng-container>

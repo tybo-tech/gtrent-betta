@@ -1,0 +1,26 @@
+.tabs {
+  display: flex;
+  gap: 1rem;
+  background: var(--white);
+  align-items: center;
+  padding: 0;
+  padding: 0 1rem;
+  width: fit-content;
+  p {
+    color: var(--silver);
+    cursor: pointer;
+    padding: .7rem 0;
+    margin: 0 1.5rem;
+    border-bottom: 1px solid var(--white);
+    &:first-child {
+      margin: 0;
+    }
+  }
+
+  .active {
+    p {
+      color: var(--primary);
+      border-bottom: 0.5px solid var(--primary-light);
+    }
+  }
+}

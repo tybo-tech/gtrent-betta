@@ -1,0 +1,32 @@
+<ng-container *ngIf="task && user">
+  <div class="">
+    <div class="bg-white mb-3 p-2 border-radius box-shadow task">
+      <app-progress-circle></app-progress-circle>
+      <div>
+        <p class="title">
+          {{ '#'+task.TaskId +" "+ task.Name }}
+          <span class="badge rounded-pill bg-info mb-2 block"
+            >{{ task.TaskType }} task</span
+          >
+        </p>
+        <p class="customer d-flex gap10 mb-2 bt-2" *ngIf="task.Customer">
+         <span> <i class="bi bi-building-fill"></i> <span style="text-transform: capitalize;">{{ task.Customer.Name }}</span></span>
+         <!-- <span *ngIf="task.Assigned"> <i class="bi bi-person-fill"></i> <span style="text-transform: capitalize;">{{ task.Assigned.Name }}</span></span> -->
+        </p>
+        <div class="d-flex">
+          <p class="time status-progress" *ngIf="task.DueTime">
+            <i class="bt=i bi-clock"></i> {{ task.DueTime }}
+          </p>
+          <p class="status" [ngClass]="status">{{ task.Status }}</p>
+        </div>
+      </div>
+      <i class="bi bi-chevron-right" (click)="openMenu(task)"></i>
+    </div>
+  </div>
+  <app-task-menu
+    [user]="user"
+    [task]="task"
+    *ngIf="task.OpenMenu"
+    (closeMenuEvent)="task.OpenMenu = false"
+  ></app-task-menu>
+</ng-container>

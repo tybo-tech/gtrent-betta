@@ -1,0 +1,23 @@
+<div class="task-menu" *ngIf="inputType">
+  <div class="bg-white p-3 border-radius box-shadow task">
+      <label for="">{{ label}}</label>
+      <br />
+      <br />
+    <span *ngIf="!val">
+      <app-signiture-pad
+        (onValueChanged)="signDone($event)"
+      ></app-signiture-pad>
+      <br />
+      <br />
+      <button class="btn btn-primary" [disabled]="!sig" (click)="saveImage()">
+        Done
+      </button>
+    </span>
+    <span *ngIf="val">
+      <img [src]="val" alt="" />
+      <button class="btn btn-warning" (click)="val = ''">Clear</button>
+    </span>
+    <br />
+    <button class="btn btn-light" (click)="back()">Back</button>
+  </div>
+</div>

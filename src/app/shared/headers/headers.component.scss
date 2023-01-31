@@ -1,0 +1,11 @@
+.headers{
+    padding: 1rem 1rem;
+    color: var(--primary);
+    // background: rgb(221, 221, 221);
+    .header{
+        font-weight: 400;
+        &:last-child{
+            text-align: right;
+        }
+    }
+}

@@ -1,0 +1,11 @@
+.grid-4{
+    display: grid;
+    // grid-template-columns: repeat(4,25%);
+}
+
+.grid-90-10{
+    display: grid; 
+}
+.grid-90-10{
+  grid-template-columns:90% auto;
+}

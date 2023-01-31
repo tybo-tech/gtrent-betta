@@ -1,0 +1,48 @@
+.time-tacker {
+  background: var(--black);
+}
+
+h1,
+h4 {
+  color: var(--white);
+}
+h1 {
+  text-align: right;
+  padding: 0;
+  margin-right: 0;
+}
+.bi1 {
+  background: rgb(49, 49, 49);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.time {
+  background: none !important;
+  // font-size: 1rem !important;
+  span {
+    display: block;
+    font-size: 0.95rem;
+  }
+}
+._title {
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  span {
+    display: block;
+    font-size: 0.7rem;
+    padding-top: 0.25rem;
+  }
+}
+._success {
+  color: var(--green);
+}
+._warn {
+  color: var(--warn);
+}
+
+.btn{
+  padding: .4rem .8rem !important;
+  margin-left: .4rem;
+}

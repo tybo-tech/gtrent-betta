@@ -1,0 +1,37 @@
+<app-back
+  [heading]="'Customers'"
+  [pageName]="'Dashboard'"
+  url="/admin"
+></app-back>
+
+<div class="d-flex box-shadow border-radius">
+  <div>
+    <input
+      type="search"
+      placeholder="Filter by name"
+      class="form-control border-radius"
+      [(ngModel)]="query"
+    />
+  </div>
+  <div>
+    <a
+      class="btn btn-primary border-radius"
+      routerLink="/admin/customer-form/add"
+      >Add customer</a
+    >
+  </div>
+</div>
+
+<div class="items box-shadow border-radius" *ngIf="items.length">
+  <app-headers [grid]="grid" [headers]="headers"></app-headers>
+  <hr>
+  <div class="scroll">
+    <div class="task" *ngFor="let item of items | searcbyname : query">
+      <app-list-item
+        [item]="item"
+        [grid]="grid"
+        (rowEvent)="rowEvent($event)"
+      ></app-list-item>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<ng-container *ngIf="headers">
+    <div class="headers grid-4" [ngStyle]="grid">
+      <div class="header" *ngFor="let item of headers">
+        {{item}}
+      </div>
+    </div>
+  </ng-container>

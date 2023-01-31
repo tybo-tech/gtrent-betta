@@ -1,0 +1,11 @@
+small {
+  font-size: 0.7rem;
+  font-weight: 400;
+}
+
+p {
+  font-size: 0.7rem;
+  small {
+    display: block;
+  }
+}

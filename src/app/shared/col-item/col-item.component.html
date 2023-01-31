@@ -1,0 +1,79 @@
+<ng-container *ngIf="col">
+  <span *ngIf="col.Type === 'date'">
+    {{ col.Value | date: "mediumDate" }}
+  </span>
+  <span *ngIf="col.Type === 'text' || col.Type === 'time'">
+    {{ col.Value }}
+  </span>
+  <span *ngIf="col.Type === 'user'">
+    {{ col.Value }}
+  </span>
+  <span *ngIf="col.Type === 'task-type'">
+    {{ col.Value }}
+  </span>
+  <span *ngIf="col.Type === 'action'">
+    <a [ngClass]="col.Classes"  (click)="input('time')">
+      {{ col.Value }}
+    </a>
+  </span>
+  <span class="status" *ngIf="col.Type === 'status'" [ngClass]="col.Classes">
+    {{ col.Value }}
+  </span>
+  <span class="col-options border-radius box-shadow-3" *ngIf="col.ShowOptions">
+    <input
+      *ngIf="col.Type === 'date'"
+      (input)="input('date')"
+      type="date"
+      [(ngModel)]="col.Value"
+      class="form-control"
+    />
+    <input
+      *ngIf="col.Type === 'time'"
+      (input)="input('time')"
+      type="time"
+      [(ngModel)]="col.Value"
+      class="form-control"
+    />
+    <input
+      *ngIf="col.Type === 'text'"
+      type="text"
+      (change)="input('text')"
+      [(ngModel)]="col.Value"
+      class="form-control"
+    />
+    <select
+      type="text"
+      *ngIf="col.Type === 'user' && users"
+      [(ngModel)]="col.Id"
+      class="form-control"
+      (change)="input('text')"
+    >
+      <option value="" selected>--Select--</option>
+      <option [value]="item.UserId" *ngFor="let item of users">
+        {{ item.Name }}
+      </option>
+    </select>
+    <select
+      type="text"
+      *ngIf="col.Type === 'status' && users"
+      [(ngModel)]="col.Value"
+      class="form-control"
+      (change)="input('text')"
+    >
+      <option [value]="item" *ngFor="let item of TASK_STATUS_LIST">
+        {{ item }}
+      </option>
+    </select>
+    <select
+      type="text"
+      *ngIf="col.Type === 'task-type' && users"
+      [(ngModel)]="col.Value"
+      class="form-control"
+      (change)="input('text')"
+    >
+      <option [value]="item" *ngFor="let item of TASK_TYPES_LIST">
+        {{ item }}
+      </option>
+    </select>
+  </span>
+</ng-container>

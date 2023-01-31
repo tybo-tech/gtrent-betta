@@ -1,0 +1,15 @@
+<app-back [heading]="'Parts'" [pageName]="'Dashboard'" url="/admin"></app-back>
+
+<div class="items box-shadow border-radius bg-white" *ngIf="items.length">
+  <app-headers [grid]="grid" [headers]="headers"></app-headers>
+  <hr />
+  <div class="scroll">
+    <div class="task" *ngFor="let item of items">
+      <app-list-item
+        [item]="item"
+        [grid]="grid"
+        (rowEvent)="rowEvent($event)"
+      ></app-list-item>
+    </div>
+  </div>
+</div>

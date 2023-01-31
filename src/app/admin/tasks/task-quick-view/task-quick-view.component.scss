@@ -1,0 +1,11 @@
+.ovly {
+  justify-content: flex-start;
+  align-items: flex-end;
+  .ovly-right {
+    height: 100%;
+    width: 22rem;
+    padding: 1rem;
+    border-radius: 1rem 0 0 1rem;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,58 @@
+<div class="task-menu" *ngIf="inputType && fsr">
+  <div class="bg-white p-3 border-radius box-shadow task" *ngIf="!editMode">
+    <ul class="list-group">
+      <li
+        class="list-group-item item d-flex justify-content-between align-items-center"
+        *ngFor="let consumable of fsr.Consumables"
+      >
+        <p>
+          {{ consumable.Name }}
+        </p>
+        <div class="d-flex align-items-center justify-content-end">
+          <h4>R </h4>
+          <input
+            class="form-control m-0 w-50"
+            [(ngModel)]="consumable.Price"
+            (change)="updatePrice(consumable)"
+          />
+
+          <i class="bi bi-trash"></i>
+        </div>
+      </li>
+      <li class="list-group-item item">
+        <br />
+        <button class="btn btn-primary" (click)="editMode = true">
+          Select more parts
+        </button>
+        <br />
+        <button class="btn btn-light" (click)="back()">Back</button>
+      </li>
+    </ul>
+  </div>
+  <div class="bg-white p-3 border-radius box-shadow task" *ngIf="editMode">
+    <label for="">{{ label }}</label>
+    <select
+      placeholder="Type here"
+      class="form-control"
+      [(ngModel)]="type"
+      (change)="inputChanged()"
+      *ngIf="inputType !== 'textarea'"
+    >
+      <option [value]="item.ItemId" *ngFor="let item of consumables">
+        {{ item.Name }} - {{ item.Price | currency: "R" }}
+      </option>
+    </select>
+
+    <label for="">{{ label2 }}</label>
+    <input
+      placeholder="Type here"
+      class="form-control"
+      [(ngModel)]="val"
+      [type]="inputType"
+      *ngIf="inputType !== 'textarea'"
+    />
+    <button class="btn btn-primary" (click)="save()">Done</button>
+    <br />
+    <button class="btn btn-light" (click)="back()">Back</button>
+  </div>
+</div>

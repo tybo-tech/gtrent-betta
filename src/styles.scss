@@ -1,1 +1,59 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --pink: #fc68b1;
+  // --cloud: #ebf3ff;
+  // --cloud: #ebf3ff;
+  --cloud: #ebf3ff;
+  --silver: #bdc3c7;
+  --white: #ffffff;
+  --primary: #3f52e3;
+  --black: #0a0a0a;
+  --border-radius: 0.4rem;
+  --green: #57ed98;
+  --warn: #e67e22;
+
+  --primary-light: #c0e6f0;
+  --pink-light: #ffeef6;
+  --danger-light: #ffc9c9;
+  --green-light: #CBF5DD;
+  --info-light: #bbdffb;
+  --orange-light:#f7f5bc ;
+}
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "./assets/styles/boot";
+@import "./assets/styles/common";
+@import "./assets/styles/keyframes";
+@import "./assets/styles/forms";
+@import "./assets/styles/helpers";
+@import "./assets/styles/grid";
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--cloud);
+  padding: 0;
+  margin: 0;
+  // padding: 1rem;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif !important;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(198, 198, 198);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(177, 177, 177);
+}

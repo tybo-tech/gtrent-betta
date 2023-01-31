@@ -1,0 +1,44 @@
+.task-menu {
+  position: fixed;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 100;
+  background: rgba(57, 57, 57, 0.899);
+  max-width: 30rem;
+  margin: 0 auto; 
+}
+.task{
+  height: 100%;
+}
+.btn {
+  width: 100%;
+  margin: 0.3rem;
+}
+.btn-light {
+  background: var(--cloud);
+}
+.text-primary {
+  font-weight: 500;
+}
+
+textarea{
+    min-height: 15rem;
+    margin: 2rem auto;
+    display: block;
+    width: 100%;
+}
+input{
+    margin: 2rem auto;
+    display: block;
+    width: 100%;  
+}
+label{
+    font-weight: 400;
+}

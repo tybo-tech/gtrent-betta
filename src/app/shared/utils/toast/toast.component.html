@@ -1,0 +1,10 @@
+<div class="_toast shadow-1 slide-down" *ngIf="toast && toast.Message" [ngClass]="toast.Classes">
+    <div class="d-flex justify-content-between align-items-center _title">
+        <h6 > {{toast.Title}}</h6>
+       <a style="margin-left: 2rem;" class="link-info text-white"> <i class="bi bi-x-lg" (click)="toast.Message = ''" ></i></a>
+      </div>
+
+      <p>
+        {{toast.Message}}
+      </p>
+</div>

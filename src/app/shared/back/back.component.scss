@@ -1,0 +1,21 @@
+.back {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--white);
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.btn{
+    text-transform: capitalize;
+    text-align: left !important;
+    padding: .5rem;
+    .bi{
+        margin-right: 1rem;
+    }
+}
+h4{
+  text-transform: none;
+}

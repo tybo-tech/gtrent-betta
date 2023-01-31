@@ -1,0 +1,24 @@
+.dashboard-landing{
+    padding: 0;
+    margin: 0;
+    background: #ecf0f1;
+    height: 100vh;
+    overflow-y: auto;
+    .hello{
+        height: 10vh;
+        background: #111822;
+        color: #fff;
+        margin-top: 4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 1.5rem;
+    }
+
+    ._body{
+        padding: 1rem;
+        ._add{
+            background: #9efdc5;
+        }
+    }
+}

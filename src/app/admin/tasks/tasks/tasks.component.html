@@ -1,0 +1,24 @@
+<app-back [heading]="'Tasks'" [pageName]="'Dashboard'" url="/admin"></app-back>
+<div class="d-flex box-shadow border-radius">
+  <app-tabs [tabs]="tabs" (tabEvent)="tab= $event; changeTab();"></app-tabs>
+  <div>
+    <input
+      type="search"
+      placeholder="Filter by title"
+      class="form-control border-radius"
+    />
+  </div>
+  <div>
+    <a class="btn btn-primary border-radius " routerLink="/admin/add-task">Add new task</a>
+  </div>
+</div>
+
+<div class="items box-shadow border-radius" *ngIf="items.length">
+  <app-headers [grid]="grid" [headers]="headers"></app-headers>
+<div class="scroll">
+  <div class="task" *ngFor="let item of items">
+    <app-list-item [item]="item" [grid]="grid" (rowEvent)="rowEvent($event)" ></app-list-item>
+  </div>
+</div>
+</div>
+<!-- <app-all-tasks></app-all-tasks> -->

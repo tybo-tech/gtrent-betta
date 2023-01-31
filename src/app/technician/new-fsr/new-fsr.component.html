@@ -1,0 +1,296 @@
+<ng-container *ngIf="task && user">
+  <app-back
+    [heading]="task.Customer?.Name || 'FSR'"
+    [pageName]="'My Dashboard'"
+    url="/technician"
+  ></app-back>
+
+  <app-time-tacker
+    (onStop)="onStop()"
+    *ngIf="task"
+    [task]="task"
+    [user]="user"
+  ></app-time-tacker>
+  <!-- <div *ngIf="email" [innerHtml] = "email">
+
+    
+  </div> -->
+  <div class="bg-white mb-3 p-2 border-radius box-shadow task">
+    <ng-container *ngIf="task.Customer">
+      <div class="top">
+        <div>
+          <h5>Customer info</h5>
+          <p>
+            {{ task.Customer.Name }}
+          </p>
+        </div>
+        <i class="bi bi-chevron-right" (click)="openCustomerMenu()"></i>
+      </div>
+      <div *ngIf="task.Machine" class="compressor">
+        <p>
+          <span class="label">Model:</span>
+          <span class="value"> {{ task.Machine.Model || "---" }} </span>
+        </p>
+        <p>
+          <span class="label">Serial:</span>
+          <span class="value"> {{ task.Machine.Serial || "---" }} </span>
+        </p>
+
+        <p>
+          <span class="label">Hours:</span>
+          <span class="value"> {{ task.Machine.Hours || "---" }} </span>
+        </p>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- <ng-container
+    *ngIf="task && task.Status !== TASK_STATUS.RunningTest && task.Status !== TASK_STATUS.RunningTestPaused"
+  > -->
+  <ng-container *ngIf="task">
+    <div
+      class="bg-white mb-3 p-2 border-radius box-shadow task"
+      (click)="editWorkDone = true"
+    >
+      <div class="top">
+        <div>
+          <h5 *ngIf="!isWorkShopFsr">Work done</h5>
+          <h5 *ngIf="isWorkShopFsr">Work done/To be done</h5>
+          <p style="white-space: pre-wrap" *ngIf="task.Fsr.WorkDone">
+            {{ task.Fsr.WorkDone }}
+          </p>
+          <p *ngIf="!task.Fsr.WorkDone" class="text-warn">No work done</p>
+        </div>
+        <i class="bi bi-chevron-right"></i>
+      </div>
+    </div>
+
+    <div
+      class="bg-white mb-3 p-2 border-radius box-shadow task"
+      (click)="selectParts = true"
+    >
+      <div class="top">
+        <div>
+          <h5>Parts used</h5>
+          <p *ngIf="totalPartsUsed">{{ totalPartsUsed }} Items</p>
+          <p class="text-warn" *ngIf="!totalPartsUsed">No parts selected</p>
+        </div>
+        <i class="bi bi-chevron-right"></i>
+      </div>
+    </div>
+
+    <app-service-parts
+      [task]="task"
+      *ngIf="selectParts"
+      (onValueChanged)="selectParts = false; save()"
+    ></app-service-parts>
+
+    <div
+      class="bg-white mb-3 p-2 border-radius box-shadow task"
+      (click)="editLabour = true"
+    >
+      <div class="top">
+        <div>
+          <h5>Labour</h5>
+          <p *ngIf="!task.Fsr?.Labour?.length" class="text-warn">
+            Not captured
+          </p>
+          <p *ngIf="task.Fsr?.Labour?.length">
+            {{ task.Fsr.Labour.length }} items
+          </p>
+        </div>
+
+        <i class="bi bi-chevron-right"></i>
+      </div>
+    </div>
+    <app-labour
+      *ngIf="editLabour"
+      (onBack)="editLabour = false"
+      (onValueChanged)="editLabour = false; save()"
+      [fsr]="task.Fsr"
+    ></app-labour>
+
+    <div
+      class="bg-white mb-3 p-2 border-radius box-shadow task"
+      (click)="editConsumables = true"
+    >
+      <div class="top">
+        <div>
+          <h5>Consumables</h5>
+          <p class="text-warn" *ngIf="!task.Fsr?.Consumables?.length">
+            Not captured
+          </p>
+          <p *ngIf="task.Fsr?.Consumables?.length">
+            {{ task.Fsr.Consumables.length }} items
+          </p>
+        </div>
+        <i class="bi bi-chevron-right"></i>
+      </div>
+    </div>
+    <app-consumables
+      *ngIf="editConsumables"
+      (onBack)="editConsumables = false"
+      (onValueChanged)="editConsumables = false; save()"
+      [fsr]="task.Fsr"
+    ></app-consumables>
+
+    <div
+      *ngIf="!isWorkShopFsr"
+      class="bg-white mb-3 p-2 border-radius box-shadow task"
+      (click)="editDistanceTravelled = true"
+    >
+      <div class="top">
+        <div>
+          <h5>Distance travelled</h5>
+          <p *ngIf="task.Fsr.DistanceTravelled">
+            {{ task.Fsr.DistanceTravelled || 0 }} Km
+          </p>
+          <p class="text-warn" *ngIf="!task.Fsr.DistanceTravelled">
+            No distance captured
+          </p>
+        </div>
+        <i class="bi bi-chevron-right" (click)="openCustomerMenu()"></i>
+      </div>
+    </div>
+    <div
+      class="bg-white mb-3 p-2 border-radius box-shadow task"
+      (click)="editReference = true"
+    >
+      <div class="top">
+        <div>
+          <h5>Reference</h5>
+          <p *ngIf="task.Fsr.Reference">{{ task.Fsr.Reference }}</p>
+          <p *ngIf="!task.Fsr.Reference" class="text-warn">
+            {{ "No reference" }}
+          </p>
+        </div>
+        <i class="bi bi-chevron-right" (click)="openCustomerMenu()"></i>
+      </div>
+    </div>
+
+    <div
+      class="bg-white mb-3 p-2 border-radius box-shadow task"
+      *ngIf="!isWorkShopFsr"
+      (click)="customerSigniture = true"
+    >
+      <div class="top">
+        <div>
+          <h5>Customer Signiture</h5>
+          <p *ngIf="!task.Fsr.CustomerSigniture" class="text-warn">
+            Not signed
+          </p>
+          <img
+            *ngIf="task.Fsr.CustomerSigniture"
+            [src]="task.Fsr.CustomerSigniture"
+            class="text-warn"
+          />
+        </div>
+        <i class="bi bi-chevron-right"></i>
+      </div>
+    </div>
+
+    <div
+      class="bg-white mb-3 p-2 border-radius box-shadow task"
+      *ngIf="!isWorkShopFsr"
+      (click)="technicainSigniture = true"
+    >
+      <div class="top">
+        <div>
+          <h5>Technicain Signiture</h5>
+          <p *ngIf="!task.Fsr.TechnicainSigniture" class="text-warn">
+            Not signed
+          </p>
+          <img
+            *ngIf="task.Fsr.TechnicainSigniture"
+            [src]="task.Fsr.TechnicainSigniture"
+            class="text-warn"
+          />
+        </div>
+        <i class="bi bi-chevron-right"></i>
+      </div>
+    </div>
+
+    <button  *ngIf="timeLine?.FinishStatus !== TIMELINE_STATUS.Complete"
+      class="btn btn-warning"
+      [disabled]="!task.Fsr.WorkDone"
+      (click)="showConfirmStop = true"
+    >
+      Stop Task
+    </button>
+
+    <app-test-run
+      (onSave)="task.Fsr = $event; save()"
+      *ngIf="
+        task &&
+        task.TaskType === TASK_TYPES.WorkshopFSR &&
+        user &&
+        (task.Status === TASK_STATUS.RunningTest ||
+          task.Status === TASK_STATUS.RunningTestPaused)
+      "
+      [task]="task"
+      [user]="user"
+    ></app-test-run>
+  </ng-container>
+</ng-container>
+
+<app-input-modal
+  *ngIf="editWorkDone && task"
+  label="Decribe work done"
+  (onBack)="editWorkDone = false"
+  [val]="task.Fsr.WorkDone"
+  (onValueChanged)="task.Fsr.WorkDone = $event; editWorkDone = false; save()"
+  inputType="textarea"
+></app-input-modal>
+
+<app-input-modal
+  label="Distance Travelled"
+  *ngIf="editDistanceTravelled && task"
+  (onBack)="editDistanceTravelled = false"
+  [val]="task.Fsr.DistanceTravelled"
+  (onValueChanged)="
+    task.Fsr.DistanceTravelled = $event; editDistanceTravelled = false; save()
+  "
+  inputType="number"
+></app-input-modal>
+
+<app-input-modal
+  label="Reference"
+  *ngIf="editReference && task"
+  [val]="task.Fsr.Reference"
+  (onBack)="editReference = false"
+  (onValueChanged)="task.Fsr.Reference = $event; editReference = false; save()"
+  inputType="textarea"
+></app-input-modal>
+
+<app-signiture-modal
+  label="Customer Signiture"
+  *ngIf="customerSigniture && task && !isWorkShopFsr"
+  [val]="task.Fsr.CustomerSigniture"
+  (onBack)="customerSigniture = false"
+  (onValueChanged)="
+    task.Fsr.CustomerSigniture = $event; customerSigniture = false; save()
+  "
+  inputType="textarea"
+>
+</app-signiture-modal>
+
+<app-signiture-modal
+  label="Technicain Signiture"
+  (onBack)="technicainSigniture = false"
+  *ngIf="technicainSigniture && task && !isWorkShopFsr"
+  [val]="task.Fsr.TechnicainSigniture"
+  (onValueChanged)="
+    task.Fsr.TechnicainSigniture = $event; technicainSigniture = false; save()
+  "
+  inputType="textarea"
+>
+</app-signiture-modal>
+
+<app-confirm *ngIf="showConfirmStop"
+  heading="You about to stop a task."
+  body="Please confirm that all required work is done"
+  yesAction="Finish Task"
+  noAction="Cancel this action"
+  theClass = "bi bi-exclamation-diamond-fill _warn"
+  (doneEvent)="doneEvent($event)"
+></app-confirm>

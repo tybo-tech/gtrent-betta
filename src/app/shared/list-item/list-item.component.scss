@@ -1,0 +1,24 @@
+.line-item {
+  // cursor: pointer;
+  border-bottom: 1px solid var(--cloud);
+  padding: 0;
+  p {
+    padding: 10px;
+    font-size: 0.8rem;
+    position: relative;
+  }
+  p {
+    &:hover {
+      // background: var(--cloud);
+    }
+    &:last-child{
+      text-align: right;
+    }
+  }
+}
+
+// .grid-4 {
+//   &:last-child {
+//     text-align: right !important;
+//   }
+// }

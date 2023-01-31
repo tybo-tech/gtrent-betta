@@ -1,0 +1,8 @@
+<app-headers [grid]="grid" [headers]="headers"></app-headers>
+<div class="task" *ngFor="let item of items">
+  <app-list-item
+    [item]="item"
+    [grid]="grid"
+    (rowEvent)="rowEvent($event)"
+  ></app-list-item>
+</div>

@@ -1,0 +1,76 @@
+<div
+  *ngIf="task"
+  class="time-tacker border-radius box-shadow p-4 mb-4"
+  [ngClass]="statusClass"
+>
+  <div class="_top d-flex justify-content-between align-items-center">
+    <i class="bi bi1 bi-clock"></i>
+    <h1 class="time">
+      {{ time }}
+      <span [ngClass]="statusClass">
+        {{ task.Status }}
+      </span>
+    </h1>
+  </div>
+  <br />
+  <div
+    class="bot d-flex justify-content-between align-items-center mt-4"
+    *ngIf="timeLine"
+  >
+    <h4 class="_title">
+      {{ task.TaskType }}
+      <span>
+        <font color="#7473fb">{{ task.Name }}</font>, <i>Due {{ task.DueDate| date:'mediumDate' }}   {{ task.DueTime }}</i>
+      </span>
+    </h4>
+
+    <div class="actions">
+      <button
+        *ngIf="isTimeLineInProgress"
+        (click)="askForAPausereason()"
+        class="btn btn-warning mr-2"
+      >
+        <i class="bi bi-pause"></i>
+      </button>
+
+      <button
+        *ngIf="
+          user?.UserType === 'Technician' 
+          && task.Status !== TASK_STATUS.WaitingForQoute &&
+          (timeLine.FinishStatus === TIMELINE_STATUS.Paused ||
+            timeLine.FinishStatus === TIMELINE_STATUS.RunningTestPaused ||
+            timeLine.FinishStatus === TASK_STATUS.QouteDone)
+        "
+        (click)="resumeTask()"
+        class="btn btn-success mr-2"
+      >
+        <i class="bi bi-play"></i>
+      </button>
+
+      <!-- <button
+        *ngIf="timeLine.FinishStatus !== TIMELINE_STATUS.Complete"
+        class="btn btn-dark"
+        (click)="stopTask()"
+      >
+        <i class="bi bi-stop"></i>
+      </button> -->
+      <button
+        *ngIf="isAdmin"
+        class="btn btn-danger"
+        (click)="deleteTask()"
+      >
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-input-modal
+  label="Why you pausing this task?"
+  *ngIf="showReasonFrom && timeLine"
+  [val]="timeLine.FinishReason"
+  (onValueChanged)="
+    timeLine.FinishReason = $event; showReasonFrom = false; pauseTask()
+  "
+  inputType="textarea"
+></app-input-modal>

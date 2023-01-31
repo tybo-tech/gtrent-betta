@@ -1,0 +1,7 @@
+<div class="ovly" *ngIf="tasks.length">
+  <div class="ovly-right bg-white fade-1 ">
+<button (click)="close()" class="btn btn-light"><i class="bi bi-arrow-left"></i> Close quick view</button>
+    <hr>
+           <app-task-list-view *ngFor="let task of tasks" [task]="task"></app-task-list-view>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+.fade-1 {
+  animation-name: fade1;
+  animation-duration: 1.5s;
+}
+.fade-2 {
+  animation-name: fade1;
+  animation-duration: 0.5s;
+}
+.slide-up {
+  animation: slideUp 1s ease-in-out 0.4s;
+  animation-fill-mode: backwards;
+}
+.slide-down {
+  animation: slideDown 0.5s ease-in-out 0.4s;
+  animation-fill-mode: backwards;
+}
+.slide-from-right {
+  animation: slideFromRight 5s ease-in-out 0.4s;
+  // animation-fill-mode: backwards;
+}
+
+@keyframes fade1 {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    top: 80%;
+    opacity: 0;
+  }
+  80% {
+    top: 40%;
+    opacity: 0.7;
+  }
+  100% {
+    top: 300px;
+    opacity: 1;
+  }
+}
+@keyframes slideDown {
+  0% {
+    top: -7rem;
+  }
+  80% {
+    top: 3rem;
+  }
+  100% {
+    top: 1rem;
+  }
+}
+@keyframes slideFromRight {
+  0% {
+    margin-left: 700rem;
+  }
+  80% {
+    margin-left: 1rem;
+  }
+  100% {
+    margin-left: 0;
+  }
+}

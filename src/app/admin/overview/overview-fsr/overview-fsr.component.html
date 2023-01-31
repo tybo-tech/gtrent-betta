@@ -1,0 +1,24 @@
+<div class=" box-shadow border-radius p-3 bg-white mt-5">
+    <h5>
+        FSR overview
+    </h5>
+
+    <ul class="list-group mt-3">
+        <li
+          class="list-group-item item list-group-item-2 d-flex justify-content-between align-items-center"
+          *ngFor="let part of overview"
+        >
+          <p>
+            {{ part.Name }}
+          </p>
+          <div class="d-flex justify-content-between align-items-center">
+  
+  
+          <h6>
+            {{part.Value}}
+          </h6>
+          </div>
+        </li>
+      
+      </ul>
+</div>

@@ -1,0 +1,26 @@
+<ng-container *ngIf="customer">
+    <app-back
+  [heading]="customer.Name"
+  [pageName]="'Customers'"
+  url="/admin/customers"
+></app-back>
+
+<div class="bg-white p-3 border-radius box-shadow">
+    <app-tabs [tabs]="tabs" (tabEvent)="tab= $event"></app-tabs>
+<br>
+<br>
+<app-customer-comprossors *ngIf="tab?.Id === 'compressors'" [machines]="customer.Machines || []" ></app-customer-comprossors>
+<app-customer-fsr *ngIf="tab?.Id === 'fsr'" [frs]="customer.Fsrs"></app-customer-fsr>
+<app-customer-reports *ngIf="tab?.Id === 'reports'"></app-customer-reports>
+<div *ngIf="tab?.Id === 'basic'">
+    <p>
+   <i class="bi bi-person"></i>   {{customer.Name || 'none'}}   <br>
+   <i class="bi bi-envelope"></i> {{customer.Email || 'none'}} <br>
+   <i class="bi bi-phone"></i>  {{customer.Surname || 'none'}} {{customer.PhoneNumber}} <br>
+   <i class="bi bi-geo-alt"></i>  {{customer.AddressLineHome || 'none'}} <br> <br>
+   <a class="link-success" [routerLink]="'/admin/customer-form/'+customer.CustomerId">Edit</a>
+    </p>
+</div>
+</div>
+<!-- <pre>{{customer | json}}</pre> -->
+</ng-container>

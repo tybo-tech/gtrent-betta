@@ -1,0 +1,22 @@
+
+<ng-container *ngIf="overview?.length">
+    <div class="row">
+        <div class="col-md-3" *ngFor="let task of overview">
+            <div class="status-card box-shadow " *ngIf="task.Value" (click)="onShowList(task.Name)" >
+                <h5>
+                    {{ task.Name }}
+                    <!-- <span *ngIf="task.Assigned">
+                      {{ task.Assigned.Name }}
+                    </span> -->
+                  </h5>
+                  <p class="status" [ngClass]="task.Classes">
+                    {{ task.Value }}
+                  </p>
+            </div>
+        </div>
+    </div>
+ 
+
+</ng-container>
+
+<app-task-quick-view (closeEvent)="showList = false" *ngIf="filteredList && showList" [tasks]="filteredList"></app-task-quick-view>

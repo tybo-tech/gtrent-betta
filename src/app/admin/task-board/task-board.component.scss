@@ -1,0 +1,77 @@
+._grid {
+  display: grid;
+  grid-gap: 1rem;
+  padding: 2rem 1rem;
+  height: 90vh;
+  background: var(--white);
+  box-sizing: border-box;
+  width: 100%;
+  overflow: auto;
+  overflow-x: scroll;
+}
+
+.status-card {
+  background: var(--cloud);
+  //   border: 1px solid rgb(104, 104, 104);
+  padding: 0;
+
+  h6 {
+    padding: 0.5rem;
+    border-bottom: 1px solid rgb(231, 231, 231);
+  }
+
+  .task {
+    background: var(--white);
+    width: 96%;
+    margin: 1rem auto;
+    padding: 0.8rem;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+    &:hover {
+      box-shadow: 4px 5px 4px 0 rgba(51, 51, 51, 0.269);
+    }
+  }
+}
+.badge-dark {
+  background: darkblue;
+}
+
+.customer {
+  font-size: 0.8rem;
+}
+.due-date {
+  color: grey;
+  font-size: 0.7rem;
+  font-weight: 500;
+  display: block;
+  padding: 0.25rem 0;
+}
+
+.users {
+  img {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgb(174, 174, 174);
+    object-position: center;
+  }
+}
+.stat {
+  border-top: 1px solid rgb(241, 241, 241);
+  margin-top: 0.5rem;
+  span {
+    font-size: 0.7rem;
+  }
+}
+
+.filters {
+  margin-bottom: 1rem;
+  padding: .5rem ;
+  gap: 1rem;
+}
+
+.blue{
+  color: rgb(62, 133, 134) !important;
+  font-style: normal;
+}

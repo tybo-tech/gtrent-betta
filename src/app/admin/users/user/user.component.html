@@ -1,0 +1,106 @@
+<app-back
+  [heading]="'User Details'"
+  [pageName]="'Users'"
+  url="/admin/users"
+></app-back>
+
+<div class="page-item box-shadow border-radius scroll" *ngIf="user">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input
+      type="text"
+      [(ngModel)]="user.Name"
+      class="form-control"
+      id="phone"
+      required
+    />
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="name">Email</label>
+        <input
+          type="email"
+          [(ngModel)]="user.Email"
+          class="form-control"
+          id="phone"
+          required
+        />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="name"
+          >Password
+
+          <i
+            *ngIf="passwordType === 'password'"
+            (click)="passwordType = 'text'"
+            class="bi bi-eye-fill"
+          ></i>
+          <i
+            *ngIf="passwordType === 'text'"
+            (click)="passwordType = 'password'"
+            class="bi bi-eye-slash-fill"
+          ></i>
+        </label>
+        <input
+          [type]="passwordType"
+          [(ngModel)]="user.Password"
+          class="form-control"
+          id="phone"
+          required
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="name">User Type</label>
+        <select type="" [(ngModel)]="user.UserType" class="form-control">
+          <option value="" selected>--Select--</option>
+          <option [value]="item" *ngFor="let item of ['Admin', 'Technician']">
+            {{ item }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="name">Phone Number</label>
+        <input
+          type="text"
+          [(ngModel)]="user.PhoneNumber"
+          class="form-control"
+          id="phone"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="name">Profile picture</label>
+        <app-image-widget
+          [image]="user.Dp"
+          (imageChangedEvent)="onImageChangedEvent($event)"
+        >
+        </app-image-widget>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex">
+    <button
+      type="submit"
+      [disabled]="!user.Name"
+      type="button"
+      (click)="save()"
+      class="btn btn-primary w-100"
+    >
+      Save
+    </button>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+._overlay {
+  backdrop-filter: blur(18px);
+  background: rgba(136, 136, 136, 0.22);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ._modal1 {
+    width: fit-content;
+    padding: 2rem;
+    background: var(--white);
+    max-width: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+    h1 {
+      margin: 2rem 0;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+    p {
+      text-align: center;
+    }
+    .bi {
+      font-size: 7rem;
+      color: var(--green);
+      margin: 2rem 0;
+    }
+    ._warn {
+      color: orange;
+    }
+    ._success {
+      color: green;
+    }
+    ._danger {
+      color: red;
+    }
+  }
+}
+
+.column {
+  flex-direction: column;
+  .btn {
+    width: 100%;
+    margin: 0.4rem 0;
+  }
+}

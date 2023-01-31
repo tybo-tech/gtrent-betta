@@ -1,0 +1,124 @@
+<div class="d-flex filters align-items-center border-radius box-shadow">
+  <div class="_col">Filters:</div>
+  <div class="_col">
+    <select
+      name=""
+      [(ngModel)]="filterBy"
+      (change)="filterByChanged()"
+      class="form-select"
+      id=""
+    >
+      <option
+        [value]="item"
+        *ngFor="
+          let item of ['All', 'Filter by sigle date', 'Filter by date range']
+        "
+      >
+        {{ item }}
+      </option>
+    </select>
+  </div>
+
+  <div
+    class="_col"
+    *ngIf="
+      filterBy === 'Filter by date range' || filterBy === 'Filter by sigle date'
+    "
+  >
+    <input
+      type="date"
+      [(ngModel)]="filterDate"
+      (input)="dateChnaged()"
+      class="form-control"
+    />
+  </div>
+
+  <div class="_col" *ngIf="filterBy === 'Filter by sigle date'">Or</div>
+  <div class="_col" *ngIf="filterBy === 'Filter by sigle date'">
+    <select
+      name=""
+      [(ngModel)]="filterDate"
+      (change)="dateChnaged()"
+      class="form-select"
+      id=""
+    >
+      <option [value]="item" *ngFor="let item of dates">{{ item }}</option>
+    </select>
+  </div>
+  <div class="_col" *ngIf="users?.length">
+    <select
+      name=""
+      [(ngModel)]="userId"
+      (change)="userChaged()"
+      class="form-select"
+      id=""
+    >
+    <option value="">Any user</option>
+      <option [value]="user.UserId" *ngFor="let user of users">{{ user.Name }}</option>
+    </select>
+  </div>
+
+  <div class="_col" *ngIf="filterBy === 'Filter by date range'">
+    <i class="bi bi-arrow-right"></i>
+  </div>
+
+  <div class="_col" *ngIf="filterBy === 'Filter by date range'">
+    <input
+      type="date"
+      [(ngModel)]="filterDate2"
+      (input)="dateChnaged()"
+      class="form-control"
+    />
+  </div>
+</div>
+<div [ngStyle]="grid" class="_grid border-radius box-shadow">
+  <div
+    class="box-shadow border-radius status-card"
+    *ngFor="let group of groups"
+  >
+    <h6>
+      {{ group.Status }}
+      <span class="badge badge-pill badge-dark">{{ group.Tasks.length }}</span>
+    </h6>
+    <div class="tasks">
+      <div
+        class="task box-shadow border-radius"
+        *ngFor="let task of group.Tasks"
+        (click)="select(task)"
+      >
+        <p class="due-date">
+          <i class="bt=i bi-calendar-date-fill blue"> Created: </i> 
+          {{ task.CreateDate | date : "mediumDate" }}
+        </p>
+        <p class="due-date">
+           <i class="bt=i bi-clock blue"> Due:</i>
+          {{ task.DueDate | date : "mediumDate" }} {{ task.DueTime }}
+        </p>
+        <h5 *ngIf="task.Customer" class="customer">
+          <i class="bi bi-building-fill"></i> {{ task.Customer.Name }}
+        </h5>
+        <p class="due-date">
+          {{ task.TaskType }}
+        </p>
+        <p class="due-date text-black">
+          {{ task.Name }}
+        </p>
+        <div class="d-flex justify-content-between align-items-center stat">
+          <span>
+            {{ task.Comments.length }} <i class="bi bi-chat-dots"></i>
+          </span>
+
+          <div class="users" *ngIf="task.Assigned">
+            <img [src]="task.Assigned.Dp" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-task-modal
+  (closeEvent)="task = undefined; load()"
+  *ngIf="task"
+  [task]="task"
+></app-task-modal>

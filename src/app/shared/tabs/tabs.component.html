@@ -1,0 +1,5 @@
+<div class="tabs border-radius" *ngIf="tabs.length" >
+    <div class="tab" *ngFor="let tab of tabs" [ngClass]="tab.Classes" (click)="onClick(tab)">
+       <p> {{tab.Name}}</p>
+    </div>
+</div>

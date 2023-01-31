@@ -1,0 +1,25 @@
+<ng-container *ngIf="task">
+  <div class="bg-white mb-3 p-2 border-radius box-shadow task">
+    <!-- <app-progress-circle></app-progress-circle> -->
+    <div>
+      <p class="title">
+        {{ task.Name }}
+      </p>
+      <p class="customer" *ngIf="task.Customer">
+        <i class="bi bi-building"></i> {{ task.Customer.Name }}
+      </p>
+      <p class="customer" *ngIf="task.Assigned">
+        <i class="bi bi-person-gear"></i> {{ task.Assigned.Name }}
+      </p>
+      <div class="d-flex">
+        <p class="time status-progress" *ngIf="task.DueTime">
+          <i class="bt=i bi-clock"></i> {{ task.DueTime }}
+        </p>
+        <p class="status" [ngClass]="status">{{ task.Status }}</p>
+      </div>
+    </div>
+    <button class="btn btn-light" (click)="openMenu(task)">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+</ng-container>

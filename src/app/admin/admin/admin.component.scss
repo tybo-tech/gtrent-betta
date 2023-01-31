@@ -1,0 +1,22 @@
+section {
+  display: grid;
+  grid-template-columns: 10rem auto;
+  height: 100vh;
+  padding: 1rem;
+  // background: url(../../../assets/images/fundo2.svg);
+  // background: rgb(220, 220, 220);
+  background: var(--white);
+  overflow: hidden;
+  aside {
+    background: var(--white);
+    padding: 1rem;
+    
+
+  }
+  main {
+    padding: 0 5vw;
+    height: 96vh;
+    overflow: hidden;
+    // background: var(--primary);
+  }
+}

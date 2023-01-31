@@ -1,0 +1,19 @@
+<div *ngIf="user" class="dashboard-landing">
+    <div class="hello">
+        <h5>
+            Hello {{user.Name}}
+        </h5>
+    </div>
+
+    <div class="_body">
+        <a class="card _add" routerLink="/admin/dashboard/add-task">
+            <div class="card-body">
+              <h4><i class="fa fa-plus"></i> Create a task</h4>
+            </div>
+          </a>
+
+          <app-all-tasks></app-all-tasks>
+
+    </div> 
+
+</div>

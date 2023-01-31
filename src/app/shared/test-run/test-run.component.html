@@ -1,0 +1,9 @@
+<!-- <div
+  *ngIf="task && user"
+  class="bg-white mb-3 p-2 border-radius box-shadow task"
+>
+  <textarea placeholder="Test run outcome" class="form-control" [(ngModel)]="fsr.Notes"></textarea>
+  
+  
+</div> -->
+<button  *ngIf="task && user" class="btn btn-primary" [disabled]="!task.Fsr.WorkDone" (click)="save()">Send for quotation</button>
