@@ -1,0 +1,16 @@
+.page-item{
+    background: var(--white);
+    padding: 3rem;
+    max-width: 50rem;
+}
+
+._modal1 {
+    max-width: 96%;
+    min-width: 96%;
+    display: block;
+    position: fixed;
+    z-index: 10000000000000000000;
+    height: 98%;
+    overflow: hidden;
+    padding: 0;
+}

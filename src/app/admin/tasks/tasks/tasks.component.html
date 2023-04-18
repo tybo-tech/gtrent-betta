@@ -1,16 +1,30 @@
 <app-back [heading]="'Tasks'" [pageName]="'Dashboard'" url="/admin"></app-back>
-<div class="d-flex box-shadow border-radius">
-  <app-tabs [tabs]="tabs" (tabEvent)="tab= $event; changeTab();"></app-tabs>
-  <div>
+<div class="fiter-grid p-2 mb-2 box-shadow border-radius">
+  <!-- <app-tabs [tabs]="tabs" (tabEvent)="tab= $event; changeTab();"></app-tabs> -->
+    <select name="" id="" class="form-control border-radius" (change)="filterByStatus()" [(ngModel)]="status">
+      <option [value]="item.Id" *ngFor="let item of tabs">
+        {{item.Name}}
+      </option>
+    </select>
+    <select
+    name=""
+    [(ngModel)]="userId"
+    (change)="userChaged()"
+    class="form-select"
+    id=""
+  >
+  <option value="All">All users</option>
+  <option value="Unallocated">Unallocated</option>
+    <option [value]="user.UserId" *ngFor="let user of users">{{ user.Name }}</option>
+  </select>
     <input
       type="search"
+      [(ngModel)]="query"
       placeholder="Filter by title"
       class="form-control border-radius"
     />
-  </div>
-  <div>
-    <a class="btn btn-primary border-radius " routerLink="/admin/add-task">Add new task</a>
-  </div>
+    <a style="width: 25rem; display: block;" class="btn btn-primary border-radius " routerLink="/admin/add-task">Add new task</a>
+
 </div>
 
 <div class="items box-shadow border-radius" *ngIf="items.length">

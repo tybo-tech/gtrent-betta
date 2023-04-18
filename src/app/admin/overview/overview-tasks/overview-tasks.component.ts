@@ -39,7 +39,7 @@ export class OverviewTasksComponent implements OnInit {
     this.userService.userListObservable.subscribe((data) => {
       if (data?.length) this.users = data;
     });
-    this.taskService.list(2).subscribe((data) => {
+    this.taskService.list().subscribe((data) => {
       if (data && data.length) {
         this.tasks = data;
         this.notStartedTasks = data.filter(

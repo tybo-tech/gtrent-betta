@@ -9,9 +9,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class TaskComplitedComponent implements OnInit {
 
   id = '';
+  id2 = '';
   constructor(private activatedRoute: ActivatedRoute, private router: Router) {
     this.activatedRoute.params.subscribe((r) => {
       this.id = r['id'];
+      this.id2 = r['id2'];
     });
   }
 

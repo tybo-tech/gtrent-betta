@@ -1,4 +1,3 @@
-
 export interface Product {
   Id?: number;
   ProductId: string;
@@ -22,7 +21,7 @@ export interface Product {
   ReturnPolicy: string;
   FeaturedImageUrl: string;
   IsJustInTime: string;
-  ShowOnline: boolean;  // show || hide
+  ShowOnline: boolean; // show || hide
   EstimatedDeliveryDays: number;
   ShowRemainingItems: number;
   OrderLimit: number;
@@ -52,13 +51,11 @@ export interface Product {
   OtherEstimatedDeliveryDays?: number; // if (IsJustInTime) option is other
   Images?: any[];
   AllImages?: any[];
-  IsSelected?:boolean;
-  IsSelectedForGet?:boolean;
-  HasBeenSelected?:boolean;
-  Selected?:boolean;
-  PickId?:string;
-  Customers?:any[];
-  
-
-
+  IsSelected?: boolean;
+  IsSelectedForGet?: boolean;
+  HasBeenSelected?: boolean;
+  Selected?: boolean;
+  PickId?: string;
+  Customers?: any[];
+  CustomerName?: string;
 }

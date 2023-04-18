@@ -16,14 +16,14 @@
         >Tasks</a
       >
     </li>
-    <li>
+    <!-- <li>
       <a
         [routerLinkActiveOptions]="{ exact: true }"
         routerLinkActive="active-link"
         routerLink="/admin/fsrs"
         >Field services</a
       >
-    </li>
+    </li> -->
     <li>
       <a
         [routerLinkActiveOptions]="{ exact: true }"
@@ -49,6 +49,28 @@
       >
     </li>
     <li>
+      <a routerLink="/admin/qoutes"
+      ><i class="bi bi-cart"></i> Quotes</a>
+    </li>
+    <li>
+      <a
+      class="btn btn-primary"
+      routerLink="/admin/chats"
+      style="padding: 0.4rem 0.8rem; border-radius: 40px; min-width: 6rem;"
+      ><i class="bi bi-chat-dots"></i
+    > Inbox
+  <span *ngIf="user && user.ChatCount" class="count">{{user.ChatCount}}</span>
+  </a>
+    <!-- </li>
+    <li>
+      <a
+      class="btn btn-success"
+      routerLink="/admin/add-task"
+      style="padding: 0.4rem 0.8rem; border-radius: 40px; min-width: 6rem;"
+      ><i class="bi bi-plus-lg"></i
+    >  task</a>
+    </li> -->
+    <li style="margin-top: 4rem;">
       <a class="link-danger pointer" (click)="logout()"
         ><i class="bi bi-box-arrow-in-left"></i>Logout</a
       >

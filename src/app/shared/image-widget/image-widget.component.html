@@ -8,14 +8,16 @@
 />
 
 <div class="preview" *ngIf="image && image.length">
-  <img (click)="file.click()" [src]="image" alt="" />
+  <img (click)="file.click()" [src]="image" alt=""  />
   <a *ngIf="image && image.length" (click)="remove()" class="link-danger">
     <i class="bi bi-trash"></i>
   </a>
+  <span *ngIf="loading"  class="loader"></span>
 </div>
 
 <div class="no-image" *ngIf="!image">
   <i class="_upload bi bi-upload" (click)="file.click()" alt=""></i>
+  <span *ngIf="loading" class="loader"></span>
 </div>
 <!--
 

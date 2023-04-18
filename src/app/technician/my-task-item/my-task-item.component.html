@@ -14,9 +14,6 @@
          <!-- <span *ngIf="task.Assigned"> <i class="bi bi-person-fill"></i> <span style="text-transform: capitalize;">{{ task.Assigned.Name }}</span></span> -->
         </p>
         <div class="d-flex">
-          <p class="time status-progress" *ngIf="task.DueTime">
-            <i class="bt=i bi-clock"></i> {{ task.DueTime }}
-          </p>
           <p class="status" [ngClass]="status">{{ task.Status }}</p>
         </div>
       </div>

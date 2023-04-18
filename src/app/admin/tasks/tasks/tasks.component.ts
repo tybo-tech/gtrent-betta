@@ -22,7 +22,7 @@ import { TASK_STATUS } from 'src/utits/constants';
 export class TasksComponent implements OnInit {
   tabs: TabModel[] = [
     {
-      Name: TASK_STATUS.All,
+      Name: 'All Statuses',
       Id: TASK_STATUS.All,
       Classes: ['active'],
     },
@@ -46,17 +46,48 @@ export class TasksComponent implements OnInit {
       Id: TASK_STATUS.Complete,
       Classes: [],
     },
+    {
+      Name: TASK_STATUS.RunningTest,
+      Id: TASK_STATUS.RunningTest,
+      Classes: [],
+    },
+    {
+      Name: TASK_STATUS.RunningTestPaused,
+      Id: TASK_STATUS.RunningTestPaused,
+      Classes: [],
+    },
+    {
+      Name: TASK_STATUS.WaitingForQoute,
+      Id: TASK_STATUS.WaitingForQoute,
+      Classes: [],
+    },
+    {
+      Name: TASK_STATUS.QouteDone,
+      Id: TASK_STATUS.QouteDone,
+      Classes: [],
+    },
+    {
+      Name: TASK_STATUS.Complete,
+      Id: TASK_STATUS.Complete,
+      Classes: [],
+    },
   ];
-  tab: TabModel = this.tabs[0];
+  tab?: TabModel = this.tabs[0];
   users: User[] = [];
-
-  grid = { 'grid-template-columns': '15% 20% 10% 10% 8% 10% 15% auto' };
+  status = 'All';
+  query = '';
+  // grid = { 'grid-template-columns': '15% 15% 10% 10% 8% 10% 15% auto' };
+  cols = 9;
+  grid = {
+    'grid-template-columns': `repeat(${this.cols},${100 / this.cols}%)`,
+  };
   headers = [
     'Customer',
     'Title',
     'Type',
+    'Created on',
     'Due Date',
-    'Time',
+    'Report',
     'Assigned to',
     'Status',
     'Actions',
@@ -65,6 +96,7 @@ export class TasksComponent implements OnInit {
   allTasks: TaskModel[] = [];
   items: ListItemModel[] = [];
   user?: User;
+  userId = 'All';
   constructor(
     private taskService: TaskService,
     private accountService: AccountService,
@@ -79,13 +111,28 @@ export class TasksComponent implements OnInit {
       if (data?.length) this.users = data;
     });
   }
-
+  userChaged() {
+    // this.uxService.updateUXState({Loading: true})
+    // this.load();
+    if (this.userId === 'All') {
+      this.tasks = this.allTasks;
+      this.mapItems();
+      return;
+    }
+    if (this.userId === 'Unallocated') {
+      this.tasks = this.allTasks.filter((x) => x.AssignedTo === '');
+      this.mapItems();
+    }else{
+      this.tasks = this.allTasks.filter((x) => x.AssignedTo === this.userId);
+      this.mapItems();
+    }
+  }
   load() {
     this.accountService.user.subscribe((data) => {
       this.user = data;
     });
 
-    this.taskService.list(2).subscribe((data) => {
+    this.taskService.list('','','','yes').subscribe((data) => {
       if (data && data.length) {
         if (this.user && this.user.UserType === 'Technician')
           data =
@@ -129,7 +176,7 @@ export class TasksComponent implements OnInit {
         },
         Col4: {
           Id: '',
-          Value: task.DueDate || 'Not set',
+          Value: task.CreateDate || 'Not set',
           Type: 'date',
           ShowOptions: false,
           Editing: false,
@@ -137,13 +184,21 @@ export class TasksComponent implements OnInit {
         },
         Col5: {
           Id: '',
-          Value: task.DueTime || 'Not set',
-          Type: 'time',
+          Value: task.DueDate || 'Not set',
+          Type: 'date',
           ShowOptions: false,
           Editing: false,
           Classes: [],
         },
         Col6: {
+          Id: '',
+          Value: task.Fsr?.Report || '---',
+          Type: 'text',
+          ShowOptions: false,
+          Editing: false,
+          Classes: [],
+        },
+        Col7: {
           Id: task.AssignedTo,
           Value: task.Assigned?.Name || 'Not Assigned',
           Type: 'user',
@@ -151,7 +206,7 @@ export class TasksComponent implements OnInit {
           Editing: false,
           Classes: [],
         },
-        Col7: {
+        Col8: {
           Id: '',
           Value: task.Status,
           Type: 'status',
@@ -159,8 +214,8 @@ export class TasksComponent implements OnInit {
           Editing: false,
           Classes: [getStatusClass(task.Status)],
         },
-        Col8: {
-          Id: task.TaskId+'',
+        Col9: {
+          Id: task.TaskId + '',
           Value: 'View Task',
           Type: 'action',
           ShowOptions: false,
@@ -180,7 +235,7 @@ export class TasksComponent implements OnInit {
     );
     if (!task || !event?.Value) return;
     if (event.Column.Type === 'date') task.DueDate = event.Column.Value || '';
-    if (event.Column.Type === 'time') task.DueTime = event.Column.Value || '';
+    if (event.Column.Type === 'time') task.AssignedTo2 = event.Column.Value || '';
     if (event.Column.Type === 'status') task.Status = event.Column.Value || '';
     if (event.Column.Type === 'task-type')
       task.TaskType = event.Column.Value || '';
@@ -193,7 +248,7 @@ export class TasksComponent implements OnInit {
     }
     if (event.Column.Type === 'action') {
       this.router.navigate(['/admin/task', event.Value.Id]);
-      return
+      return;
     }
 
     this.taskService.save(task).subscribe((r) => {
@@ -207,13 +262,17 @@ export class TasksComponent implements OnInit {
       });
     });
   }
-  changeTab(){
-    if(this.tab.Id === 'All'){
+  filterByStatus() {
+    this.tab = this.tabs.find((x) => x.Id === this.status);
+    if (!this.tab) return;
+    if (this.tab.Id === 'All') {
       this.tasks = this.allTasks;
       this.mapItems();
       return;
     }
-    this.tasks = this.allTasks.filter(x=>x.Status === this.tab.Id);
-    this.mapItems();
+    if (this.tab) {
+      this.tasks = this.allTasks.filter((x) => x.Status === this.tab?.Id);
+      this.mapItems();
+    }
   }
 }

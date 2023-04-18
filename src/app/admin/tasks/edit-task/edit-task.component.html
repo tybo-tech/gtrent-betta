@@ -1,0 +1,172 @@
+<app-back
+  [heading]="'Add Task'"
+  [pageName]="'Tasks'"
+  url="/admin/tasks"
+></app-back>
+
+<div class="task scroll" *ngIf="task">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group" *ngIf="customers">
+        <label for="name">Customer </label>
+        <div class="form-control">
+          <a
+            *ngIf="!customerName"
+            (click)="showCustomer = true"
+            class="link-primary"
+            >--Select Customer--
+          </a>
+          <a
+            *ngIf="customerName"
+            (click)="showCustomer = true"
+            class="link-primary"
+            >{{ customerName }}
+          </a>
+        </div>
+        <!-- <select
+          type="text"
+          [(ngModel)]="task.CustomerId"
+          (change)="loadMatchines()"
+          class="form-control"
+        >
+          <option value="" selected>--Select--</option>
+          <option [value]="item.CustomerId" *ngFor="let item of customers">
+            {{ item.Name }}
+          </option>
+        </select> -->
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="name">Compressor</label>
+        <div class="form-control">
+          <a
+            *ngIf="!machineName && customer"
+            (click)="showMachines = true"
+            class="link-primary"
+            >--Select Compressor--
+          </a>
+          <a
+            *ngIf="!machineName && !customer"
+            style="opacity: 0.3; cursor: no-drop"
+            class="link-primary"
+            >--Select Compressor--
+          </a>
+          <a
+            *ngIf="machineName"
+            (click)="showMachines = true"
+            class="link-primary"
+            >{{ machineName }}
+          </a>
+        </div>
+        <!-- <select type="text" [(ngModel)]="task.ComprossorId" class="form-control">
+          <option value="" selected>--Select--</option>
+          <option
+            [value]="item.MachineId"
+            *ngFor="let item of this.customer?.Machines"
+          >
+            {{ item.Model }}
+          </option>
+        </select> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="name">Title</label>
+        <input
+          type="text"
+          [(ngModel)]="task.Name"
+          class="form-control"
+          id="phone"
+          required
+        />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="name">Task Type</label>
+        <select type="" [(ngModel)]="task.TaskType" class="form-control">
+          <option value="" selected>--Select--</option>
+          <option [value]="item" *ngFor="let item of TASK_TYPES_LIST">
+            {{ item }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="name">Task Intructions</label>
+    <textarea
+      [(ngModel)]="task.Description"
+      class="form-control"
+      id="address"
+    ></textarea>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="name">Due Date</label>
+        <input
+          type="date"
+          [ngModel]="task.DueDate | date : 'yyyy-MM-dd'"
+          (ngModelChange)="task.DueDate = $event"
+          class="form-control"
+          id="phone"
+          required
+        />
+      </div>
+    </div>
+
+ 
+    <div class="col-md-4">
+      <div class="form-group" *ngIf="users">
+        <label for="name">Assigned  User</label>
+        <select type="text" [(ngModel)]="task.AssignedTo" class="form-control">
+          <option value="" selected>--Select--</option>
+          <option [value]="item.UserId" *ngFor="let item of users">
+            {{ item.Name }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="name">Assigned Another User</label>
+        <select type="text" [(ngModel)]="task.AssignedTo2" class="form-control">
+          <option value="" selected>--Select--</option>
+          <option [value]="item.UserId" *ngFor="let item of users">
+            {{ item.Name }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <button
+      type="submit"
+      [disabled]="!task.Name"
+      type="button"
+      (click)="save()"
+      class="btn btn-primary w-100"
+    >
+      Save
+    </button>
+  </div>
+</div>
+<app-customer-selector
+[customerId]="task?.CustomerId"
+  *ngIf="showCustomer"
+  (doneEvent)="customerSelectEvent($event)"
+></app-customer-selector>
+<app-compressor-selector
+  [customer]="customer"
+  *ngIf="showMachines && customer"
+  (doneEvent)="machineSelectEvent($event)"
+></app-compressor-selector>

@@ -7,7 +7,11 @@ import { User } from 'src/models/user.model';
 import { AccountService } from 'src/services/account.service';
 import { TaskService } from 'src/services/task.service';
 import { UxService } from 'src/services/ux.service';
-import { TASK_STATUS, TIMELINE_STATUS } from 'src/utits/constants';
+import {
+  TASK_STATUS,
+  TASK_TYPES_LIST,
+  TIMELINE_STATUS,
+} from 'src/utits/constants';
 import {
   calculateTimeElapsed,
   combineTimeDiff,
@@ -27,8 +31,11 @@ import {
 export class TimeTackerComponent implements OnInit {
   @Input() task?: TaskModel;
   @Input() user?: User;
+  @Input() disableActions = false;
   @Output() onStop = new EventEmitter<any>();
   @Output() onDelete = new EventEmitter<any>();
+  @Output() onSave = new EventEmitter<TaskModel>();
+  TASK_TYPES_LIST = TASK_TYPES_LIST;
 
   time = '00:00:00';
   showReasonFrom: boolean = false;
@@ -41,6 +48,7 @@ export class TimeTackerComponent implements OnInit {
   overallTimeElapsed?: TimeDiffModel;
   isTimeLineInProgress = false;
   intervalId: any;
+  showConfirmDeleteTask: boolean = false;
   constructor(
     private taskService: TaskService,
     private uxService: UxService,
@@ -53,6 +61,9 @@ export class TimeTackerComponent implements OnInit {
     });
     this.onLoad();
     this.isAdmin = this.user?.UserType === 'Admin';
+  }
+  saveTask() {
+    if (this.task) this.onSave.emit(this.task);
   }
   onLoad() {
     if (this.task) {
@@ -192,7 +203,7 @@ export class TimeTackerComponent implements OnInit {
 
   resumeTask() {
     if (!this.task) return;
-    if (this.task.Status === TASK_STATUS.RunningTestPaused) {
+    if (this.task && this.task.Status === TASK_STATUS.RunningTestPaused) {
       this.task.Status = TASK_STATUS.RunningTest;
       const timeline = this.taskService.initTimeLine(
         this.task.TimeLines.length
@@ -212,8 +223,9 @@ export class TimeTackerComponent implements OnInit {
       });
     }
     if (
-      this.task.Status === TASK_STATUS.Paused ||
-      this.task.Status === TASK_STATUS.QouteDone
+      this.task &&
+      (this.task.Status === TASK_STATUS.Paused ||
+        this.task.Status === TASK_STATUS.QouteDone)
     ) {
       this.task.Status = TASK_STATUS.InProgress;
       const timeline = this.taskService.initTimeLine(
@@ -234,5 +246,10 @@ export class TimeTackerComponent implements OnInit {
       });
     }
   }
-
+  doneConfirm(confirmation: boolean) {
+    if (confirmation) {
+      this.deleteTask();
+    }
+    this.showConfirmDeleteTask = false;
+  }
 }

@@ -4,10 +4,12 @@ import { OrderModel } from 'src/models/order.model';
 import { TaskModel } from 'src/models/task.model';
 import { User } from 'src/models/user.model';
 import { AccountService } from 'src/services/account.service';
+import { EmailService } from 'src/services/email.service';
 import { FsrService } from 'src/services/order.service';
 import { TaskService } from 'src/services/task.service';
 import { UxService } from 'src/services/ux.service';
 import { TASK_STATUS } from 'src/utits/constants';
+import { emailSig } from 'src/utits/email.helper';
 
 @Component({
   selector: 'app-task-modal',
@@ -26,6 +28,7 @@ export class TaskModalComponent implements OnInit {
     private accountService: AccountService,
     private activatedRoute: ActivatedRoute,
     private fsrService: FsrService,
+    private emailService: EmailService,
     private uxService: UxService,
     private router: Router,
     private taskService: TaskService
@@ -46,10 +49,21 @@ export class TaskModalComponent implements OnInit {
   ngOnInit(): void {}
 
   save() {
-    if (!this.task) return;
-    this.taskService.save(this.task).subscribe((data) => {
-      console.log(data);
-    });
+    if (this.task) {
+      this.uxService.updateUXState({
+        Loading: true,
+      });
+      this.taskService.save(this.task).subscribe((data) => {
+        this.uxService.updateUXState({
+          Loading: false,
+          Toast: {
+            Title: 'Task updated',
+            Message: ``,
+            Classes: ['_success'],
+          },
+        });
+      });
+    }
   }
   goToOrder(order: OrderModel) {
     this.router.navigate([`/admin/fsr`, order.OrdersId]);
@@ -63,7 +77,7 @@ export class TaskModalComponent implements OnInit {
         this.task.TimeLines.length
       );
       timeline.FinishDateTime = timeline.StarDateTime;
-      timeline.FinishReason = `${this.user?.Name || 'Admin'}  confirmed qoute`;
+      timeline.FinishReason = `${this.user?.Name || 'Admin'}  confirmed quote`;
       timeline.FinishStatus = TASK_STATUS.QouteDone;
       timeline.StartStatus = TASK_STATUS.WaitingForQoute;
       this.task.TimeLines.push(timeline);
@@ -78,6 +92,9 @@ export class TaskModalComponent implements OnInit {
               Classes: ['_success'],
             },
           });
+          if (this.task?.Assigned) this.sendAssignedEmail(this.task.Assigned);
+          if (this.task?.Assigned2) this.sendAssignedEmail(this.task.Assigned2);
+
           this.task = r;
           // this.onLoad();
         }
@@ -85,7 +102,44 @@ export class TaskModalComponent implements OnInit {
     }
   }
 
-  close(){
+  close() {
     this.closeEvent.emit();
+  }
+
+  sendAssignedEmail(to: User) {
+    if (!to) return;
+    let mail = to.Email;
+    if (to.AddressUrlWork && to.AddressUrlWork.includes('@')) {
+      mail += `,${to.AddressUrlWork}`;
+    }
+    this.emailService.sendQuickEmail(
+      `  <div style="font-family: Arial, Helvetica, sans-serif; padding: 20px; ">
+      Hi ${to.Name}  <br>
+
+       ${this.user?.Name} gave you a go ahead on ${this.task?.Name}. <br>
+
+      <a
+      href="https://gtrentapp.tybo.co.za/technician"
+      target="_blank"
+      style="
+        background: black;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border: none;
+        display: block;
+        width: fit-content;
+        margin-top: 2rem;
+        font-size: 9px;
+        border-radius: 5px;
+      "
+      >Go to my dashboard</a
+    >
+    ${emailSig()}
+      </div>
+      `,
+      mail,
+      to.Name,
+      'Gtrent: Task Assigned to you'
+    );
   }
 }

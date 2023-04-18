@@ -8,13 +8,15 @@ main {
     padding: 1rem;
     padding-bottom: 10rem;
     height: 94vh;
-    overflow-y: auto;
+    // overflow-y: auto;
+    overflow: hidden;
     width: 30rem;
     margin: 0 auto;
     border: 8px solid var(--black);
     margin: 2rem auto;
     border-radius: 1rem;
     background: var(--white);
+      transform: scale(1);
     @media screen and (max-width: 600px) {
       border: none;
       height: 100vh;

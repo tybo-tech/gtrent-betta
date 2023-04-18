@@ -1,26 +1,66 @@
 <ng-container *ngIf="customer">
-    <app-back
-  [heading]="customer.Name"
-  [pageName]="'Customers'"
-  url="/admin/customers"
-></app-back>
+  <app-back
+    [heading]="customer.Name"
+    [pageName]="'Customers'"
+    url="/admin/customers"
+  ></app-back>
 
-<div class="bg-white p-3 border-radius box-shadow">
-    <app-tabs [tabs]="tabs" (tabEvent)="tab= $event"></app-tabs>
-<br>
-<br>
-<app-customer-comprossors *ngIf="tab?.Id === 'compressors'" [machines]="customer.Machines || []" ></app-customer-comprossors>
-<app-customer-fsr *ngIf="tab?.Id === 'fsr'" [frs]="customer.Fsrs"></app-customer-fsr>
-<app-customer-reports *ngIf="tab?.Id === 'reports'"></app-customer-reports>
-<div *ngIf="tab?.Id === 'basic'">
-    <p>
-   <i class="bi bi-person"></i>   {{customer.Name || 'none'}}   <br>
-   <i class="bi bi-envelope"></i> {{customer.Email || 'none'}} <br>
-   <i class="bi bi-phone"></i>  {{customer.Surname || 'none'}} {{customer.PhoneNumber}} <br>
-   <i class="bi bi-geo-alt"></i>  {{customer.AddressLineHome || 'none'}} <br> <br>
-   <a class="link-success" [routerLink]="'/admin/customer-form/'+customer.CustomerId">Edit</a>
-    </p>
-</div>
-</div>
-<!-- <pre>{{customer | json}}</pre> -->
+  <div class="bg-white p-3 border-radius box-shadow">
+    <app-tabs [tabs]="tabs" (tabEvent)="tab = $event"></app-tabs>
+    <br />
+    <br />
+    <app-customer-comprossors
+      *ngIf="tab?.Id === 'compressors'"
+      [machines]="customer.Machines || []"
+      [customer]="customer"
+    ></app-customer-comprossors>
+    <app-customer-fsr
+      *ngIf="tab?.Id === 'fsr'"
+      [tasks]="customer.Fsrs"
+      [backTo]="''+customer.CustomerId"
+    ></app-customer-fsr>
+    <app-customer-reports *ngIf="tab?.Id === 'reports'"></app-customer-reports>
+    <div *ngIf="tab?.Id === 'basic'">
+      <p>
+        <i class="bi bi-person"></i> {{ customer.Name || "none" }} <br />
+        <i class="bi bi-envelope"></i> {{ customer.Email || "none" }} <br />
+        <i class="bi bi-phone"></i> {{ customer.Surname || "none" }}
+        {{ customer.PhoneNumber }} <br />
+        <i class="bi bi-geo-alt"></i> {{ customer.AddressLineHome || "none" }}
+        <br />
+        <br />
+        <a
+          class="btn btn-dark mr-2"
+          (click)="editCustomer = true"
+          ><i class="bi bi-pen"></i> Edit</a
+        >
+        <a
+          class="btn btn-danger mr-2"
+          (click)="confirmDelete = true"
+          ><i class="bi bi-trash"></i> Delete customer</a
+        >
+   
+      </p>
+    </div>
+  </div>
+  <!-- <pre>{{customer | json}}</pre> -->
 </ng-container>
+
+
+<app-customer-edit-modal
+  (closeEvent)="editCustomer = false"
+  (doneEvent)="customerDone($event)"
+  *ngIf="customer && editCustomer"
+  [customerId]="customer.CustomerId || ''"
+></app-customer-edit-modal>
+
+
+<app-confirm
+  *ngIf="confirmDelete && customer"
+  heading="You about to delete a customer."
+  body="This action can not be undone!"
+  yesAction="Delete Customer"
+  noAction="Cancel this action"
+  theClass="bi bi-exclamation-diamond-fill _danger"
+  (doneEvent)="customer.StatusId = 99; save()"
+></app-confirm>

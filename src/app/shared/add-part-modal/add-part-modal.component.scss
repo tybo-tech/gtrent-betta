@@ -1,0 +1,39 @@
+._overlay{
+  z-index: 10000000000000000 ;
+
+}
+._modal1 {
+    max-width: 96%;
+    min-width: 96%;
+    display: block;
+    position: fixed;
+    height: 98%;
+    overflow: hidden;
+    padding: 0;
+  
+    .innner-flex {
+      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 0;
+      max-height: 65vh;
+      overflow: auto;
+      padding: 1rem;
+    }
+  }
+  
+  .form {
+    width: 100%;
+  }
+  
+  .parts {
+    border-top: 1px solid rgb(190, 190, 190);
+    padding: 0;
+    padding-left: 2rem;
+    height: 100%;
+    display: block;
+    width: 100%;
+    padding-top: 1rem;
+  }
+  
+  

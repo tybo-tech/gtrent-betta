@@ -1,0 +1,45 @@
+._modal1 {
+    max-width: 96%;
+    min-width: 96%;
+    display: block;
+    position: fixed;
+    z-index: 10000000000000000000;
+    height: 98%;
+    overflow: hidden;
+    padding: 0;
+  
+    .innner-flex {
+      gap: 1rem;
+      display: block;
+      padding: 2rem 0;
+      max-height: 89vh;
+      overflow: auto;
+      padding: 1rem;
+      padding-bottom: 8rem;
+    }
+  }
+  
+  .form {
+    width: 100%;
+  }
+  
+  .parts {
+    // border-top: 1px solid rgb(190, 190, 190);
+    padding: 0;
+    padding-left: 2rem;
+    height: 100%;
+    display: block;
+    width: 100%;
+    padding-top: 1rem;
+  }
+  
+  .p-1-1{
+    padding: .2rem .85rem;
+  }
+  .ml-2{
+    margin-left: 1rem;
+   
+  }
+  .pp2{
+    padding: .4rem .8rem !important;
+  }

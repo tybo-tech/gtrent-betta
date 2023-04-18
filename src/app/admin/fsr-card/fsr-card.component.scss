@@ -44,3 +44,25 @@ img{
     background: var(--cloud) !important;
     border-radius: 5px;
 }
+
+.images{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--cloud);
+    z-index: 10000;
+    padding: 1rem;
+    overflow-y: auto;
+    img{
+        width:100%;
+        margin: 2%;
+        border: 1px solid var(--grey);
+        margin: 1rem;
+        box-shadow:var(--box-shadow) ;
+    }
+}
+.pointer:hover{
+    background: rgb(238, 255, 240) !important;
+}

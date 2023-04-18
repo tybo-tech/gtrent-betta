@@ -1,3 +1,17 @@
+<div class="d-flex justify-content-between box-shadow border-radius p-3">
+  <div>
+    <input
+      type="search"
+      placeholder="Filter by title"
+      class="form-control border-radius"
+    />
+  </div>
+  <div>
+    <a class="btn btn-primary border-radius" (click)="showAdd = true; machineId='add'"
+      >Add compressor</a
+    >
+  </div>
+</div>
 <app-headers [grid]="grid" [headers]="headers"></app-headers>
 <div class="task" *ngFor="let item of items">
   <app-list-item
@@ -6,3 +20,11 @@
     (rowEvent)="rowEvent($event)"
   ></app-list-item>
 </div>
+
+<app-compressor
+  [companyId]="customer.CustomerId || ''"
+  [machineId]="machineId"
+  *ngIf="showAdd && customer"
+  (closeEvent)="closeEvent()"
+  (doneEvent)="doneEvent($event)"
+></app-compressor>

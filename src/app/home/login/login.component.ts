@@ -23,9 +23,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  @HostListener('window:keyup.enter')
-  handleKey() {
-    this.login();
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if (event.code === 'NumpadEnter' || event.code === 'Enter') {
+      this.login();
+    }
   }
   login() {
     this.error = '';
@@ -37,10 +39,16 @@ export class LoginComponent implements OnInit {
       this.error = 'Please enter your password.';
       return;
     }
+    this.uxService.updateUXState({
+      Loading: true,
+    });
     this.accountService
       .login({ email: this.email, password: this.password })
       .subscribe((user) => {
         if (user && user.UserId) {
+          this.uxService.updateUXState({
+            Loading: false,
+          });
           this.error = '';
           this.accountService.updateUserState(user);
           if (roles.Admin === user.UserType) this.routeTo.navigate(['admin']);

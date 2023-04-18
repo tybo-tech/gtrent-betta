@@ -1,0 +1,91 @@
+<div class="_overlay" *ngIf="task">
+    <div class="_modal1">
+      <div
+        class="_header box-shadow border-radius p-3 d-flex justify-content-between align-items-center"
+      >
+        <h5>Select Parts</h5>
+        <i class="bi bi-x-lg pointer" (click)="back()"></i>
+      </div>
+  
+      <div class="scroll">
+        <table class="table">
+          <thead *ngIf="task.Machine?.Parts">
+            <tr>
+              <th>Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let part of task.Machine?.Parts">
+              <td>{{ part.ProductName }}</td>
+              <td align="right">
+                <button *ngIf="!part.Selected"  (click)="part.Selected = true; select(part)"
+                  style="
+                    width: fit-content;
+                    font-size: 0.7rem;
+                    padding: 0.2rem 0.6rem;
+                    background: #cdfac1;
+                    color: black;
+                  "
+                  class="btn btn-primary"
+                >
+                  Select
+                </button>
+
+                <button *ngIf="part.Selected" (click)="part.Selected = false; select(part)"
+                  style="
+                    width: fit-content;
+                    font-size: 0.7rem;
+                    padding: 0.2rem 0.6rem;
+                    background: #e2e6e1;
+                    color: black;
+                  "
+                  class="btn btn-primary"
+                >
+                <i class="bi bi-check"></i>  Selected
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="!task.Machine?.Parts?.length">
+              <td colspan="2">
+                <div class="alert alert-warning" role="alert">
+                  No parts linked to this compressor.
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" *ngIf="!task.Machine?.Parts?.length">
+                <button (click)="showAddParts = true"    class="btn btn-dark w-100 p-1">
+                  <i class="bi bi-plus"></i> Link parts from part list
+                </button>
+              </td>
+              <td colspan="2" *ngIf="task.Machine?.Parts?.length">
+                <button (click)="showAddParts = true"  class="btn btn-dark w-100 p-1">
+                  <i class="bi bi-plus"></i> Link more parts from part list
+                </button>
+              </td>
+            </tr>
+            <tr>
+            
+              <td colspan="2">
+                <button (click)="back()"  class="btn btn-primary  w-100 mt-5 p-3">
+                 Finish selecting parts
+                </button>
+              </td>
+            </tr>
+           
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <app-tech-compressor-parts-add
+    *ngIf="task && task.Machine && showAddParts"
+    (closeEvent)="showAddParts = false"
+    (doneEvent)="savePart($event)"
+    (removeEvent)="removeEvent($event)"
+    [machine]="task.Machine"
+  ></app-tech-compressor-parts-add>
+  
+  

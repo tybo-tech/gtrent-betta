@@ -11,7 +11,7 @@
       <option
         [value]="item"
         *ngFor="
-          let item of ['All', 'Filter by sigle date', 'Filter by date range']
+          let item of ['All', 'Filter by single date', 'Filter by date range']
         "
       >
         {{ item }}
@@ -22,7 +22,7 @@
   <div
     class="_col"
     *ngIf="
-      filterBy === 'Filter by date range' || filterBy === 'Filter by sigle date'
+      filterBy === 'Filter by date range' || filterBy === 'Filter by single date'
     "
   >
     <input
@@ -33,8 +33,8 @@
     />
   </div>
 
-  <div class="_col" *ngIf="filterBy === 'Filter by sigle date'">Or</div>
-  <div class="_col" *ngIf="filterBy === 'Filter by sigle date'">
+  <div class="_col" *ngIf="filterBy === 'Filter by single date'">Or</div>
+  <div class="_col" *ngIf="filterBy === 'Filter by single date'">
     <select
       name=""
       [(ngModel)]="filterDate"
@@ -45,18 +45,7 @@
       <option [value]="item" *ngFor="let item of dates">{{ item }}</option>
     </select>
   </div>
-  <div class="_col" *ngIf="users?.length">
-    <select
-      name=""
-      [(ngModel)]="userId"
-      (change)="userChaged()"
-      class="form-select"
-      id=""
-    >
-    <option value="">Any user</option>
-      <option [value]="user.UserId" *ngFor="let user of users">{{ user.Name }}</option>
-    </select>
-  </div>
+ 
 
   <div class="_col" *ngIf="filterBy === 'Filter by date range'">
     <i class="bi bi-arrow-right"></i>
@@ -70,19 +59,33 @@
       class="form-control"
     />
   </div>
+
+  <div class="_col" *ngIf="users?.length">
+    <select
+      name=""
+      [(ngModel)]="userId"
+      (change)="userChaged()"
+      class="form-select"
+      id=""
+    >
+    <option value="">All users</option>
+    <option value="Unallocated">Unallocated</option>
+      <option [value]="user.UserId" *ngFor="let user of users">{{ user.Name }}</option>
+    </select>
+  </div>
 </div>
 <div [ngStyle]="grid" class="_grid border-radius box-shadow">
   <div
     class="box-shadow border-radius status-card"
     *ngFor="let group of groups"
   >
-    <h6>
+    <h6  [ngClass]="group.Classes">
       {{ group.Status }}
       <span class="badge badge-pill badge-dark">{{ group.Tasks.length }}</span>
     </h6>
     <div class="tasks">
       <div
-        class="task box-shadow border-radius"
+        class="task box-shadow border-radius" [ngClass]="task.CardStatusClass"
         *ngFor="let task of group.Tasks"
         (click)="select(task)"
       >
@@ -92,7 +95,7 @@
         </p>
         <p class="due-date">
            <i class="bt=i bi-clock blue"> Due:</i>
-          {{ task.DueDate | date : "mediumDate" }} {{ task.DueTime }}
+          {{ task.DueDate | date : "mediumDate" }} 
         </p>
         <h5 *ngIf="task.Customer" class="customer">
           <i class="bi bi-building-fill"></i> {{ task.Customer.Name }}
@@ -108,8 +111,9 @@
             {{ task.Comments.length }} <i class="bi bi-chat-dots"></i>
           </span>
 
-          <div class="users" *ngIf="task.Assigned">
-            <img [src]="task.Assigned.Dp" alt="" />
+          <div class="users" *ngIf="task.Assigned || task.Assigned2">
+            <img *ngIf="task.Assigned" [src]="task.Assigned.Dp" alt="" />
+            <img *ngIf="task.Assigned2" [src]="task.Assigned2.Dp" alt="" />
           </div>
         </div>
       </div>

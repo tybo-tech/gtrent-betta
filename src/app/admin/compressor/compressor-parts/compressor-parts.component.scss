@@ -1,0 +1,29 @@
+.table th,
+.table td {
+  padding: 0.5rem 0;
+  padding-right: 2rem;
+}
+.table td {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.table {
+  width: 100%;
+  td,
+  th {
+    padding: 0.5rem 0;
+    padding-right: 2rem;
+  }
+  td {
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+}
+h4 {
+  padding-bottom: 3rem;
+}
+
+.scroll {
+  max-height: 55vh;
+  padding-bottom: 3rem;
+}

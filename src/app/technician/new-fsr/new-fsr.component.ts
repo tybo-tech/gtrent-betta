@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { formatEmail } from 'src/app/shared/helpers/task.helper';
+import { isTaskComplete } from 'src/app/shared/helpers/task.helper';
+import { Customer } from 'src/models/customer.model';
 import { Email } from 'src/models/email.model';
 import { OrderModel } from 'src/models/order.model';
 import { TaskModel, TimeLineModel } from 'src/models/task.model';
@@ -17,7 +18,11 @@ import {
   TASK_TYPES,
   TIMELINE_STATUS,
 } from 'src/utits/constants';
-import { getAdminEmail, sendEmailToCustomer } from 'src/utits/email.helper';
+import {
+  formatEmail,
+  getAdminEmail,
+  sendEmailToCustomer,
+} from 'src/utits/email.helper';
 
 @Component({
   selector: 'app-new-fsr',
@@ -28,28 +33,31 @@ export class NewFsrComponent implements OnInit {
   user?: User;
   taskId = 0;
   editWorkDone = false;
+  editReport = false;
   editReference = false;
   editConsumables = false;
   editLabour = false;
   editDistanceTravelled = false;
   selectParts = false;
   customerSigniture = false;
+  showImages = false;
   technicainSigniture = false;
   isWorkShopFsr = false;
   totalPartsUsed = 0;
   TASK_TYPES = TASK_TYPES;
   TASK_STATUS = TASK_STATUS;
-  TIMELINE_STATUS =TIMELINE_STATUS;
+  TIMELINE_STATUS = TIMELINE_STATUS;
   emailCustomer?: string;
   emailAdmin?: string;
   task?: TaskModel;
   timeLine?: TimeLineModel;
   showConfirmStop: boolean = false;
-
+  editCustomer: boolean = false;
+  canStopTask = false;
   constructor(
-    private accountService: AccountService,
     private router: Router,
     private taskService: TaskService,
+    private accountService: AccountService,
     private activatedRoute: ActivatedRoute,
     private emailService: EmailService,
     private uxService: UxService
@@ -60,12 +68,44 @@ export class NewFsrComponent implements OnInit {
       if (this.taskId) this.getTask();
     });
   }
+
   getTask() {
     this.taskService.get(this.taskId).subscribe((data) => {
       if (data && data.TaskId) {
         this.afterLoad(data);
+        this.checkIfCanStop();
+        // this.sendAdminEmail();
+
+        // if(this.task){
+        //   this.emailCustomer = sendEmailToCustomer(this.task);
+        //   if (this.emailCustomer && this.task.Customer?.Email && !this.isWorkShopFsr)
+        //     this.sendEmail(
+        //       this.emailCustomer,
+        //       'FSR Summary report for customer',
+        //       this.task.Customer.Email,
+        //       this.task.Customer.Name
+        //     );
+        // }
       }
     });
+  }
+  checkIfCanStop() {
+    this.canStopTask = true;
+    if (!this.task) {
+      this.canStopTask = false;
+      return;
+    }
+    const check1 = isTaskComplete(this.task);
+  }
+  sendAdminEmail() {
+    if (this.task) this.emailAdmin = getAdminEmail(this.task);
+    if (this.emailAdmin)
+      this.sendEmail(
+        this.emailAdmin,
+        'FSR Summary report for admin',
+        COMPANY_EMIAL,
+        'Admin'
+      );
   }
   afterLoad(data: TaskModel) {
     this.task = data;
@@ -76,8 +116,18 @@ export class NewFsrComponent implements OnInit {
     this.task.Fsr.PartsUsed.forEach((o) => {
       this.totalPartsUsed += Number(o.Quantity);
     });
+    if (!this.task.Loaction) this.task.Loaction = [];
+    this.task.Loaction = this.task.Loaction.filter((x) => x !== '');
   }
-
+  partsEvent(e: any) {
+    if (this.task) {
+      this.totalPartsUsed = 0;
+      this.task.Fsr.PartsUsed = e;
+      this.task.Fsr.PartsUsed.forEach((o) => {
+        this.totalPartsUsed += Number(o.Quantity);
+      });
+    }
+  }
   ngOnInit(): void {}
 
   openCustomerMenu() {}
@@ -148,7 +198,12 @@ export class NewFsrComponent implements OnInit {
       }
     });
   }
-
+  customerEvent(c: Customer) {
+    if (c && this.task) {
+      this.task.Customer = c;
+      this.editCustomer = false;
+    }
+  }
   stopTask() {
     if (this.task) this.selectTimeline();
     if (!this.task || !this.timeLine) return;
@@ -176,5 +231,17 @@ export class NewFsrComponent implements OnInit {
   doneEvent(e: any) {
     if (e) this.stopTask();
     this.showConfirmStop = false;
+  }
+  imageChangedEvent(e: string, index: number) {
+    if (this.task) {
+      if (!this.task.Loaction) this.task.Loaction = [];
+      this.task.Loaction = this.task.Loaction.filter((x) => x !== '');
+      if (index === -1) {
+        this.task.Loaction.push(e);
+      } else {
+        this.task.Loaction.splice(index, 1);
+      }
+      this.save();
+    }
   }
 }

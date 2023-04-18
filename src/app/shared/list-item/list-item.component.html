@@ -60,5 +60,21 @@
     >
       <app-col-item (colEvent)="colEvent($event)" [col]="item.Col8"></app-col-item>
     </p>
+
+    <p
+    *ngIf="item.Col9"
+    (click)="rowClick(item.Col9)"
+    (mouseleave)="doneEditing(item.Col9)"
+  >
+    <app-col-item (colEvent)="colEvent($event)" [col]="item.Col9"></app-col-item>
+  </p>
+
+  <p
+  *ngIf="item.Col10"
+  (click)="rowClick(item.Col10)"
+  (mouseleave)="doneEditing(item.Col10)"
+>
+  <app-col-item (colEvent)="colEvent($event)" [col]="item.Col10"></app-col-item>
+</p>
   </div>
 </ng-container>

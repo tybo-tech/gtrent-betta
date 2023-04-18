@@ -1,15 +1,53 @@
 <app-back [heading]="'Parts'" [pageName]="'Dashboard'" url="/admin"></app-back>
 
-<div class="items box-shadow border-radius bg-white" *ngIf="items.length">
-  <app-headers [grid]="grid" [headers]="headers"></app-headers>
-  <hr />
-  <div class="scroll">
-    <div class="task" *ngFor="let item of items">
+<div class="items box-shadow border-radius bg-white" *ngIf="products.length">
+  <div class="row p-2">
+    <div class="col-md-10">
+      <input
+        type="search"
+        placeholder="Search by name"
+        class="form-control"
+        [(ngModel)]="name"
+      />
+    </div>
+
+    <div class="col-md-2">
+      <a (click)="addPart = 'add'" class="btn btn-primary">Add Part</a>
+    </div>
+  </div>
+  <div class="scroll p-3">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Customers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="task" *ngFor="let product of products | searchparts: name">
+          <td>
+            {{ product.Name }}
+          </td>
+          <td>
+            {{ product.ProductType }}
+          </td>
+          <td>
+            {{ product.CustomerName }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--     
+    <div class="task" *ngFor="let item of items ">
       <app-list-item
         [item]="item"
         [grid]="grid"
         (rowEvent)="rowEvent($event)"
       ></app-list-item>
-    </div>
+    </div> -->
   </div>
 </div>
+
+
+<app-add-part-modal *ngIf="addPart" [action]="addPart" (onValueChanged)="onValueChanged($event)"></app-add-part-modal>

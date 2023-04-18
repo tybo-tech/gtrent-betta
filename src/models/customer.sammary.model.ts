@@ -8,4 +8,5 @@
       StatusId: string;
       Machines: string;
       FsrCount: string;
+      Selected?: boolean; 
   }

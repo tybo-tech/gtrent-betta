@@ -40,7 +40,7 @@ export class ImageWidgetComponent implements OnInit {
     }
     this.loading = true;
     Array.from(files).forEach(file => {
-      if (file.size < 200000000)
+      if (file.size < 200000)
         this.uploadOriginal(file)
       else
         this.resizeImage(file);
@@ -88,6 +88,8 @@ export class ImageWidgetComponent implements OnInit {
           let formData = new FormData();
           formData.append('file', fileOfBlob);
           formData.append('name', 'iio');
+          this.loading = true;
+
           this.uploadService.uploadFile(formData).subscribe(response => {
             this.loading = false;
 

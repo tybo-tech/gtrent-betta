@@ -27,7 +27,7 @@ export class AllTasksComponent implements OnInit {
       this.user = data;
     });
 
-    this.taskService.list(2).subscribe((data) => {
+    this.taskService.list().subscribe((data) => {
       if (data && data.length) {
         if (this.user && this.user.UserType === 'Technician')
           data = this.user?.UserId && data.filter((x) => x.AssignedTo === this.user?.UserId) || [];

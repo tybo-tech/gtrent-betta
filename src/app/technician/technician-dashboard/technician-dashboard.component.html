@@ -1,39 +1,25 @@
-<div class="" *ngIf="user && allTasks.length">
+<div class="" *ngIf="user && allTasks">
   <h2 class="d-flex justify-content-between align-items-center _h1">
-    My dashboard
-    <a class="link-danger pointer" (click)="logout()"
-      ><i class="bi bi-box-arrow-in-left"></i>Logout</a
+    <span class="d-flex gap-2 align-items-center">
+      <button (click)="showMenu = true" class="btn btn-dark menu-btn">
+        <i class="bi bi-list"></i>
+      </button>
+      <span>My dashboard</span>
+    </span>
+    <a
+      class="btn btn-primary"
+      routerLink="/technician/chats"
+      style="padding: 0.4rem 0.8rem; border-radius: 40px"
+      ><i class="bi bi-chat-dots"></i
     >
+    <span style="margin-left: .4rem; padding-inline: .6rem;" *ngIf="user && user.ChatCount" class="count">{{user.ChatCount}}</span>
+
+  </a>
   </h2>
-  <app-technicain-task-board  (openMenuEvent)="onOpenMenuEvent($event)" [user]="user"></app-technicain-task-board>
-  <!-- <div class="grid">
-    <input
-      type="search"
-      class="form-control"
-      [(ngModel)]="status"
-      placeholder="Search tasks"
-    />
-    <select
-      type="search"
-      class="form-control"
-      [(ngModel)]="status"
-      placeholder="Search tasks"
-    >
-      <option [value]="item" *ngFor="let item of TASK_STATUS_LIST">
-        {{ item }}
-      </option>
-    </select>
-  </div>
-  <div class="d-flex justify-content-center align-items-center fiters">
-    <button *ngFor="let item of statusFilter" [ngClass]="item.Classes">
-      {{ item.Name }}
-    </button>
-  </div>
-  <app-task-groups
+  <app-technicain-task-board
     (openMenuEvent)="onOpenMenuEvent($event)"
-    [tasks]="allTasks"
-    (taskGroupEvent)="currentTask = $event"
-  ></app-task-groups> -->
+    [user]="user"
+  ></app-technicain-task-board>
 </div>
 
 <app-task-menu
@@ -42,3 +28,27 @@
   *ngIf="task && task.OpenMenu"
   (closeMenuEvent)="task.OpenMenu = false"
 ></app-task-menu>
+
+<div class="menu--1 border-radius box-shadow" *ngIf="showMenu">
+  <div class="d-flex justify-content-between align-items-center bb-1 pb-2">
+    <h3 class="text-white">Menu</h3>
+    <button (click)="showMenu = false" class="btn btn-dark menu-btn">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <div class="_list">
+    <a routerLink="/technician/customers" class="link-light"
+      ><i class="bi bi-people"></i>Customers</a
+    >
+    <a routerLink="/technician/qoutes" class="link-light"
+      ><i class="bi bi-cart"></i> Quotes</a
+    >
+    <a routerLink="/technician/qoute/add" class="link-light"
+      ><i class="bi bi-cart"></i>Create Quote</a
+    >
+    <a class="link-light" (click)="logout()"
+      ><i class="bi bi-box-arrow-in-left"></i>Logout</a
+    >
+  </div>
+</div>

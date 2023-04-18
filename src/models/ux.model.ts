@@ -11,7 +11,7 @@ export interface ToastModel {
 }
 
 export interface ITab {
-  Id: string;
+  Id: any;
   Name: string;
   Classes: string[];
 }

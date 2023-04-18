@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  gatTaskCardStatus,
   groupTaskByStatus,
   loadTaskDates,
 } from 'src/app/shared/helpers/task.helper';
@@ -57,7 +58,7 @@ export class TaskBoardComponent implements OnInit {
     this.task = task;
   }
   filterByChanged() {
-    if (this.filterBy === 'Filter by sigle date') {
+    if (this.filterBy === 'Filter by single date') {
       this.filterDate2 = '';
       this.load();
     }
@@ -68,22 +69,25 @@ export class TaskBoardComponent implements OnInit {
     }
   }
   dateChnaged() {
+    this.uxService.updateUXState({Loading: true})
     this.load();
   }
   userChaged() {
+    this.uxService.updateUXState({Loading: true})
     this.load();
   }
   load() {
     // this.uxService.updateUXState({Loading: true})
     this.taskService
-      .list(2, this.filterDate, this.filterDate2, this.userId)
+      .list(this.filterDate, this.filterDate2, this.userId)
       .subscribe((data) => {
-        // this.uxService.updateUXState({Loading: false})
+        this.uxService.updateUXState({Loading: false})
 
         this.tasks = data || [];
         if (this.filterBy === 'All') {
           this.dates = loadTaskDates(this.tasks);
         }
+        gatTaskCardStatus(this.tasks);
         this.groups = groupTaskByStatus(this.tasks).filter(
           (x) => x.Tasks.length
         );
@@ -91,8 +95,13 @@ export class TaskBoardComponent implements OnInit {
           this.grid = {
             'grid-template-columns': `repeat(${this.groups.length},${
               96 / Number(this.groups.length)
-            }%)`,
+            }rem)`,
           };
+          // this.grid = {
+          //   'grid-template-columns': `repeat(${this.groups.length},${
+          //     96 / Number(this.groups.length)
+          //   }%)`,
+          // };
         }
       });
   }

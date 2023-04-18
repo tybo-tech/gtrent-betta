@@ -1,0 +1,35 @@
+<div class="__main" *ngIf="machine?.Parts">
+    <!-- <h4>Parts</h4> -->
+  
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let part of machine?.Parts">
+            <td>{{ part.ProductName }}</td>
+            <td>{{ part.ProductType }}</td>
+            <td>
+              <button class="btn btn-danger p-1" (click)="removeParts(part)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <button class="btn btn-dark" (click)="addPart()">
+      <i class="bi bi-plus"></i> Add part
+    </button>
+  </div>
+  <app-tech-compressor-parts-add
+    *ngIf="machine && showAddParts"
+    (closeEvent)="showAddParts = false"
+    (doneEvent)="savePart($event)"
+    (removeEvent)="removeEvent($event)"
+    [machine]="machine"
+  ></app-tech-compressor-parts-add>
+  

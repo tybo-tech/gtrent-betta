@@ -1,0 +1,9 @@
+.task{
+    background: var(--white);
+    padding: 3rem;
+    max-width: 60rem;
+    @media screen and (max-width: 600px) {
+        padding: .5rem;
+        max-width: none;
+      }
+}

@@ -1,0 +1,50 @@
+<div class="compressor-add-parts bg-white box-shadow border-radius p-3">
+  <div
+    class="_header box-shadow border-radius p-3 d-flex justify-content-between align-items-center"
+  >
+    <h6>Select parts</h6>
+    <i class="bi bi-x-lg pointer" (click)="close()"></i>
+  </div>
+
+  <div class="scroll" *ngIf="products && products?.length">
+    <div class="d-flex align-items-center search gap-2  mb-4">
+      <input style="width: 70%; background: rgb(124, 255, 124);"
+        type="search"
+        class="form-control p-2"
+        [(ngModel)]="searchString"
+        placeholder="🔎 Filter by name"
+      />
+
+      <button class="btn btn-primary" (click)="addPart = 'add'"><i class="bi bi-plus"></i> new part</button>
+    </div>
+    <div
+      class="part"
+      *ngFor="
+        let item of products | searchproduct : searchString;
+        let i = index
+      "
+    >
+      <!-- <pre>{{products | json}}</pre> -->
+      <div class="d-flex justify-content-between align-items-center _item">
+        <p>{{ item.Name }}</p>
+        <button
+          class="btn btn-primary"
+          *ngIf="!item.Selected"
+          (click)="selectPart(item)"
+        >
+          Select
+        </button>
+        <button
+          class="btn btn-dark"
+          *ngIf="item.Selected"
+          (click)="selectPart(item)"
+        >
+          Selected
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-add-part-modal *ngIf="addPart" [action]="addPart" (onValueChanged)="onValueChanged($event)"></app-add-part-modal>
+<!-- <pre>{{machine | json}}</pre>
+<app-compressor-add-parts *ngIf="machine" [machine]="machine"></app-compressor-add-parts> -->

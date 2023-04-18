@@ -1,6 +1,8 @@
 import { TimeDiffModel } from 'src/models/shared.model';
 import { TaskModel } from 'src/models/task.model';
 import { TASK_STATUS, TIMELINE_STATUS } from 'src/utits/constants';
+import { getStatusClass } from './task.helper';
+const weekday = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export const getTimeSpentOnaTask = (date: Date): string => {
   let time = '';
@@ -21,6 +23,13 @@ export const formatToTwoDigits = (a: number): string => {
   let d = a.toString();
   if (d.length === 1) d = '0' + d;
   return d;
+};
+export const formatDate = (a: Date): string => {
+  let y = a.getFullYear();
+  let m = formatToTwoDigits(a.getMonth() + 1);
+  let d = formatToTwoDigits(a.getDate());
+
+  return `${y}-${m}-${d}`;
 };
 export const calculateTimeElapsed = (task: TaskModel): TimeDiffModel => {
   // debugger
@@ -108,3 +117,101 @@ export const getTimeDiffAndPrettyText = (
   timePassed.seconds = Math.floor(nDiff / 1000);
   return timePassed;
 };
+
+export const getDaysArray = function (start: Date, end: Date) {
+  const arr: IYearDates[] = [];
+  for (
+    let dt = new Date(start);
+    dt <= new Date(end);
+    dt.setDate(dt.getDate() + 1)
+  ) {
+    const d = new Date(dt);
+    arr.push({
+      fullDate: formatDate(d),
+      day: getDayName(d),
+      week: getWeekFor(d),
+    });
+  }
+  return arr;
+};
+
+export const getGroupWeeks = (
+  allWekks: IYearDates[],
+  tasks: TaskModel[]
+): IWeekGroup[] => {
+  const weeks = [...new Set(allWekks.map((x) => x.week))];
+  let items: IWeekGroup[] = [];
+  const currentWeek = getWeekFor(new Date());
+  tasks.map((x) => (x.StatusClass = [getStatusClass(x.Status)]));
+
+  weeks.forEach((week) => {
+    let days: IDayGroup[] = [];
+    allWekks
+      .filter((x) => x.week === week)
+      .forEach((d) => {
+        days.push({
+          Active: false,
+          Tasks: tasks.filter(t=>t.DueDate === d.fullDate),
+          AllTasks: tasks.filter(t=>t.DueDate === d.fullDate),
+          Classes: [],
+          Week: week,
+          FullDate: d.fullDate,
+          DayName: d.day,
+          Date: new Date(d.fullDate)?.getDate(),
+        });
+        // console.log(tasks.filter(t=>t.DueDate === d.fullDate));
+        
+      });
+    items.push({
+      Active: Number(week) === currentWeek,
+      Classes: [],
+      Days: days,
+      Week: week,
+      WeekName:  `Week of ${days[0]?.FullDate} to ${days[days.length-1]?.FullDate}`,
+      WeekName1:  `${days[0]?.FullDate}`,
+      WeekName2:  `${days[days.length-1]?.FullDate}`,
+    });
+  });
+  console.log(items.find(x=>x.Active));
+  console.log(items);
+  return items;
+};
+
+export const getDayName = (date: Date): string => {
+  return weekday[date.getDay()];
+};
+
+const getWeekFor = (date: Date) => {
+  const d = new Date(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+  );
+  const dayNum = d.getUTCDay() || 7;
+  const utc = new Date(d.setUTCDate(d.getUTCDate() + 4 - dayNum));
+  const yearStart = new Date(Date.UTC(utc.getUTCFullYear(), 0, 1)).getTime();
+  return Math.ceil(((d.getTime() - yearStart) / 86400000 + 1) / 7);
+};
+
+export interface IYearDates {
+  fullDate: string;
+  week: number;
+  day: string;
+}
+export interface IWeekGroup {
+  Week: number;
+  WeekName: string;
+  WeekName1: string;
+  WeekName2: string;
+  Active: boolean;
+  Classes: string[];
+  Days: IDayGroup[];
+}
+export interface IDayGroup {
+  Week: number;
+  DayName: string;
+  FullDate: string;
+  Date: number;
+  Active: boolean;
+  Classes: string[];
+  Tasks: TaskModel[];
+  AllTasks: TaskModel[];
+}

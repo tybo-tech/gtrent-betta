@@ -1,0 +1,42 @@
+<app-back
+  [heading]="'Customer list'"
+  [pageName]="'Customers'"
+  url="/technician"
+></app-back>
+<div class="d-flex gap-2">
+    <input [(ngModel)]="query" type="search" placeholder="Search by name" class="form-control w-75">
+    <button class="btn btn-dark" (click)="addCustomer = 'add'">
+        <i class="bi bi-plus"></i> Add
+      </button>
+</div>
+<div class="__main scroll" *ngIf="customers">
+  <!-- <h4>Parts</h4> -->
+
+  <table class="table">
+    <tbody>
+      <tr *ngFor="let customer of customers | searchCustomer: query" (click)="open(customer)">
+        <td>
+          <p>
+            <b> <i class="bi bi-buildings-fill"></i> {{ customer.Name }} </b>
+          </p>
+
+          <p>
+            <i class="bi bi-telephone-fill"></i>
+            {{ customer.PhoneNumber || "-----" }}
+          </p>
+          <i class="bi bi-envelope-at-fill"></i> {{ customer.Email || "-----" }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+<app-customer-add-modal
+  *ngIf="addCustomer"
+  [q]="query"
+  [customerId]="addCustomer"
+  (addEvent)="addCustomer = ''; pushCustomer($event)"
+  (closeEvent)="addCustomer = ''"
+></app-customer-add-modal>

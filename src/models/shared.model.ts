@@ -23,6 +23,7 @@ export interface ListItemColModel {
   Id: string;
   Value: string;
   Type: string;
+  Key?: string;
   ShowOptions: boolean;
   Editing: boolean;
   Classes: string[];

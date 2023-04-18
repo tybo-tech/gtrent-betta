@@ -10,8 +10,9 @@ export interface TaskModel {
   Description: string;
   TaskType: string;
   DueDate: string;
-  DueTime: string;
   AssignedTo: string;
+  DueTime: string;
+  AssignedTo2: string;
   CreatedBy: string;
   CustomerId: string;
   ComprossorId: string;
@@ -19,18 +20,21 @@ export interface TaskModel {
   TimeLines: TimeLineModel[];
   Comments: CommentModel[];
   OverallTimeSpent: string;
-  Loaction: string;
+  Loaction: string[];
   CreateDate: string;
   LastUpdateDate: string;
   LastUpdatedBy: string;
   StarDateTime: string;
   FinishDateTime: string;
   Assigned?: User;
+  Assigned2?: User;
   Customer?: Customer;
   Machine?: Machine;
   OpenMenu?: boolean;
   Fsr: FsrModel;
   StatusClass?: string[];
+  CardStatusClass?: string[];
+  DaysElapes?: number;
 }
 
 export interface TimeLineModel {
@@ -54,6 +58,7 @@ export interface CommentModel {
 }
 export interface FsrModel {
   WorkDone: string;
+  Report: string;
   Hours: string;
   Model: string;
   Serial: string;

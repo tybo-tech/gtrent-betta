@@ -1,9 +1,20 @@
-<h1 class="mt-1">Overview</h1>
+<!-- <h1 class="mt-1">Overview</h1> -->
 
 <div class="row">
   <div class="col-md-12">
+    <div class="_tabs">
+      <div
+        class="_tab"
+        (click)="tabAction(item)"
+        [ngClass]="item.Classes"
+        *ngFor="let item of tabs"
+      >
+        {{ item.Name }}
+      </div>
+    </div>
     <!-- <app-overview-tasks></app-overview-tasks> -->
-    <app-task-board></app-task-board>
+    <app-task-board *ngIf="tab.Id === 1"></app-task-board>
+    <app-task-calendar *ngIf="tab.Id === 2"></app-task-calendar>
   </div>
   <!-- <div class="col-md-6">
     <app-overview-fsr></app-overview-fsr>

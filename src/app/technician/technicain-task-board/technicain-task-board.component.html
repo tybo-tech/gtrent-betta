@@ -12,7 +12,7 @@
         <option
           [value]="item"
           *ngFor="
-            let item of ['All', 'Filter by sigle date', 'Filter by date range']
+            let item of ['All', 'Filter by single date', 'Filter by date range']
           "
         >
           {{ item }}
@@ -24,7 +24,7 @@
   <div
     class="_col"
     *ngIf="
-      filterBy === 'Filter by date range' || filterBy === 'Filter by sigle date'
+      filterBy === 'Filter by date range' || filterBy === 'Filter by single date'
     "
   >
     <input
@@ -35,8 +35,8 @@
     />
   </div>
 
-  <div class="_col" *ngIf="filterBy === 'Filter by sigle date'">Or</div>
-  <div class="_col" *ngIf="filterBy === 'Filter by sigle date'">
+  <div class="_col" *ngIf="filterBy === 'Filter by single date'">Or</div>
+  <div class="_col" *ngIf="filterBy === 'Filter by single date'">
     <select
       name=""
       [(ngModel)]="filterDate"
@@ -85,7 +85,7 @@
         </p>
         <p class="due-date">
           <i class="bt=i bi-clock blue"> Due:</i>
-          {{ task.DueDate | date : "mediumDate" }} {{ task.DueTime }}
+          {{ task.DueDate | date : "mediumDate" }} 
         </p>
         <h5 *ngIf="task.Customer" class="customer">
           <i class="bi bi-building-fill"></i> {{ task.Customer.Name }}

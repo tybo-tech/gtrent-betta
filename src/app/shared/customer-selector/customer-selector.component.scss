@@ -1,0 +1,42 @@
+._modal1 {
+  position: fixed;
+  left: 2rem;
+  top: 2rem;
+  z-index: 100000000;
+  background: white;
+  width: 30rem;
+  box-shadow: rgba(0, 0, 0, 0.244) 20px -13px 24px 10px;
+  border: 1px solid var(--cloud);
+  @media screen and (max-width: 600px) {
+    width: 98%;
+    left: 0rem;
+  }
+}
+.scroll {
+  max-height: 70vh;
+  @media screen and (max-width: 600px) {
+    max-height: 50vh;
+  }
+}
+
+.table {
+  width: 100%;
+  td,
+  th {
+    padding: 0.5rem 0;
+    padding-right: 2rem;
+    font-size: 0.7rem;
+  }
+
+  td {
+    font-weight: 500;
+  }
+}
+
+
+._add{
+    font-weight: 400;
+    padding: 8px 10px;
+    font-size: .75rem;
+   width: 30%;
+  }

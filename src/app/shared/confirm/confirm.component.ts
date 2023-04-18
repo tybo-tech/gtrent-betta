@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-confirm',
   templateUrl: './confirm.component.html',
-  styleUrls: ['./confirm.component.scss']
+  styleUrls: ['./confirm.component.scss'],
 })
 export class ConfirmComponent implements OnInit {
   @Input() heading = '';
@@ -13,11 +13,10 @@ export class ConfirmComponent implements OnInit {
   @Input() noAction = 'Cancel';
   @Output() doneEvent = new EventEmitter<boolean>();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  onEvent(e: boolean) {
+    this.doneEvent.emit(e);
   }
-onEvent(e: boolean){
-this.doneEvent.emit(e)
-}
 }

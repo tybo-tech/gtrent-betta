@@ -59,8 +59,8 @@ export class UserService {
   getUsersStync(companyId: string, userType: string) {
     return this.http.get<User[]>(`${this.url}/api/user/get-users.php?CompanyId=${companyId}&UserType=${userType}`)
   }
-  getAllUsersStync() {
-    return this.http.get<User[]>(`${this.url}/api/user/get-all-users.php`)
+  getAllUsersStync(userId = '') {
+    return this.http.get<User[]>(`${this.url}/api/user/get-all-users.php?UserId=${userId}`)
   }
 
   getUser(userId: string) {

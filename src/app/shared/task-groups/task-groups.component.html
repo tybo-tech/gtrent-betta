@@ -36,9 +36,6 @@
           {{ task.TaskType }}
         </h6>
         <div class="d-flex p-2">
-          <p class="time status-progress" *ngIf="task.DueTime">
-            <i class="bt=i bi-clock"></i> {{ task.DueTime }}
-          </p>
           <p class="status" [ngClass]="task.StatusClass">{{ task.Status }}</p>
         </div>
       </div>

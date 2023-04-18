@@ -1,7 +1,9 @@
 <app-back
-  [heading]="'User Details'"
-  [pageName]="'Users'"
+  [heading]="label1"
+  [pageName]="label"
   url="/admin/customers"
+  [handleBackEvent]="true"
+  (backEvent)="back()"
 ></app-back>
 
 <div class="page-item box-shadow border-radius scroll" *ngIf="customer">
@@ -31,24 +33,34 @@
     </div>
 
     <div class="col-md-6">
-        <div class="form-group">
-          <label for="name">Phone Number</label>
-          <input
-            type="text"
-            [(ngModel)]="customer.PhoneNumber"
-            class="form-control"
-            id="phone"
-            required
-          />
-        </div>
+      <div class="form-group">
+        <label for="name">Phone Number</label>
+        <input
+          type="text"
+          [(ngModel)]="customer.PhoneNumber"
+          class="form-control"
+          id="phone"
+          required
+        />
       </div>
- 
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="name">Contact Person</label>
+        <input
+          type="text"
+          [(ngModel)]="customer.Surname"
+          class="form-control"
+          id="phone"
+          required
+        />
+      </div>
+    </div>
+
   </div>
 
   <div class="row">
-   
-   
-
     <div class="col-md-12">
       <div class="form-group">
         <label for="name">Profile picture</label>

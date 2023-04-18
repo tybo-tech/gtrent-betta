@@ -21,5 +21,7 @@ export interface Machine {
   StatusId: number;
   Parts?: MachineParts[];
   VeiwMore?: boolean;
+  Selected?: boolean;
+
 }
 

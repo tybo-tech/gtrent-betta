@@ -1,9 +1,22 @@
 <div class="_overlay">
-    <div class="_modal1">
+    <div class="_modal1" *ngIf="!id2">
       <h1>Task was completed successfully</h1>
   
       <p>
         Thanks for completing this task you may return to your dashboard now.
+      </p>
+  
+      <i class="bi bi-check-circle"></i>
+  
+      <div class="column">
+        <a class="btn btn-primary" routerLink="/technician">Go to my dashboard</a>
+      </div>
+    </div>
+    <div class="_modal1" *ngIf="id2">
+      <h1>Qoute save successfully</h1>
+  
+      <p>
+        An email was sent to the admin. 
       </p>
   
       <i class="bi bi-check-circle"></i>

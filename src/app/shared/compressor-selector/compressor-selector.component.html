@@ -1,0 +1,75 @@
+<div class="_modal1 border-radius p-3" *ngIf="customer">
+  <div
+    class="_header box-shadow border-radius p-3 d-flex justify-content-between align-items-center"
+  >
+    <h5>Select Compressor</h5>
+    <i class="bi bi-x-lg pointer" (click)="back()"></i>
+  </div>
+  <div class="d-flex align-items-center search gap-2 mb-4 mt-3">
+    <input
+      style="width: 60%"
+      type="search"
+      class="form-control p-2"
+      [(ngModel)]="searchString"
+      placeholder="🔎 Filter by model"
+    />
+
+    <button style="width: 40%" class="btn btn-primary" (click)="add = 'add'">
+      <i class="bi bi-plus"></i> new compressor
+    </button>
+  </div>
+  <div class="scroll">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let part of customer.Machines">
+          <td>{{ part.Model }} {{ part.Serial }}</td>
+          <td align="right">
+            <button
+              *ngIf="!part.Selected"
+              (click)="part.Selected = true; select(part)"
+              style="
+                width: fit-content;
+                font-size: 0.7rem;
+                padding: 0.2rem 0.6rem;
+                background: #cdfac1;
+                color: black;
+              "
+              class="btn btn-primary"
+            >
+              Select
+            </button>
+
+            <button
+              *ngIf="part.Selected"
+              (click)="part.Selected = false; select(part)"
+              style="
+                width: fit-content;
+                font-size: 0.7rem;
+                padding: 0.2rem 0.6rem;
+                background: #e2e6e1;
+                color: black;
+              "
+              class="btn btn-primary"
+            >
+              <i class="bi bi-check"></i> Selected
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-machine-add-modal
+  *ngIf="add && customer && customer.CustomerId"
+  [machineId]="add"
+  [companyId]="customer.CustomerId"
+  (doneEvent)="doneAdd($event)"
+  (closeEvent)="add = ''"
+></app-machine-add-modal>

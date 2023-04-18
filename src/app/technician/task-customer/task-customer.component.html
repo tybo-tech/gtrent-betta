@@ -1,0 +1,131 @@
+<div class="customer" *ngIf="customer">
+  <div class="bg-white box-shadow border-radius p-3 mb-4">
+    <div class="d-flex align-items-center justify-content-between">
+      <button (click)="close()" class="btn btn-light">
+        <i class="bi bi-arrow-left"></i> Back
+      </button>
+      <h5>Customer Info.</h5>
+    </div>
+    <hr />
+    <div class="grid d-flex align-items-center justify-content-between">
+      <p><i class="bi bi-buildings-fill"></i> {{ customer.Name }}</p>
+      <p style="text-align: right">
+        <i class="bi bi-envelope-at-fill"></i> {{ customer.Email || "-----" }}
+      </p>
+    </div>
+    <div class="grid d-flex align-items-center justify-content-between">
+      <p><i class="bi bi-telephone-fill"></i> {{ customer.PhoneNumber || "-----" }}</p>
+      <p style="text-align: right">
+        <i class="bi bi-person"></i> {{ customer.Surname || "-----" }}
+      </p>
+    </div>
+    <div class="grid d-flex align-items-center justify-content-between">
+      <p></p>
+      <button (click)="editCustomer = true" style="width: fit-content" class="btn btn-primary mt-2">
+        <i class="bi bi-pen"></i> Edit info
+      </button>
+    </div>
+  </div>
+
+  <div class="bg-white box-shadow border-radius p-3 mb-4" *ngIf="machine">
+    <h6 class="mb-3">Selected compressor</h6>
+
+    <div class="scroll">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Serial</th>
+            <th>Parts</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr (click)="selectCompressor(machine)">
+            <td>{{ machine.Model }}</td>
+            <td>{{ machine.Serial }}</td>
+            <td>{{ machine.Parts?.length || 0 }}</td>
+            <td>
+              <button
+                style="
+                  width: fit-content;
+                  font-size: 0.7rem;
+                  padding: 0.2rem 0.4rem;
+                  background: #c8ceff;
+                  color: black;
+                "
+                class="btn btn-primary"
+              >
+                <i class="bi bi-chevron-right"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="bg-white box-shadow border-radius p-3" *ngIf="customer.Machines">
+    <h6 class="mb-3">Other compressors</h6>
+
+    <div class="scroll">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Serial</th>
+            <th>Parts</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let comp of customer.Machines"
+            (click)="selectCompressor(comp)"
+          >
+            <td>{{ comp.Model }}</td>
+            <td>{{ comp.Serial }}</td>
+            <td>{{ comp.Parts?.length || 0 }}</td>
+            <td>
+              <button
+                style="
+                  width: fit-content;
+                  font-size: 0.7rem;
+                  padding: 0.2rem 0.4rem;
+                  background: #c8ceff;
+                  color: black;
+                "
+                class="btn btn-primary"
+              >
+                <i class="bi bi-chevron-right"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button (click)="showAdd = 'add'" class="btn btn-dark">
+      <i class="bi bi-plus"></i> New compressor
+    </button>
+  </div>
+
+  <app-tech-compressor
+    (closeEvent)="currentCompressor = undefined"
+    (doneEvent)="doneEvent($event)"
+    *ngIf="currentCompressor && task" [task]="task"
+    [machineId]="currentCompressor.MachineId"
+  ></app-tech-compressor>
+
+  <app-tech-compressor
+    (closeEvent)="showAdd = ''"
+    (doneEvent)="doneEvent($event)"
+    *ngIf="showAdd"
+    [machineId]="showAdd"
+  ></app-tech-compressor>
+
+  <app-tech-customer-form  (closeEvent)="editCustomer = false" (doneEvent)="customerDone($event)"
+  *ngIf="customer && editCustomer"
+  [customerId]="customer.CustomerId || ''"
+></app-tech-customer-form>
+</div>
+
+

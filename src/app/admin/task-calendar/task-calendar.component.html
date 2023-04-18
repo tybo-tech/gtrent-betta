@@ -1,0 +1,93 @@
+<div class="weeks" *ngIf="weeks && week">
+  <div class="grid mt-5 mb-5">
+    <label for="">Week:</label>
+    <div class="">
+      <select
+        (change)="dateSelcted()"
+        class="form-select"
+        name=""
+        id=""
+        [(ngModel)]="selectWeekName"
+      >
+        <option [value]="item.WeekName" *ngFor="let item of weeks">
+          {{ item.WeekName1 | date: 'mediumDate' }} to {{ item.WeekName2 | date: 'mediumDate'}}
+        </option>
+      </select>
+    </div>
+    <div class="">      <select name="" id="" class="form-control border-radius" (change)="filterByStatus()" [(ngModel)]="status">
+        <option [value]="item.Id" *ngFor="let item of tabs">
+          {{item.Name}}
+        </option>
+      </select>
+    </div>
+   
+    <a style="width: 25rem; display: block;" class="btn btn-primary border-radius " routerLink="/admin/add-task">Add new task</a>
+
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th *ngFor="let day of week.Days" scope="col">
+          <h1 class="_day">
+            {{ day.Date }}
+            <span>
+              {{ day.DayName }}
+            </span>
+          </h1>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td *ngFor="let day of week.Days">
+          <div class="tasks">
+            <div
+              class="task box-shadow border-radius"
+              [ngClass]="task.CardStatusClass"
+              *ngFor="let task of day.Tasks"
+              (click)="select(task)"
+            >
+              <p class="due-date">
+                <i class="bt=i bi-calendar-date-fill blue"> Created: </i>
+                {{ task.CreateDate | date : "mediumDate" }}
+              </p>
+              <p class="due-date">
+                <i class="bt=i bi-clock blue"> Due:</i>
+                {{ task.DueDate | date : "mediumDate" }}
+              </p>
+              <h5 *ngIf="task.Customer" class="customer">
+                <i class="bi bi-building-fill"></i> {{ task.Customer.Name }}
+              </h5>
+              <p class="due-date">
+                {{ task.TaskType }}
+              </p>
+              <p class="due-date text-black">
+                {{ task.Name }}
+              </p>
+              <p class="status" [ngClass]="task.StatusClass">
+                {{ task.Status }}
+              </p>
+              <div
+                class="d-flex justify-content-between align-items-center stat"
+              >
+                <span>
+                  {{ task.Comments.length }} <i class="bi bi-chat-dots"></i>
+                </span>
+
+                <div class="users" *ngIf="task.Assigned">
+                  <img [src]="task.Assigned.Dp" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<app-task-modal
+  (closeEvent)="task = undefined; load()"
+  *ngIf="task"
+  [task]="task"
+></app-task-modal>

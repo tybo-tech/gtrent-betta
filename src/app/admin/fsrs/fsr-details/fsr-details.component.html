@@ -1,34 +1,73 @@
-<!-- <ng-container *ngIf="service">
+<ng-container *ngIf="task">
   <app-back
-    [heading]="service.OrderType + service.OrderNo"
-    [pageName]="'Fsr List'"
-    url="/admin/fsrs"
+    [heading]="task.Name"
+    [pageName]="'Customer Dashboard'"
+    [url]="'/admin/customer/' + backTo"
   ></app-back>
 
-  <div class="row">
+  <div class="row scroll">
     <div class="col-md-6">
-      <div class="bg-white mb-3 p-2 border-radius box-shadow task">
-  
-        <app-fsr-card [task]="service" [totalPartsUsed]="totalPartsUsed"></app-fsr-card>
+      <app-task-details [disableAssign]="true" *ngIf="task" [task]="task"></app-task-details>
+    </div>
+    <div class="col-md-6">
+      <app-time-tacker [disableActions]="true" *ngIf="task" [task]="task"></app-time-tacker>
+      <app-task-timelines *ngIf="task" [task]="task"></app-task-timelines>
+      <app-comments
+      [user]="user"
+      [comments]="task.Comments"
+      *ngIf="user"
+      (onValueChanged)="task.Comments = $event; save()"
+    ></app-comments>
+    <div class="actions" *ngIf="!isWorkShopFsr">
+      <button (click)="showConfirmSend = true" class="btn btn-primary">Resend Customer Email</button>
+      <!-- <button class="btn btn-dark">Resend Admin Email</button> -->
+    </div>
+      <br />
+    
+      <br />
+      <div
+        *ngIf="task.Fsr"
+        class="bg-white mb-3 p-2 border-radius box-shadow task"
+      >
+        <!-- <a (click)="goToOrder(task.Fsr)" class="link-success pointer"
+          >View FSR</a
+        > -->
       </div>
     </div>
 
     <div class="col-md-6">
-      <app-time-tacker
-          *ngIf="service.Task"
-          [task]="service.Task"
-        ></app-time-tacker>
-        <br />
-        <app-task-timelines
-          *ngIf="service.Task"
-          [task]="service.Task"
-        ></app-task-timelines>
-
-      <br />
-      <app-task-details
-        *ngIf="service.Task"
-        [task]="service.Task"
-      ></app-task-details>
+      <div
+        *ngIf="task.Status === TASK_STATUS.WaitingForQoute"
+        class="bg-white mb-3 p-3 border-radius box-shadow task"
+      >
+      <div class="alert alert-warning" role="alert">
+        <p class="pt-2 pb-2">
+          <b> {{ task.Assigned?.Name || "Technitain" }}</b> is waiting for you
+          to give a go ahead once you done with quote
+        </p>
+      </div>
+       
+        <a (click)="goAhead()" class="btn btn-warning d-flex align-items-center" style="gap: 1rem; width: fit-content;">
+          <img style="width: 1.5rem; height: 1.5rem;" src="assets/images/wait2.gif" alt="">
+          Give a got ahead</a>
+      </div>
+     
+    
     </div>
   </div>
-</ng-container> -->
+  <br />
+  <!-- <button class="btn btn-primary">Add notes/attachments</button> -->
+</ng-container>
+
+
+
+
+<app-confirm
+  *ngIf="showConfirmSend"
+  heading="You about SEND this FSR to a customer."
+  body="This action can not be undone"
+  yesAction="Send FSR"
+  noAction="Cancel this action"
+  theClass="bi bi-send"
+  (doneEvent)="resendCustomerEmail($event)"
+></app-confirm>

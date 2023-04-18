@@ -1,0 +1,84 @@
+._day{
+    font-size: 1.1rem;
+    text-align: center;
+    font-weight: 800;
+    span{
+        display: block;
+        font-size: .8rem;
+        font-weight: 600;
+    }
+}
+
+.task {
+    background: var(--white);
+    width: 96%;
+    // max-width: 15rem;
+    margin: 1rem auto;
+    padding: 0.8rem;
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+    &:hover {
+      box-shadow: 4px 5px 4px 0 rgba(51, 51, 51, 0.269);
+    }
+  }
+
+  .badge-dark {
+    background: darkblue;
+  }
+  
+  .customer {
+    font-size: 0.8rem;
+  }
+  .due-date {
+    color: grey;
+    font-size: 0.7rem;
+    font-weight: 500;
+    display: block;
+    padding: 0.25rem 0;
+  }
+  
+  .users {
+    img {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgb(174, 174, 174);
+      object-position: center;
+    }
+  }
+  .stat {
+    border-top: 1px solid rgb(241, 241, 241);
+    margin-top: 0.5rem;
+    span {
+      font-size: 0.7rem;
+    }
+  }
+  
+  .filters {
+    margin-bottom: 1rem;
+    padding: .5rem ;
+    gap: 1rem;
+  }
+  
+  .blue{
+    color: rgb(62, 133, 134) !important;
+    font-style: normal;
+  }
+  
+  .__warn{
+    background: rgb(249, 226, 184) !important;
+  }
+  .__danger{
+    background: rgb(252, 214, 214) !important;
+  }
+  .grid{
+    display: grid;
+    grid-template-columns: 3rem 40% 30%  auto;
+    grid-gap: 1rem;
+    background: var(--white);
+    align-items: center;
+    a{
+      width: fit-content !important;
+    }
+  }

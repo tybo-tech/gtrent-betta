@@ -1,93 +1,70 @@
-<div class="service-parts _modal" *ngIf="task">
-  <div
-    class="bg-white p-3 border-radius box-shadow task"
-    *ngIf="task.Fsr.PartsUsed.length && !selectingProducts"
-  >
-    <ul class="list-group">
-      <li
-        class="list-group-item item d-flex justify-content-between align-items-center"
-        *ngFor="let part of task.Fsr.PartsUsed; let i =index"
-      >
-        <p>
-          {{ part.Name }}
-        </p>
-        <div class="d-flex justify-content-between align-items-center">
-          <select
-            class="form-select"
-            [(ngModel)]="part.Quantity"
-          >
-            <option
-              [value]="item"
-              *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
-            >
-              {{ item }}
-            </option>
-          </select>
+<div class="_overlay" *ngIf="task">
+  <div class="_modal1">
+    <div
+      class="_header box-shadow border-radius p-3 d-flex justify-content-between align-items-center"
+    >
+      <h5>Parts used</h5>
+      <i class="bi bi-x-lg pointer" (click)="back()"></i>
+    </div>
 
-          <i class="bi bi-trash" (click)="delete(i)"></i>
-        </div>
-      </li>
-      <li class="list-group-item item">
-        <br />
-        <button class="btn btn-dark" (click)="selectingProducts = true">
-          Select more parts
-        </button>
-        <br>
-        <button class="btn btn-primary" (click)="closeModal()">
-          Finish & save parts
-         </button>
-      </li>
-    </ul>
-  </div>
-  <div
-    class="bg-white p-3 border-radius box-shadow task"
-    *ngIf="!task.Fsr.PartsUsed?.length"
-  >
-    <div class="nodata" *ngIf="!selectingProducts">
-      <p>
-        No parts selected yet
-        <br />
-        <br />
-        <a class="btn btn-dark" (click)="selectingProducts = true"
-          >Select parts</a
-        >
-        <br />
-        <button class="btn btn-primary" (click)="back()">Back</button>
-      </p>
+    <div class="scroll">
+      <table class="table">
+        <thead *ngIf="task.Fsr.PartsUsed.length">
+          <tr>
+            <th>Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let part of task.Fsr.PartsUsed; let i = index">
+            <td>{{ part.Name }}</td>
+        
+            <td align="right">
+            <div class="d-flex gap-2 align-items-center" style="width:fit-content">
+              <select style="width: 2rem;text-align: center;" (change)="saveTask()"
+              class="form-select p-1"
+              [(ngModel)]="part.Quantity"
+            >
+              <option
+                [value]="item"
+                *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+              >
+                {{ item }}
+              </option>
+            </select>
+              <button  (click)="delete(i)"
+                style="
+                  width: fit-content;
+                  font-size: 0.7rem;
+                  padding: 0.2rem 0.4rem;
+                  background: #fb8c8c;
+                  color: black;
+                "
+                class="btn btn-primary"
+              >
+              <i class="bi bi-trash"></i>
+              </button>
+            </div>
+            </td>
+          </tr>
+          <tr *ngIf="!task.Fsr.PartsUsed.length">
+            <td colspan="2">
+              <div class="alert alert-warning" role="alert">
+                No parts selected yet.
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <button (click)="showSelectParts = true"  class="btn btn-dark w-50 p-1">
+                <i class="bi bi-plus"></i> Select part
+              </button>
+            </td>
+          </tr>
+         
+        </tbody>
+      </table>
     </div>
   </div>
-
-  <div
-    class="bg-white p-3 border-radius box-shadow task"
-    *ngIf="task.Machine && task.Machine.Parts && selectingProducts"
-  >
-    <ul class="list-group">
-      <li
-        class="list-group-item item d-flex"
-        *ngFor="let part of task.Machine.Parts"
-      >
-        <input
-          type="checkbox"
-          [checked]="part.Selected"
-          [(ngModel)]="part.Selected"
-          [id]="part.ProductId"
-          (change)="select(part)"
-        />
-        <label [for]="part.ProductId">
-          {{ part.ProductName }}
-        </label>
-      </li>
-      <li class="list-group-item item">
-        <br />
-        <button class="btn btn-dark" (click)="save()">
-          Contine with selected parts
-        </button>
-
-        <br />
-        <button class="btn btn-light" (click)="selectingProducts = false">
-         Cancel
-        </button>
-      </li>
-    </ul>
-  </div>
 </div>
+<app-tech-select-parts (onCloseEvent)="selectPartsEvent($event)"  [task]="task" *ngIf="task && showSelectParts"></app-tech-select-parts>

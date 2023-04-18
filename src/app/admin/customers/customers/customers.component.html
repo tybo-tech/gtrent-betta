@@ -4,34 +4,56 @@
   url="/admin"
 ></app-back>
 
-<div class="d-flex box-shadow border-radius">
-  <div>
+<div class="d-flex box-shadow border-radius gap-3 p-2">
+  <div class="w-50">
     <input
       type="search"
       placeholder="Filter by name"
-      class="form-control border-radius"
+      class="form-control border-radius w-100"
       [(ngModel)]="query"
     />
   </div>
   <div>
     <a
       class="btn btn-primary border-radius"
-      routerLink="/admin/customer-form/add"
+     (click)="addCustomer = 'add'"
       >Add customer</a
     >
   </div>
 </div>
 
-<div class="items box-shadow border-radius" *ngIf="items.length">
-  <app-headers [grid]="grid" [headers]="headers"></app-headers>
-  <hr>
+<div class="items box-shadow border-radius" *ngIf="customers.length">
   <div class="scroll">
-    <div class="task" *ngFor="let item of items | searcbyname : query">
-      <app-list-item
-        [item]="item"
-        [grid]="grid"
-        (rowEvent)="rowEvent($event)"
-      ></app-list-item>
-    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Customers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="task" *ngFor="let customer of customers | customerpipe: query"   (click)="select(customer)">
+          <td>
+            {{ customer.Name }}
+          </td>
+          <td>
+            {{ customer.Machines || '0' }}
+          </td>
+          <td>
+            {{ customer.FsrCount || '0' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+  
 </div>
+
+<app-customer-add-modal
+  *ngIf="addCustomer"
+  [q]="query"
+  [customerId]="addCustomer"
+  (addEvent)="addCustomer = ''; pushCustomer($event)"
+  (closeEvent)="addCustomer = ''"
+></app-customer-add-modal>

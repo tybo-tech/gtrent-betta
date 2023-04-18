@@ -53,7 +53,7 @@ export class TechnicainTaskBoardComponent implements OnInit {
     this.openMenuEvent.emit(task);
   }
   filterByChanged() {
-    if (this.filterBy === 'Filter by sigle date') {
+    if (this.filterBy === 'Filter by single date') {
       this.filterDate2 = '';
       this.load();
     }
@@ -80,7 +80,7 @@ export class TechnicainTaskBoardComponent implements OnInit {
   load() {
     // this.uxService.updateUXState({ Loading: true });
     this.taskService
-      .list(2, this.filterDate, this.filterDate2, this.userId)
+      .list( this.filterDate, this.filterDate2, this.userId)
       .subscribe((data) => {
         // this.uxService.updateUXState({ Loading: false });
 

@@ -1,0 +1,108 @@
+<app-back
+  [heading]="'Create quote'"
+  [pageName]="'Qoutes'"
+  url="/technician/qoutes"
+></app-back>
+
+<div class="task scroll" *ngIf="task">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group" *ngIf="customers">
+        <label for="name">Customer </label>
+        <div class="form-control">
+          <a
+            *ngIf="!customerName"
+            (click)="showCustomer = true"
+            class="link-primary"
+            >--Select Customer--
+          </a>
+          <a
+            *ngIf="customerName"
+            (click)="showCustomer = true"
+            class="link-primary"
+            >{{ customerName }}
+          </a>
+        </div>
+        <!-- <select
+          type="text"
+          [(ngModel)]="task.CustomerId"
+          (change)="loadMatchines()"
+          class="form-control"
+        >
+          <option value="" selected>--Select--</option>
+          <option [value]="item.CustomerId" *ngFor="let item of customers">
+            {{ item.Name }}
+          </option>
+        </select> -->
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="name">Compressor</label>
+        <div class="form-control">
+          <a
+            *ngIf="!machineName && customer"
+            (click)="showMachines = true"
+            class="link-primary"
+            >--Select Compressor--
+          </a>
+          <a
+            *ngIf="!machineName && !customer"
+            style="opacity: 0.3; cursor: no-drop"
+            class="link-primary"
+            >--Select Compressor--
+          </a>
+          <a
+            *ngIf="machineName"
+            (click)="showMachines = true"
+            class="link-primary"
+            >{{ machineName }}
+          </a>
+        </div>
+        <!-- <select type="text" [(ngModel)]="task.ComprossorId" class="form-control">
+          <option value="" selected>--Select--</option>
+          <option
+            [value]="item.MachineId"
+            *ngFor="let item of this.customer?.Machines"
+          >
+            {{ item.Model }}
+          </option>
+        </select> -->
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="form-group">
+    <label for="name">Notes</label>
+    <textarea
+      [(ngModel)]="task.Description"
+      class="form-control"
+      id="address"
+    ></textarea>
+  </div>
+
+
+  <div class="d-flex">
+    <button
+      type="submit"
+      [disabled]="!task.Name"
+      type="button"
+      (click)="save()"
+      class="btn btn-primary w-100"
+    >
+      Next
+    </button>
+  </div>
+</div>
+<app-customer-selector
+[customerId]="task?.CustomerId"
+  *ngIf="showCustomer"
+  (doneEvent)="customerSelectEvent($event)"
+></app-customer-selector>
+<app-compressor-selector
+  [customer]="customer"
+  *ngIf="showMachines && customer"
+  (doneEvent)="machineSelectEvent($event)"
+></app-compressor-selector>

@@ -23,6 +23,31 @@ h2 {
   font-size: 1.2rem;
 }
 .link-danger{
-  font-size: .8rem;
+  // font-size: .8rem;
   cursor: pointer;
+}
+.menu-btn{
+  padding: .2rem .55rem !important;
+}
+.menu--1{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10000;
+  width: 80%;
+  height: 100%;
+  padding: 1rem;
+  background: #343a40;
+  color: white;
+}
+
+._list{
+  padding: 2rem 0;
+  a{
+    display: block;
+    padding: .4rem 0;
+    .bi{
+      margin-right: 1rem;
+    }
+  }
 }

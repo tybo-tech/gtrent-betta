@@ -1,0 +1,36 @@
+<div class="__main" *ngIf="machine?.Parts">
+  <h4>Parts</h4>
+
+  <div class="scroll">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let part of machine?.Parts">
+          <td>{{ part.ProductName }}</td>
+          <td>{{ part.ProductType }}</td>
+          <td>
+            <button class="btn btn-danger p-1" (click)="removeParts(part)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="btn btn-dark" (click)="addPart()">
+    <i class="bi bi-plus"></i> Add part
+  </button>
+</div>
+<app-compressor-add-parts
+  *ngIf="machine && showAddParts"
+  (closeEvent)="showAddParts = false"
+  (doneEvent)="savePart($event)"
+  (removeEvent)="removeEvent($event)"
+  [machine]="machine"
+></app-compressor-add-parts>

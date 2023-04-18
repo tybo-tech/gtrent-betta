@@ -18,6 +18,7 @@ export class TechnicianDashboardComponent implements OnInit {
   tasks: TaskModel[] = [];
   allTasks: TaskModel[] = [];
   user?: User;
+  showMenu = false;
   currentTask?: ITaskGroupedByDateModel;
   TASK_STATUS_LIST = ['All', ...TASK_STATUS_LIST];
   status = 'All';
@@ -59,6 +60,9 @@ export class TechnicianDashboardComponent implements OnInit {
         this.load(data);
       }
     });
+
+    this.accountService.refreshOnce();
+    this.accountService.refresh();
   }
 
   load(user: User) {
@@ -71,7 +75,7 @@ export class TechnicianDashboardComponent implements OnInit {
   }
 
   onOpenMenuEvent(task: TaskModel) {
-    if(task){
+    if (task) {
       this.task = task;
       this.tasks.map((x) => (x.OpenMenu = false));
       task.OpenMenu = true;

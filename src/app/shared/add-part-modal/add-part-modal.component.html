@@ -1,0 +1,39 @@
+<div class="_overlay" *ngIf="product">
+    <div class="_modal1">
+      <div class="_header box-shadow border-radius p-3 d-flex justify-content-between align-items-center">
+        <h5>
+          Add new part
+        </h5>
+        <i class="bi bi-x-lg pointer" (click)="back()"></i>
+      </div>
+  
+      <div class="innner-flex">
+        <div class="form">
+          <div class="form-group">
+            <label for="name">Part name</label>
+            <input type="text" class="form-control" [(ngModel)]="product.Name" />
+          </div>
+    
+          <div class="form-group">
+            <label for="name">Part Type</label>
+            <select name="" class="form-control" [(ngModel)]="product.ProductType" id="">
+                <option [value]="item.Name" *ngFor="let item of categories">{{item.Name}}</option>
+              </select>          </div>
+    
+          <div class="form-group">
+            <!-- <button class="btn btn-secondary" (click)="close()">Cancel</button> -->
+            <button
+              (click)="saveProduct()"
+              class="btn btn-primary"
+              [disabled]="!product.Name && !product.ProductType"
+            >
+              Save Part
+            </button>
+          </div>
+        </div>
+   
+      </div>
+  
+    </div>
+  </div>
+  

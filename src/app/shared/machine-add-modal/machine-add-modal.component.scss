@@ -1,0 +1,15 @@
+._modal1 {
+    position: fixed;
+    left: 33rem;
+    top: 2rem;
+    z-index: 1000000000;
+    background: white;
+    width: 30rem;
+    box-shadow: rgba(0, 0, 0, 0.244) 20px -13px 24px 10px;
+    border: 1px solid var(--cloud);
+  }
+  .scroll {
+    max-height: 70vh;
+    padding: 1rem;
+  }
+  

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Customer } from 'src/models/customer.model';
 import { TabModel } from 'src/models/shared.model';
 import { CustomerService } from 'src/services/customer.service';
+import { UxService } from 'src/services/ux.service';
 
 @Component({
   selector: 'app-customer',
@@ -12,6 +13,8 @@ import { CustomerService } from 'src/services/customer.service';
 export class CustomerComponent implements OnInit {
   customerId = '';
   customer?: Customer;
+  editCustomer = false;
+  confirmDelete = false;
   tabs: TabModel[] = [
     {
       Name: 'Basic info',
@@ -37,6 +40,8 @@ export class CustomerComponent implements OnInit {
   tab: TabModel = this.tabs[0];
   constructor(
     private customerService: CustomerService,
+    private uxService: UxService,
+    private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
     this.activatedRoute.params.subscribe((r) => {
@@ -53,6 +58,34 @@ export class CustomerComponent implements OnInit {
       if (customer) {
         this.customer = customer;
       }
+    });
+  }
+
+  customerDone(c: Customer) {
+    if (c && this.customer) {
+      this.customer.Name = c.Name;
+      this.customer.PhoneNumber = c.PhoneNumber;
+      this.customer.Email = c.Email;
+      this.customer.Surname = c.Surname;
+      this.editCustomer = false;
+    }
+  }
+
+  save() {
+    if (!this.customer) return;
+    this.uxService.updateUXState({ Loading: true });
+    this.customerService.updateCustomerSync(this.customer).subscribe((data) => {
+      this.uxService.updateUXState({
+        Loading: false,
+        Toast: {
+          Title: 'Success',
+          Classes: ['_success'],
+          Message: 'Customer deleted succesfully',
+        },
+      });
+    setTimeout(() => {
+      this.router.navigate(['/admin/customers']);
+    }, 3000);
     });
   }
 }

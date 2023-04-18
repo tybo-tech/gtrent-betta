@@ -1,0 +1,34 @@
+<app-back *ngIf="user && user.UserType === 'Admin'" [heading]="'Qoutes'" [pageName]="'Dashboard'" url="/admin"></app-back>
+<app-back  *ngIf="user && user.UserType === 'Technician'" [heading]="'Qoutes'" [pageName]="'Dashboard'" url="/technician"></app-back>
+<div class="d-flex+">
+
+  <a *ngIf="user && user.UserType === 'Technician'"
+    style="width: 25rem; display: block"
+    class="btn btn-primary border-radius"
+    routerLink="/technician/qoute/add"
+    >Add new quote</a
+  >
+  <a *ngIf="user && user.UserType === 'Admin'"
+    style="width: 25rem; display: block"
+    class="btn btn-primary border-radius"
+    routerLink="/admin/qoute/add"
+    >Add new quote</a
+  >
+</div>
+
+<div class="items box-shadow border-radius" *ngIf="tasks.length">
+  <div class="scroll">
+    <div class="task" *ngFor="let item of tasks"  (click)="viewDetails(item)">
+     <div class="bg-white border-radius box-shadow p-3 mt-2">
+      <h5>{{item.Customer?.Name}}</h5>
+      <div *ngIf="item.Fsr">
+        <label for="">Work to be done</label>
+        <p>{{item.Fsr.WorkDone}}</p>
+        <label for="">Parts</label>
+        <p>{{item.Fsr.PartsUsed.length}}</p>
+      </div>
+     </div>
+    </div>
+  </div>
+</div>
+<!-- <app-all-tasks></app-all-tasks> -->

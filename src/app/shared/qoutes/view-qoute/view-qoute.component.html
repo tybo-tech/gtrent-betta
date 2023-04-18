@@ -1,0 +1,52 @@
+<div class="scroll" *ngIf="task">
+    <app-back *ngIf="user && user.UserType === 'Technician'"
+    heading="Qoute details"
+    [pageName]="'Back'"
+    url="/technician/qoutes"
+  ></app-back>
+    <app-back *ngIf="user && user.UserType === 'Admin'"
+    heading="Qoute details"
+    [pageName]="'Back'"
+    url="/admin/qoutes"
+  ></app-back>
+    <div class="bg-white mb-3 p-3 border-radius box-shadow task">
+      <div class="top">
+        <div>
+          <h3>Qoute details</h3>
+          <!-- <br>
+          <div class="d-flex align-items-center">
+            <label style="width: 80%">Assigned to:</label>
+            <select
+              *ngIf="users?.length"
+              name=""
+              [(ngModel)]="task.AssignedTo"
+              (change)="userChaged()"
+              class="form-select"
+              id=""
+            >
+              <option value="">Any user</option>
+              <option [value]="user.UserId" *ngFor="let user of users">
+                {{ user.Name }}
+              </option>
+            </select>
+          </div> -->
+          <hr />
+          <div class="">
+            <label>Instructions:</label>
+           <p>
+            {{ task.Description }}
+           </p>
+          </div>
+          <hr />
+  
+          <br />
+        </div>
+      </div>
+  
+      <app-fsr-card
+        *ngIf="task.Fsr && task.Fsr.PartsUsed"
+        [task]="task"
+      ></app-fsr-card>
+    </div>
+  </div>
+  

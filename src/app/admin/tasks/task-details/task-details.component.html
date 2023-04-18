@@ -3,28 +3,72 @@
     <div class="top">
       <div>
         <h5>About Task</h5>
-        <div class="d-flex align-items-center">
-          <p style="width: 50%;">Assigned to: </p>
-          <select *ngIf="users?.length"
-          name=""
-          [(ngModel)]="task.AssignedTo"
-          (change)="userChaged()"
-          class="form-select"
-          id=""
-        >
-        <option value="">Any user</option>
-          <option [value]="user.UserId" *ngFor="let user of users">{{ user.Name }}</option>
-        </select>
+        <div class="d-flex gap-2 align-items-center">
+          <label style="width: 50%">Assigned to:</label>
+          <select
+            *ngIf="users?.length"
+            name=""
+            [disabled]="disableAssign"
+            [(ngModel)]="task.AssignedTo"
+            (change)="userChaged()"
+            class="form-select"
+            id=""
+          >
+            <option value="">--Select 1st user--</option>
+            <option [value]="user.UserId" *ngFor="let user of users">
+              {{ user.Name }}
+            </option>
+          </select>
+          <select
+            *ngIf="users?.length"
+            name=""
+            [disabled]="disableAssign"
+            [(ngModel)]="task.AssignedTo2"
+            (change)="user2Chaged()"
+            class="form-select"
+            id=""
+          >
+            <option value="">--Select 2nd user--</option>
+            <option [value]="user.UserId" *ngFor="let user of users">
+              {{ user.Name }}
+            </option>
+          </select>
         </div>
-       
-        <br>
+        <hr />
+        <div class="" *ngIf="!editInstructions">
+          <label>Instructions:</label>
+          <p>
+            {{ task.Description }}
+          </p>
+          <a class="btn btn-sm btn-info p-1" (click)="editInstructions = true"
+            >Edit Instructions</a
+          >
+        </div>
+        <div class="" *ngIf="editInstructions">
+          <label>Instructions:</label>
+          <textarea
+            name=""
+            class="form-control"
+            [(ngModel)]="task.Description"
+          ></textarea>
+          <a
+            class="btn btn-sm btn-info p-1"
+            (click)="save(); editInstructions = false"
+            >Finish editing</a
+          >
+        </div>
+        <hr />
 
-    
+        <br />
       </div>
     </div>
 
-    <app-fsr-card *ngIf="task.Fsr && task.Fsr.PartsUsed" [task]="task"></app-fsr-card>
+    <app-fsr-card
+      *ngIf="task.Fsr && task.Fsr.PartsUsed"
+      [task]="task"
+      (onSave)="save()"
+    ></app-fsr-card>
   </div>
-
-
 </ng-container>
+
+

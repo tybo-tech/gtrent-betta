@@ -1,0 +1,41 @@
+<app-back
+  [heading]="'Inbox'"
+  *ngIf="user && user.UserType === 'Admin'"
+  [pageName]="'Dashboard'"
+  url="/admin"
+></app-back>
+<app-back
+  [heading]="'Inbox'"
+  *ngIf="user && user.UserType === 'Technician'"
+  [pageName]="'Dashboard'"
+  url="/technician"
+></app-back>
+
+<div class="bg-white box-shadow border-radius p-3 scroll pb-5">
+  <div
+    class="d-flex user align-items-center justify-content-between"
+    *ngFor="let user of users"
+    (click)="chat(user)"
+  >
+    <div class="col1 d-flex">
+      <img [src]="user.Dp" alt="" />
+      <h6>
+        {{ user.Name }}
+        <span *ngIf="user.LastChat"
+          > Sent you a message
+          <a class="d-flex align-items-center">{{ user.LastChat.CreateDate | date : "medium" }}
+
+            <span style="padding-inline: .5rem; margin-left: .5rem;" *ngIf="user?.Chats?.length" class="count">{{user?.Chats?.length}}</span>
+
+          </a></span
+        >
+      </h6>
+    </div>
+  </div>
+</div>
+
+<!-- <app-chat
+*ngIf="user"
+[userId]="user.UserId"
+[chats]="chats"
+></app-chat> -->

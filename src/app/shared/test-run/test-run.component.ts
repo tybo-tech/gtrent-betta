@@ -9,8 +9,7 @@ import { EmailService } from 'src/services/email.service';
 import { TaskService } from 'src/services/task.service';
 import { UxService } from 'src/services/ux.service';
 import { COMPANY_EMIAL, TASK_STATUS } from 'src/utits/constants';
-import { getAdminQouteEmail } from 'src/utits/email.helper';
-import { appendMoreEmailInfo, formatEmail } from '../helpers/task.helper';
+import { formatEmail, getAdminQouteEmail } from 'src/utits/email.helper';
 
 @Component({
   selector: 'app-test-run',
@@ -49,7 +48,7 @@ export class TestRunComponent implements OnInit {
   //     FromPhone: '',
   //     ToEmail: COMPANY_EMIAL,
   //     ToName: 'Admin',
-  //     Subject: 'Workshop FSR Qoute',
+  //     Subject: 'Workshop FSR quote',
   //     Message: appendMoreEmailInfo(this.user, this.task),
   //   };
   //   emailToSend.Message = formatEmail(emailToSend);
@@ -62,7 +61,7 @@ export class TestRunComponent implements OnInit {
   //           Loading: false,
   //           Toast: {
   //             Title: 'Message sent!',
-  //             Message: 'Fsr sent to the office for a qoute',
+  //             Message: 'Fsr sent to the office for a quote',
   //             Classes: ['_success'],
   //           },
   //         });
@@ -110,7 +109,7 @@ export class TestRunComponent implements OnInit {
     if (this.emailAdmin)
       this.sendEmail(
         this.emailAdmin,
-        'Workshop FSR Qoute',
+        'Workshop FSR quote',
         COMPANY_EMIAL,
         'Admin'
       );
@@ -127,7 +126,7 @@ export class TestRunComponent implements OnInit {
     ) {
       this.task.Status = TASK_STATUS.WaitingForQoute;
       this.selectTimeline();
-      this.timeLine.FinishReason = 'Sent for a qoute';
+      this.timeLine.FinishReason = 'Sent for a quote';
       this.timeLine.FinishStatus = TASK_STATUS.WaitingForQoute;
       this.timeLine.FinishDateTime = `${new Date()}`;
       this.uxService.updateUXState({ Loading: true });

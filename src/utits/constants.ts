@@ -1,6 +1,8 @@
 export const CONSTANTS = {
   Cusomer: 'Customer',
 };
+export const STATUS_DELETED = 99;
+export const STATUS_ACTIIVE_STRING = 'Active';
 
 export const TASK_STATUS = {
   All: 'All',
@@ -9,8 +11,8 @@ export const TASK_STATUS = {
   InProgress: 'In progress',
   RunningTest: 'Running Test',
   RunningTestPaused: 'Running Test Paused',
-  WaitingForQoute: 'Waiting for a qoute',
-  QouteDone: 'Qoute done, task can resume',
+  WaitingForQoute: 'Waiting for a quote',
+  QouteDone: 'Quote done, task can resume',
   Complete: 'Complete',
   
 };

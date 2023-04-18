@@ -1,0 +1,44 @@
+.d-flex,
+.items {
+  background: var(--white);
+}
+.d-flex {
+  padding: 0.5rem 1rem;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  // background: red;
+  justify-content: space-between;
+  input {
+    padding: 10px 18px;
+    min-width: 18rem;
+  }
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column !important;
+  }
+
+
+}
+// grid-template-columns: 4rem 30% auto;
+.task {
+  padding: 0.2rem 1rem;
+}
+
+.scroll {
+  max-height: 60vh;
+  padding-bottom: 5rem;
+}
+
+label{
+  margin-top: 1rem;
+  text-transform: uppercase;
+  font-size: .7rem;
+}
+
+.btn {
+  @media screen and (max-width: 600px) {
+    width: 100% !important;
+    margin: 1rem auto;
+  }
+}

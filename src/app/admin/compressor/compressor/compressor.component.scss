@@ -1,0 +1,26 @@
+._modal1 {
+  max-width: 80%;
+  min-width: 80%;
+  display: block;
+
+  .innner-flex {
+    gap: 2rem;
+    display: flex;
+    flex-direction: row;
+    padding: 2rem 0;
+  }
+}
+
+.form {
+  width: 50%;
+}
+
+.parts {
+  border-left: 1px solid rgb(190, 190, 190);
+  padding: 0;
+  padding-left: 2rem;
+  height: 100%;
+  display: block;
+  width: 50%;
+}
+

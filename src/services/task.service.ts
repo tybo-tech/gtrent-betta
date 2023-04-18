@@ -21,20 +21,26 @@ export class TaskService {
   }
 
   list(
-    otherId: number,
     date1 = '',
     date2 = '',
-    userId = ''
+    userId = '',
+    showCompleted = 'no',
   ): Observable<TaskModel[]> {
     return this.http.get<TaskModel[]>(
       `${
         this.url
-      }/api/task/list.php?OtherId=${2}&Date1=${date1}&Date2=${date2}&UserId=${userId}`
+      }/api/task/list.php?Date1=${date1}&Date2=${date2}&UserId=${userId}&ShowCompleted=${showCompleted}`
     );
   }
   listByUserId(userId: string): Observable<TaskModel[]> {
     return this.http.get<TaskModel[]>(
       `${this.url}/api/task/list-by-user-id.php?UserId=${userId}`
+    );
+  }
+
+  listByType(type: string): Observable<TaskModel[]> {
+    return this.http.get<TaskModel[]>(
+      `${this.url}/api/task/list-by-type.php?Type=${type}`
     );
   }
 
@@ -67,6 +73,7 @@ export class TaskService {
       AssignedTo: '',
       CreatedBy: '',
       DueTime: '23:59',
+      AssignedTo2: '',
       CustomerId: '',
       DueDate: `${date.getFullYear()}/${month}/${date.getDate()}`,
       ComprossorId: '',
@@ -76,7 +83,7 @@ export class TaskService {
       OverallTimeSpent: '',
       StarDateTime: '',
       FinishDateTime: '',
-      Loaction: '',
+      Loaction: [],
       CreateDate: '',
       LastUpdateDate: '',
       LastUpdatedBy: '',
@@ -87,6 +94,7 @@ export class TaskService {
   initFsr(): FsrModel {
     return {
       WorkDone: '',
+      Report: '',
       Hours: '',
       Model: '',
       Serial: '',

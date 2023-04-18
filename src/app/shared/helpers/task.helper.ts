@@ -5,6 +5,7 @@ import {
   ITaskGroupedByStatusModel,
 } from 'src/models/ux.model';
 import { TASK_STATUS, TASK_TYPES, TIMELINE_STATUS } from 'src/utits/constants';
+import { formatToTwoDigits } from './date.helper';
 export const weekday = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
 export const months = [
   'Jan',
@@ -46,14 +47,13 @@ export const proccessTask = (
     items[0].Active = true;
     items[0].Id = 'active';
   }
-  console.log(items);
   return items;
 };
 
 export const groupTaskByStatus = (
   allTasks: TaskModel[]
 ): ITaskGroupedByStatusModel[] => {
-  const statuses: any[] = [...new Set(allTasks.map((item) => item.Status))];
+  const statuses: string[] = [...new Set(allTasks.map((item) => item.Status))];
   let items: ITaskGroupedByStatusModel[] = [];
   statuses.forEach((theStatus) => {
     const groupTasks = allTasks.filter((x) => x.Status === theStatus);
@@ -64,23 +64,48 @@ export const groupTaskByStatus = (
       Tasks: groupTasks,
       AllTasks: groupTasks,
       Status: theStatus,
-      Classes: [],
+      Classes: [getStatusClass(theStatus)],
       Count: groupTasks.length,
       Name: getGroupName(theStatus),
       Progress: '10%',
     });
   });
   if (items.length) {
-    items[0].Classes = ['card-active'];
+    items[0].Classes.push ('card-active');
     items[0].Active = true;
     items[0].Id = 'active';
   }
-  console.log(items);
   return items;
 };
 
 export const loadTaskDates = (allTasks: TaskModel[]): string[] => {
-  return [...new Set(allTasks.map((x) => x.DueDate))];
+  return [...new Set(allTasks.map((x) => formatDateToStrinfDateOnly(x.CreateDate)))];
+};
+export const formatDateToStrinfDateOnly = (s: string): string => {
+  const date = new Date(s);
+  //2023-02-08
+  return `${date.getFullYear()}-${formatToTwoDigits(date.getMonth()+1)}-${formatToTwoDigits(date.getDate())}`
+};
+export const gatTaskCardStatus = (allTasks: TaskModel[]): TaskModel[] => {
+  return allTasks.map((x) => {
+  if(x.Status === TASK_STATUS.NotStarted){
+    x.CardStatusClass = [];
+    const difference = getDateDiff(`${new Date()}`, x.CreateDate);
+    if (difference >= 7) x.CardStatusClass = ['__warn'];
+    if (difference >= 14) x.CardStatusClass = ['__danger'];
+  }
+    return x;
+  });
+};
+export const getDateDiff = (s1: string, s2: string) => {
+  const a = new Date(s1);
+  const b = new Date(s2);
+  const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+  // Discard the time and time-zone information.
+  const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+  const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+  return Math.abs(Math.floor((utc2 - utc1) / _MS_PER_DAY));
 };
 export const isDueToday = (date: Date): boolean => {
   const today = new Date();
@@ -194,63 +219,10 @@ export const getTaskInitActionName = (task: TaskModel) => {
   return 'Start task';
 };
 
-import { Email } from 'src/models/email.model';
-import { OrderModel } from 'src/models/order.model';
-import { User } from 'src/models/user.model';
-
-export const formatEmail = (
-  email: Email,
-  logoUrl = 'https://gtrentapp.tybo.co.za/assets/images/logo.png'
-) => `
-
-<div style="padding: 1rem">
- 
-  <div   style="
-  white-space: pre-wrap;
-  border-top:10px solid #0e1663;
-  background: #e1f7e7;
-  max-width: 36rem;
-  border-radius: 11px;
-  padding: 2rem;
-  line-height:9px;
-  ">
- 
-    ${email.Message}
-
-    <br /><br />
-    Regards <br />
-    ${email.FromName} <br />
-    ${email.FromEmail} <br />
-    ${email.FromPhone} <br />
-    <img
-    src="${logoUrl}"
-    style="width: 4rem; margin-top: 0; margin-bottom: 1rem;"
-    alt=""
-  />
-  </div>
-</div>
-
-`;
-
-export const appendMoreEmailInfo = (user: User, task: TaskModel): string => {
-  let fullMessage = '';
-  fullMessage += `
-  <span
-  style="
-    display: block;
-    line-height: 18px;
-    padding: 1rem;
-    border: 1px dotted black;
-    border-radius: 0.4rem;
-  "
->
-  <b>Test results</b> <br />
-  <span style="color: rgb(29, 105, 1)"> ${task.Fsr.WorkDone}</span>
-</span>
-
-<b>Customer:</b> ${task.Customer?.Name}<br>
-<b>Assigned to:</b> ${user.Name} <br>
-<b>Task Status:</b> ${task.Status} <br>
-  `;
-  return fullMessage;
+export const isTaskComplete = (task: TaskModel) => {
+  console.log(task);
+  
+  if (task.TaskType === TASK_TYPES.WorkshopFSR) return 'Start test run';
+  return 'Start task';
 };
+

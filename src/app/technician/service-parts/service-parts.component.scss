@@ -1,48 +1,100 @@
-._modal {
+._modal1 {
+    max-width: 96%;
+    min-width: 96%;
+    display: block;
     position: fixed;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    right: 0;
+    z-index: 10000000000000000000;
+    height: 98%;
+    overflow: hidden;
     padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    z-index: 100;
-    background: rgba(57, 57, 57, 0.899);
-    max-width: 30rem;
-    margin: 0 auto;
-  }
-
-  .nodata{
-    padding: 6rem 1rem;
-    width: 100%;
-    text-align: center;
-    a{
-        display: block;
+  
+    .innner-flex {
+      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 0;
+      max-height: 65vh;
+      overflow: auto;
+      padding: 1rem;
     }
   }
-  .btn {
+  
+  .form {
     width: 100%;
-    margin: 0.3rem;
   }
-  .btn-light {
-    background: var(--cloud);
+  
+  .parts {
+    border-top: 1px solid rgb(190, 190, 190);
+    padding: 0;
+    padding-left: 2rem;
+    height: 100%;
+    display: block;
+    width: 100%;
+    padding-top: 1rem;
   }
-  .text-primary {
-    font-weight: 500;
-  }
+  .table {
+    width: 100%;
+    td,
+    th {
+      padding: 0.5rem 0;
+      padding-right: 2rem;
+      font-size: 0.7rem;
+    }
+  
+    td {
+      font-weight: 500;
+    }
+  } 
+  
+.scroll{
+    padding: 1rem;
+}
 
-  .d-flex{
-    gap: 1rem;
-    align-items: center;
-  }
-  label{
-    font-weight: 400;
-  }
-  select{
-    width: 4rem;
-    padding: .1rem;
-    text-align: center;
-  }
+// ._modal {
+//     position: fixed;
+//     bottom: 0;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     padding: 0;
+//     margin: 0;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: flex-end;
+//     z-index: 100;
+//     background: rgba(57, 57, 57, 0.899);
+//     max-width: 30rem;
+//     margin: 0 auto;
+//   }
+
+//   .nodata{
+//     padding: 6rem 1rem;
+//     width: 100%;
+//     text-align: center;
+//     a{
+//         display: block;
+//     }
+//   }
+//   .btn {
+//     width: 100%;
+//     margin: 0.3rem;
+//   }
+//   .btn-light {
+//     background: var(--cloud);
+//   }
+//   .text-primary {
+//     font-weight: 500;
+//   }
+
+//   .d-flex{
+//     gap: 1rem;
+//     align-items: center;
+//   }
+//   label{
+//     font-weight: 400;
+//   }
+//   select{
+//     width: 4rem;
+//     padding: .1rem;
+//     text-align: center;
+//   }

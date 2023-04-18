@@ -1,4 +1,5 @@
 import { Company } from './company.model';
+import { Item } from './item.model';
 
 export interface User {
   UserId: string;
@@ -31,6 +32,9 @@ export interface User {
   Viewing?: boolean;
   PhoneNumber: any;
   Company?: Company;
+  Chats?: Item[];
+  LastChat?: Item;
+  ChatCount?: number;
 }
 
 export const initUser = (): User => {

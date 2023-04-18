@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Machine } from 'src/models/machine.model';
 import { OrderModel } from 'src/models/order.model';
 import { ListItemModel, ListItemEventModel } from 'src/models/shared.model';
+import { TaskModel } from 'src/models/task.model';
 
 @Component({
   selector: 'app-customer-fsr',
@@ -10,24 +11,25 @@ import { ListItemModel, ListItemEventModel } from 'src/models/shared.model';
   styleUrls: ['./customer-fsr.component.scss'],
 })
 export class CustomerFsrComponent implements OnInit {
-  @Input() frs: OrderModel[] = [];
-  grid = { 'grid-template-columns': '15% 20%  25% auto' };
-  headers = ['Fsr date', 'Serial & Model', 'Work done', 'Actions'];
+  @Input() tasks: TaskModel[] = [];
+  @Input() backTo = ''
+  grid = { 'grid-template-columns': '15% 20% 20% 25% auto' };
+  headers = ['Fsr date', 'Serial & Model','Type', 'Work done', 'Actions'];
   items: ListItemModel[] = [];
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    if (this.frs.length) this.mapItems();
+    if (this.tasks.length) this.mapItems();
   }
   rowEvent(event: ListItemEventModel) {
     console.log('Full event', event);
-    this.router.navigate([`/admin/fsr`, event.Value.Id]);
+    this.router.navigate([`/admin/fsr`, event.Value.Id, this.backTo]);
   }
   mapItems() {
-    this.frs.forEach((task) => {
+    this.tasks.forEach((task) => {
       this.items.push({
-        Id: task.OrdersId + '',
+        Id: task.TaskId + '',
         Col1: {
           Id: '',
           Value: task.CreateDate+'',
@@ -38,7 +40,7 @@ export class CustomerFsrComponent implements OnInit {
         },
         Col2: {
           Id: '',
-          Value: task.Serial + ' ' + task.Model || '',
+          Value: task.Machine?.Serial + ' ' + task.Machine?.Model || '',
           Type: 'text',
           ShowOptions: false,
           Editing: false,
@@ -47,7 +49,15 @@ export class CustomerFsrComponent implements OnInit {
        
         Col3: {
           Id: '',
-          Value: task.Notes,
+          Value: task.Fsr?.WorkDone,
+          Type: 'text',
+          ShowOptions: false,
+          Editing: false,
+          Classes: [],
+        },
+        Col4: {
+          Id: '',
+          Value: task.TaskType,
           Type: 'text',
           ShowOptions: false,
           Editing: false,
@@ -55,8 +65,8 @@ export class CustomerFsrComponent implements OnInit {
         },
        
 
-        Col4: {
-          Id: task.MachineId || '',
+        Col5: {
+          Id: task.TaskId+'' || '',
           Value: 'View details',
           Type: 'action',
           ShowOptions: false,

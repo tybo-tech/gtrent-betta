@@ -30,7 +30,7 @@ export interface Item {
   ShowMore?: boolean;
 }
 
-export const item: Item = {
+export const ITEM: Item = {
   ItemId: '',
   RelatedId: '',
   RelatedParentId: '',

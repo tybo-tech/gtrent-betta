@@ -1,6 +1,7 @@
 import { Company } from './company.model';
 import { Machine } from './machine.model';
 import { OrderModel } from './order.model';
+import { TaskModel } from './task.model';
 
 export interface Customer {
   CustomerId?: string;
@@ -33,7 +34,7 @@ export interface Customer {
   PhoneNumber: any;
   Company?: Company;
   Machines?: Machine[];
-  Fsrs: OrderModel[];
+  Fsrs: TaskModel[];
 }
 
 export const initCustomer = (): Customer => {

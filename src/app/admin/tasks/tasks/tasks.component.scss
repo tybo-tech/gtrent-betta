@@ -18,3 +18,14 @@
 .task {
   padding: 0.2rem 1rem;
 }
+
+.scroll{
+  max-height: 60vh;
+  padding-bottom: 5rem;
+}
+.fiter-grid{
+  display: grid;
+  grid-template-columns: 20% 20% 20% auto;
+  grid-gap: 1rem;
+  background: var(--white);
+}
